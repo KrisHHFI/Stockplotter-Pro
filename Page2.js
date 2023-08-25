@@ -4,7 +4,8 @@ import styles from './Styles'
 export default function Page2() {
   return (
     <View style={styles.container}>
-      <Text>Page 2</Text>
+      <Text>Search</Text>
+      <Text>Manual Input</Text>
     </View>
   );
 }
