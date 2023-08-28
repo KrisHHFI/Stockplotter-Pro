@@ -7,10 +7,25 @@ export default function Page2() {
 
   const [searchinput, setSearchinput] = useState("");
 
+  const [searchinput2, setSearchinput2] = useState("MCD");
+  const apiKey = "";
+  let url = 'https://api.polygon.io/v3/reference/tickers/' + searchinput2 + '?apiKey=' + apiKey;
+  const [result, setResult] = useState(null);
+
   const buttonPressed = () => {
     Alert.alert("You searched", searchinput)
   }
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      setResult(jsonData);
+      Alert.alert("Result", result.results.name)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -24,6 +39,8 @@ export default function Page2() {
         />
         <Ionicons.Button name="search" size={24} color="black" onPress={buttonPressed} />
       </View>
+
+      <Button title="Add Stock" onPress={fetchData} />
 
       <View style={{
         flex: 1, flexDirection: 'row',
