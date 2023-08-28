@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView } from 'react-native';
 import { useState } from 'react';
 import styles from './Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -9,10 +9,7 @@ export default function Page2() {
   const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
   const [result, setResult] = useState(null);
 
-  const [company, setCompany] = useState({
-    name: 'name',
-    ticker: 'ticker'
-  });
+  const [companies, setCompanies] = useState([]);
 
   const fetchData = async (input) => {
     try {
@@ -21,10 +18,7 @@ export default function Page2() {
       const jsonData = await response.json();
       setResult(jsonData);
 
-      setCompany({
-        name: jsonData.results.name,
-        ticker: jsonData.results.ticker
-      });
+      setCompanies([...companies, { name: jsonData.results.name, ticker: jsonData.results.ticker }]);
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -44,7 +38,11 @@ export default function Page2() {
         <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
       </View>
 
-      <Text>{company.name + " " + company.ticker}</Text>
+      <ScrollView>
+        {companies.map((company, index) => (
+          <Text key={index}>{company.name + " " + company.ticker}</Text>
+        ))}
+      </ScrollView>
 
       <View style={{
         flex: 1, flexDirection: 'row',
