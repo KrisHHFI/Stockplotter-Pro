@@ -7,8 +7,12 @@ export default function Page2() {
 
   const [searchinput, setSearchinput] = useState("");
   const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
- 
   const [result, setResult] = useState(null);
+
+  const [company, setCompany] = useState({
+    name: 'name',
+    ticker: 'ticker'
+  });
 
   const fetchData = async (input) => {
     try {
@@ -16,7 +20,12 @@ export default function Page2() {
       const response = await fetch(url);
       const jsonData = await response.json();
       setResult(jsonData);
-      Alert.alert("Result", jsonData.results.name)
+
+      setCompany({
+        name: jsonData.results.name,
+        ticker: jsonData.results.ticker
+      });
+
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -34,6 +43,8 @@ export default function Page2() {
         />
         <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
       </View>
+
+      <Text>{company.name + " " + company.ticker}</Text>
 
       <View style={{
         flex: 1, flexDirection: 'row',
