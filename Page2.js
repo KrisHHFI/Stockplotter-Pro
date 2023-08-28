@@ -6,22 +6,17 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export default function Page2() {
 
   const [searchinput, setSearchinput] = useState("");
-
-  const [searchinput2, setSearchinput2] = useState("MCD");
-  const apiKey = "";
-  let url = 'https://api.polygon.io/v3/reference/tickers/' + searchinput2 + '?apiKey=' + apiKey;
+  const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
+ 
   const [result, setResult] = useState(null);
 
-  const buttonPressed = () => {
-    Alert.alert("You searched", searchinput)
-  }
-
-  const fetchData = async () => {
+  const fetchData = async (input) => {
     try {
+      let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
       const response = await fetch(url);
       const jsonData = await response.json();
       setResult(jsonData);
-      Alert.alert("Result", result.results.name)
+      Alert.alert("Result", jsonData.results.name)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -35,12 +30,10 @@ export default function Page2() {
         alignItems: 'center'
       }}>
         <TextInput placeholder="Company ticker.." style={{ width: 200, borderColor: 'gray', borderWidth: 1 }}
-          onChangeText={searchinput => setSearchinput(searchinput)}
+          onChangeText={text => setSearchinput(text)}
         />
-        <Ionicons.Button name="search" size={24} color="black" onPress={buttonPressed} />
+        <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
       </View>
-
-      <Button title="Add Stock" onPress={fetchData} />
 
       <View style={{
         flex: 1, flexDirection: 'row',
