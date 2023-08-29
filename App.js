@@ -14,7 +14,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={({ route }) => ({ // Navigator can be customized using screenOptions
+        screenOptions={({ route }) => ({
           tabBarShowLabel: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -27,7 +27,7 @@ export default function App() {
             } else if (route.name === 'Settings') {
               iconName = 'md-settings';
             }
-            return <Ionicons name={iconName} size={size} color={color} />; //it returns an icon component
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}>
 

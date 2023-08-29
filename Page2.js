@@ -8,18 +8,15 @@ export default function Page2() {
   const [searchinput, setSearchinput] = useState("");
   const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
   const [result, setResult] = useState(null);
-
   const [companies, setCompanies] = useState([]);
-
+  
   const fetchData = async (input) => {
     try {
-      let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
+      let url = 'https://api.polygon.io/v3/reference/tickers/' + input.toUpperCase() + '?apiKey=' + apiKey;
       const response = await fetch(url);
       const jsonData = await response.json();
       setResult(jsonData);
-
       setCompanies([...companies, { name: jsonData.results.name, ticker: jsonData.results.ticker }]);
-
     } catch (error) {
       console.error('Error fetching data:', error);
     }
