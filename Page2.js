@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as SQLite from 'expo-sqlite';
+import { useIsFocused } from '@react-navigation/native';
 
 const db = SQLite.openDatabase('companiesdb.db');
 
@@ -12,6 +13,14 @@ export default function Page2() {
   const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
   const [result, setResult] = useState(null);
   const [companies, setCompanies] = useState([]);
+  const isFocused = useIsFocused();
+
+    // Fetch and update data when the screen is actuve
+    useEffect(() => {
+        if (isFocused) {
+            updateList();
+        }
+    }, [isFocused]);
 
   // Creates a table if one does not exist already
   useEffect(() => {

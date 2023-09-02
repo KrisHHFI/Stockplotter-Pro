@@ -18,13 +18,6 @@ export default function HomeScreen() {
         }
     }, [isFocused]);
 
-    // Creates a table if one does not exist already
-    useEffect(() => {
-        db.transaction(tx => {
-            tx.executeSql('create table if not exists companies (id integer primary key not null, name text, ticker text);');
-        }, null, updateList);
-    }, []);
-
     // Update company list
     const updateList = () => {
         db.transaction(tx => {
