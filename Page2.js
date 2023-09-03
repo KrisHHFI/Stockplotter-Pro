@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react';
 import styles from './Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as SQLite from 'expo-sqlite';
+import { db, initDatabase } from './database.js';
 import { useIsFocused } from '@react-navigation/native';
-
-const db = SQLite.openDatabase('companiesdb.db');
 
 export default function Page2() {
 
@@ -15,19 +14,10 @@ export default function Page2() {
   const [companies, setCompanies] = useState([]);
   const isFocused = useIsFocused();
 
-    // Fetch and update data when the screen is actuve
-    useEffect(() => {
-        if (isFocused) {
-            updateList();
-        }
-    }, [isFocused]);
-
-  // Creates a table if one does not exist already
   useEffect(() => {
-    db.transaction(tx => {
-      tx.executeSql('create table if not exists companies (id integer primary key not null, name text, ticker text);');
-    }, null, updateList);
-  }, []);
+    initDatabase();
+    updateList();
+}, [isFocused]);
 
   // Update company list
   const updateList = () => {

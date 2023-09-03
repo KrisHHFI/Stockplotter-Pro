@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './Styles'
 import * as SQLite from 'expo-sqlite';
 import { useIsFocused } from '@react-navigation/native';
-
-const db = SQLite.openDatabase('companiesdb.db');
+import { db, initDatabase } from './database.js';
 
 export default function HomeScreen() {
 
@@ -14,6 +13,7 @@ export default function HomeScreen() {
     // Fetch and update data when the screen is actuve
     useEffect(() => {
         if (isFocused) {
+            initDatabase();
             updateList();
         }
     }, [isFocused]);
