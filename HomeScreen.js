@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './Styles'
 import * as SQLite from 'expo-sqlite';
 import { useIsFocused } from '@react-navigation/native';
-import { db, initDatabase } from './database.js';
+import { db, initDatabase, deleteCompany } from './database.js';
 
 export default function HomeScreen() {
 
@@ -41,14 +41,9 @@ export default function HomeScreen() {
         );
     };
 
-    // Delete company
     const deleteItem = (id) => {
-        db.transaction(
-            tx => {
-                tx.executeSql(`delete from companies where id = ?;`, [id]);
-            }, null, updateList
-        )
-    }
+        deleteCompany(id, updateList);
+    };
 
     return (
         <View style={styles.container}>

@@ -8,4 +8,13 @@ const initDatabase = () => {
     });
 };
 
-export { db, initDatabase };
+// Delete company
+const deleteCompany = (id, callback) => {
+    db.transaction(
+        tx => {
+            tx.executeSql(`delete from companies where id = ?;`, [id]);
+        }, null, callback
+    );
+};
+
+export { db, initDatabase, deleteCompany };
