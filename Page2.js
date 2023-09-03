@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as SQLite from 'expo-sqlite';
-import { db, initDatabase, deleteCompany } from './database.js';
+import { db, initDatabase, deleteCompany, getCompanies } from './database.js';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function Page2() {
@@ -18,15 +18,6 @@ export default function Page2() {
     initDatabase();
     updateList();
   }, [isFocused]);
-
-  // Update company list
-  const updateList = () => {
-    db.transaction(tx => {
-      tx.executeSql('select * from companies;', [], (_, { rows }) =>
-        setCompanies(rows._array)
-      );
-    });
-  }
 
   const listSeparator = () => {
     return (
@@ -49,8 +40,14 @@ export default function Page2() {
     )
   }
 
+  // Delete row
   const deleteItem = (id) => {
     deleteCompany(id, updateList);
+  };
+
+  // Get the company list
+  const updateList = () => {
+    getCompanies((rows) => setCompanies(rows));
   };
 
   const fetchData = async (input) => {

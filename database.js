@@ -17,4 +17,12 @@ const deleteCompany = (id, callback) => {
     );
 };
 
-export { db, initDatabase, deleteCompany };
+const getCompanies = (callback) => {
+    db.transaction(tx => {
+        tx.executeSql('select * from companies;', [], (_, { rows }) =>
+            callback(rows._array)
+        );
+    });
+};
+
+export { db, initDatabase, deleteCompany, getCompanies };

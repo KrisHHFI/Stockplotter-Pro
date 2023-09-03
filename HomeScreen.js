@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './Styles'
 import * as SQLite from 'expo-sqlite';
 import { useIsFocused } from '@react-navigation/native';
-import { db, initDatabase, deleteCompany } from './database.js';
+import { db, initDatabase, deleteCompany, getCompanies } from './database.js';
 
 export default function HomeScreen() {
 
@@ -17,15 +17,6 @@ export default function HomeScreen() {
             updateList();
         }
     }, [isFocused]);
-
-    // Update company list
-    const updateList = () => {
-        db.transaction(tx => {
-            tx.executeSql('select * from companies;', [], (_, { rows }) =>
-                setCompanies(rows._array)
-            );
-        });
-    }
 
     // Used when displaying the rows on screen
     const listSeparator = () => {
@@ -41,8 +32,13 @@ export default function HomeScreen() {
         );
     };
 
+    // Delete row
     const deleteItem = (id) => {
         deleteCompany(id, updateList);
+    };
+    // Get the company list
+    const updateList = () => {
+        getCompanies((rows) => setCompanies(rows));
     };
 
     return (
