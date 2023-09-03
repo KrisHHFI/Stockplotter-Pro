@@ -2,8 +2,7 @@ import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, FlatList 
 import { useState, useEffect } from 'react';
 import styles from './Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as SQLite from 'expo-sqlite';
-import { db, initDatabase, deleteCompany, getCompanies } from './database.js';
+import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from './database.js';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function Page2() {
@@ -34,11 +33,8 @@ export default function Page2() {
 
   // Save course
   const saveItem = (name, ticker) => {
-    db.transaction(tx => {
-      tx.executeSql('insert into companies (name, ticker) values (?, ?);', [name, ticker]);
-    }, null, updateList
-    )
-  }
+    insertCompany(name, ticker, updateList);
+  };
 
   // Delete row
   const deleteItem = (id) => {

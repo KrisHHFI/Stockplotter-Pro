@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from './Styles'
-import * as SQLite from 'expo-sqlite';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompanies } from './database.js';
 
