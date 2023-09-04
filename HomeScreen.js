@@ -43,16 +43,11 @@ export default function HomeScreen() {
 
     return (
         <View style={styles.container}>
-            <Text>Logo | Stats</Text>
-
             <FlatList
                 style={{ marginLeft: "5%" }}
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item }) =>
-
-
-
-                    <View style={styles.listcontainer}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                         <Image
                             source={{ uri: item.icon + '?apiKey=' + apiKey }}
                             style={{
