@@ -32,8 +32,8 @@ export default function Page2() {
   };
 
   // Save course
-  const saveItem = (name, ticker) => {
-    insertCompany(name, ticker, updateList);
+  const saveItem = (name, ticker, icon) => {
+    insertCompany(name, ticker, icon, updateList);
   };
 
   // Delete row
@@ -56,9 +56,10 @@ export default function Page2() {
 
         const companyName = jsonData.results.name;
         const companyTicker = jsonData.results.ticker;
+        const companyIcon = jsonData.results.branding.icon_url;
 
-        setCompanies([...companies, { name: companyName, ticker: companyTicker }]);
-        saveItem(companyName, companyTicker); // Save fetched data to the database
+        setCompanies([...companies, { name: companyName, ticker: companyTicker, icon: companyIcon }]);
+        saveItem(companyName, companyTicker, companyIcon); // Save fetched data to the database
       }
     } catch (error) {
       console.error('Error fetching data:', error);
