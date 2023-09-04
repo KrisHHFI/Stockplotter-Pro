@@ -47,8 +47,11 @@ export default function HomeScreen() {
             <FlatList
                 style={{ marginLeft: "5%" }}
                 keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item }) => <View style={styles.listcontainer}><Text style={{ fontSize: 18 }}>{item.icon}, {item.name}</Text>
-                    <Text style={{ fontSize: 18, color: '#0000ff' }} onPress={() => deleteItem(item.id)}> Delete</Text></View>}
+                renderItem={({ item }) =>
+                    <View style={styles.listcontainer}>
+                        <Text style={{ fontSize: 18 }}>{item.icon}, {item.name}</Text>
+                        <Text style={{ fontSize: 18, color: '#0000ff' }} onPress={() => deleteItem(item.id)}> Delete</Text>
+                    </View>}
                 data={companies}
                 ItemSeparatorComponent={listSeparator}
             />

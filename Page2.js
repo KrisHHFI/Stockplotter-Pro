@@ -82,8 +82,11 @@ export default function Page2() {
       <FlatList
         style={{ marginLeft: "5%" }}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => <View style={styles.listcontainer}><Text style={{ fontSize: 18 }}>{item.name}, {item.ticker}</Text>
-          <Text style={{ fontSize: 18, color: '#0000ff' }} onPress={() => deleteItem(item.id)}> Delete</Text></View>}
+        renderItem={({ item }) =>
+          <View style={styles.listcontainer}>
+            <Text style={{ fontSize: 18 }}>{item.name}, {item.ticker}</Text>
+            <Text style={{ fontSize: 18, color: '#0000ff' }} onPress={() => deleteItem(item.id)}> Delete</Text>
+          </View>}
         data={companies}
         ItemSeparatorComponent={listSeparator}
       />
