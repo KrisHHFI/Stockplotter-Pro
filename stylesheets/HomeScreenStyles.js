@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 const homeScreenstyles = StyleSheet.create({
-  container: {
+  container: { // Page body
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
   flatList: {
-    marginLeft: "5%",
+    marginLeft: "2.5%",
   },
   flatListItem: {
     flex: 1,
@@ -16,10 +16,8 @@ const homeScreenstyles = StyleSheet.create({
     alignItems: 'center',
   },
   listSeparator: {
-    height: 5,
-    width: "80%",
-    backgroundColor: "#fff",
-    marginLeft: "10%",
+    height: 6,
+    width: "85%",
   },
   image: {
     width: 100,
