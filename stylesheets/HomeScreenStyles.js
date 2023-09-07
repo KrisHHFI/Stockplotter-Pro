@@ -28,9 +28,19 @@ const homeScreenstyles = StyleSheet.create({
   companyText: {
     fontSize: 18
   },
-  deleteFont: {
+  expandButton: {
+    backgroundColor: 'blue',
+    paddingVertical: 2,
+    paddingHorizontal: 4,
+  },
+  deleteButton: {
+    backgroundColor: 'red',
+    paddingVertical: 2,
+    paddingHorizontal: 4,
+  },
+  buttonFont: {
     fontSize: 18,
-    color: 'red',
+    color: 'white',
   },
 });
 

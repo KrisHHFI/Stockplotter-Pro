@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Button, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import homeScreenstyles from './stylesheets/HomeScreenStyles';
 import { useIsFocused } from '@react-navigation/native';
@@ -48,7 +48,14 @@ export default function HomeScreen() {
                             style={homeScreenstyles.image}
                         />
                         <Text style={homeScreenstyles.companyText}>{item.name}</Text>
-                        <Text style={homeScreenstyles.deleteFont} onPress={() => deleteItem(item.id)}> Delete</Text>
+
+                        <Pressable style={homeScreenstyles.expandButton}>
+                            <Text style={homeScreenstyles.buttonFont}>Expand</Text>
+                        </Pressable>
+
+                        <Pressable style={homeScreenstyles.deleteButton} onPress={() => deleteItem(item.id)}>
+                            <Text style={homeScreenstyles.buttonFont}>Delete</Text>
+                        </Pressable>
                     </View>}
                 data={companies}
                 ItemSeparatorComponent={listSeparator}
