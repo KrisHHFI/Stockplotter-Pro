@@ -30,7 +30,8 @@ export default function HomeScreen() {
     // Show stock info
     const expandItem = (id) => {
         getCompany(id, (companyData) => {
-            Alert.alert("Name: " + companyData.name + "\nTicker: " + companyData.ticker);
+            Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker+ "\nLocale: " + companyData.locale + 
+            "\nSIC_description: " + companyData.sic_description);
         });
     };
 
