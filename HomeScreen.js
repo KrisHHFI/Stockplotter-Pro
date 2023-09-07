@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, FlatList, Image, Button, Pressable } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Button, Pressable, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import homeScreenstyles from './stylesheets/HomeScreenStyles';
 import { useIsFocused } from '@react-navigation/native';
-import { db, initDatabase, deleteCompany, getCompanies } from './database.js';
+import { db, initDatabase, deleteCompany, getCompany, getCompanies } from './database.js';
 
 export default function HomeScreen() {
 
@@ -27,6 +27,13 @@ export default function HomeScreen() {
         );
     };
 
+    // Show stock info
+    const expandItem = (id) => {
+        getCompany(id, (companyData) => {
+            Alert.alert("Name: " + companyData.name + "\nTicker: " + companyData.ticker);
+        });
+    };
+
     // Delete row
     const deleteItem = (id) => {
         deleteCompany(id, updateList);
@@ -49,7 +56,7 @@ export default function HomeScreen() {
                         />
                         <Text style={homeScreenstyles.companyText}>{item.name}</Text>
 
-                        <Pressable style={homeScreenstyles.expandButton}>
+                        <Pressable style={homeScreenstyles.expandButton} onPress={() => expandItem(item.id)}>
                             <Text style={homeScreenstyles.buttonFont}>Expand</Text>
                         </Pressable>
 

@@ -26,6 +26,17 @@ const getCompanies = (callback) => {
     });
 };
 
+// Get one company
+const getCompany = (id, callback) => {
+    db.transaction(
+        tx => {
+            tx.executeSql(`select * from companies where id = ?;`, [id], (_, { rows }) =>
+                callback(rows.item(0))
+            );
+        }, null, () => {}
+    );
+};
+
 // Add a company
 const insertCompany = (name, ticker, icon, callback) => {
     db.transaction(tx => {
@@ -33,4 +44,4 @@ const insertCompany = (name, ticker, icon, callback) => {
     }, null, callback);
 };
 
-export { db, initDatabase, deleteCompany, getCompanies, insertCompany };
+export { db, initDatabase, deleteCompany, getCompany, getCompanies, insertCompany };
