@@ -32,8 +32,8 @@ export default function Page2() {
   };
 
   // Save course
-  const saveItem = (name, ticker, icon, locale, sicDescription) => {
-    insertCompany(name, ticker, icon, locale, sicDescription, updateList);
+  const saveItem = (name, ticker, icon, locale, sicDescription, website) => {
+    insertCompany(name, ticker, icon, locale, sicDescription, website, updateList);
   };
 
   // Delete row
@@ -59,11 +59,10 @@ export default function Page2() {
         const companyIcon = jsonData.results.branding.icon_url;
         const companyLocale = jsonData.results.locale;
         const companySicDescription = jsonData.results.sic_description;
+        const companyWebsite = jsonData.results.homepage_url
 
-
-
-        setCompanies([...companies, { name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale, sicDescription: companySicDescription }]);
-        saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription); // Save fetched data to the database
+        setCompanies([...companies, { name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale, sicDescription: companySicDescription, website: companyWebsite }]);
+        saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite); // Save fetched data to the database
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -88,7 +87,8 @@ export default function Page2() {
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) =>
           <View style={styles.listcontainer}>
-            <Text style={{ fontSize: 18 }}>{item.name}, {item.ticker}</Text>
+             {/* Prints company JSON for testing purposes */}
+            <Text>{JSON.stringify(item)}</Text>
             <Text style={{ fontSize: 18, color: '#0000ff' }} onPress={() => deleteItem(item.id)}> Delete</Text>
           </View>}
         data={companies}
