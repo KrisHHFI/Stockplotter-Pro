@@ -32,7 +32,7 @@ export default function HomeScreen() {
         getCompany(id, (companyData) => {
             Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker + "\nWebsite: " + companyData.website + 
             "\nLocale: " +companyData.locale + "\nDescription: " + companyData.sic_description.toLowerCase() + "\nEmployees: " + 
-            companyData.employees);
+            companyData.employees +  "\nMarket Cap: " + companyData.marketCap);
         });
     };
 

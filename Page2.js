@@ -32,8 +32,8 @@ export default function Page2() {
   };
 
   // Save course
-  const saveItem = (name, ticker, icon, locale, sicDescription, website, employees) => {
-    insertCompany(name, ticker, icon, locale, sicDescription, website, employees, updateList);
+  const saveItem = (name, ticker, icon, locale, sicDescription, website, employees, marketCap) => {
+    insertCompany(name, ticker, icon, locale, sicDescription, website, employees, marketCap, updateList);
   };
 
   // Delete row
@@ -61,13 +61,15 @@ export default function Page2() {
         const companySicDescription = jsonData.results.sic_description;
         const companyWebsite = jsonData.results.homepage_url
         const companyEmployees = jsonData.results.total_employees
+        const companyMarketCap = jsonData.results.market_cap
 
         setCompanies([...companies, {
           name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
-          sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees
+          sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
+           marketCap: companyMarketCap
         }]);
         saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
-          companyEmployees); // Save fetched data to the database
+          companyEmployees, companyMarketCap); // Save fetched data to the database
       }
     } catch (error) {
       console.error('Error fetching data:', error);
