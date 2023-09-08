@@ -30,8 +30,8 @@ export default function HomeScreen() {
     // Show stock info
     const expandItem = (id) => {
         getCompany(id, (companyData) => {
-            Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker+ "\nLocale: " + companyData.locale + 
-            "\nSIC_description: " + companyData.sic_description);
+            Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker + "\nLocale: " + companyData.locale +
+                "\nSIC description: " + companyData.sic_description.toLowerCase());
         });
     };
 
@@ -55,7 +55,12 @@ export default function HomeScreen() {
                             source={{ uri: item.icon + '?apiKey=' + apiKey }}
                             style={homeScreenstyles.image}
                         />
-                        <Text style={homeScreenstyles.companyText}>{item.name}</Text>
+                        <View> 
+                            {/* Splits company name by word, each on its own line */}
+                            {item.name.split(' ').map((word, index) => (
+                                <Text key={index} style={homeScreenstyles.companyText}>{word}</Text>
+                            ))}
+                        </View>
 
                         <Pressable style={homeScreenstyles.expandButton} onPress={() => expandItem(item.id)}>
                             <Text style={homeScreenstyles.buttonFont}>Expand</Text>
