@@ -16,29 +16,12 @@ export default function Page2() {
   useEffect(() => {
     initDatabase();
     updateList();
+    getCompanies((rows) => console.log('\nCompanies from DB:', rows));
   }, [isFocused]);
-
-  const listSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 5,
-          width: "80%",
-          backgroundColor: "#fff",
-          marginLeft: "10%"
-        }}
-      />
-    );
-  };
 
   // Save course
   const saveItem = (name, ticker, icon, locale, sicDescription, website, employees, marketCap) => {
     insertCompany(name, ticker, icon, locale, sicDescription, website, employees, marketCap, updateList);
-  };
-
-  // Delete row
-  const deleteItem = (id) => {
-    deleteCompany(id, updateList);
   };
 
   // Get the company list
@@ -53,7 +36,6 @@ export default function Page2() {
         const response = await fetch(url);
         const jsonData = await response.json();
         setResult(jsonData);
-
         const companyName = jsonData.results.name;
         const companyTicker = jsonData.results.ticker;
         const companyIcon = jsonData.results.branding.icon_url;
@@ -66,7 +48,7 @@ export default function Page2() {
         setCompanies([...companies, {
           name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
           sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
-           marketCap: companyMarketCap
+          marketCap: companyMarketCap
         }]);
         saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
           companyEmployees, companyMarketCap); // Save fetched data to the database
@@ -88,19 +70,6 @@ export default function Page2() {
         />
         <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
       </View>
-
-      <FlatList
-        style={{ marginLeft: "5%" }}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) =>
-          <View style={styles.listcontainer}>
-            {/* Prints company JSON for testing purposes */}
-            <Text>{JSON.stringify(item)}</Text>
-            <Text style={{ fontSize: 18, color: '#0000ff' }} onPress={() => deleteItem(item.id)}> Delete</Text>
-          </View>}
-        data={companies}
-        ItemSeparatorComponent={listSeparator}
-      />
 
       <View style={{
         flex: 1, flexDirection: 'row',
