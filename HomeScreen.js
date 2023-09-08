@@ -31,7 +31,8 @@ export default function HomeScreen() {
     const expandItem = (id) => {
         getCompany(id, (companyData) => {
             Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker + "\nWebsite: " + companyData.website + 
-            "\nLocale: " +companyData.locale + "\nSIC description: " + companyData.sic_description.toLowerCase());
+            "\nLocale: " +companyData.locale + "\nDescription: " + companyData.sic_description.toLowerCase() + "\nEmployees: " + 
+            companyData.employees);
         });
     };
 

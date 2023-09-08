@@ -32,8 +32,8 @@ export default function Page2() {
   };
 
   // Save course
-  const saveItem = (name, ticker, icon, locale, sicDescription, website) => {
-    insertCompany(name, ticker, icon, locale, sicDescription, website, updateList);
+  const saveItem = (name, ticker, icon, locale, sicDescription, website, employees) => {
+    insertCompany(name, ticker, icon, locale, sicDescription, website, employees, updateList);
   };
 
   // Delete row
@@ -60,9 +60,14 @@ export default function Page2() {
         const companyLocale = jsonData.results.locale;
         const companySicDescription = jsonData.results.sic_description;
         const companyWebsite = jsonData.results.homepage_url
+        const companyEmployees = jsonData.results.total_employees
 
-        setCompanies([...companies, { name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale, sicDescription: companySicDescription, website: companyWebsite }]);
-        saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite); // Save fetched data to the database
+        setCompanies([...companies, {
+          name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
+          sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees
+        }]);
+        saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
+          companyEmployees); // Save fetched data to the database
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -87,7 +92,7 @@ export default function Page2() {
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) =>
           <View style={styles.listcontainer}>
-             {/* Prints company JSON for testing purposes */}
+            {/* Prints company JSON for testing purposes */}
             <Text>{JSON.stringify(item)}</Text>
             <Text style={{ fontSize: 18, color: '#0000ff' }} onPress={() => deleteItem(item.id)}> Delete</Text>
           </View>}
