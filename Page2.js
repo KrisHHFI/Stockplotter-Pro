@@ -13,10 +13,13 @@ export default function Page2() {
   const [companies, setCompanies] = useState([]);
   const isFocused = useIsFocused();
 
+  const [searchResponse, setSearchResponse] = useState(" ");
+
   useEffect(() => {
     initDatabase();
     updateList();
     getCompanies((rows) => console.log('\nCompanies from DB:', rows));
+    setSearchResponse("");
   }, [isFocused]);
 
   // Save course
@@ -35,6 +38,16 @@ export default function Page2() {
         let url = 'https://api.polygon.io/v3/reference/tickers/' + input.toUpperCase() + '?apiKey=' + apiKey;
         const response = await fetch(url);
         const jsonData = await response.json();
+        console.log("\nAPI response: " + jsonData.status); //OK / NOT_FOUND / ERROR
+
+        if (jsonData.status == "OK") { // Gives the user feedback for company searches
+          setSearchResponse("Company added.");
+        } else if (jsonData.status == "NOT_FOUND") {
+          setSearchResponse("Company not found.");
+        } else {
+          setSearchResponse("Error, please try again.");
+        }
+
         setResult(jsonData);
         const companyName = jsonData.results.name;
         const companyTicker = jsonData.results.ticker;
@@ -70,6 +83,7 @@ export default function Page2() {
         />
         <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
       </View>
+      <Text>{searchResponse}</Text>
 
       <View style={{
         flex: 1, flexDirection: 'row',
