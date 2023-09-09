@@ -9,7 +9,16 @@ const page2Styles = StyleSheet.create({
   },
   pageSection: {
     flex: 1,
+    //flexDirection: 'row',
+    alignItems: 'center',
+  },
+  pageSubSection: {
+    flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  pageSubSectionGroup: {
+    flex: 1,
     alignItems: 'center',
   },
   inputBox: {

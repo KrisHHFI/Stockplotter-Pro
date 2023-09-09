@@ -75,16 +75,25 @@ export default function Page2() {
   return (
     <View style={styles.container}>
       <View style={page2Styles.pageSection}>
-        <TextInput placeholder="Company ticker.." style={page2Styles.inputBox}
-          onChangeText={text => setSearchinput(text)}
-        />
-        <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
+        <Text>Search for a Company</Text>
+        <View style={page2Styles.pageSubSection}>
+          <TextInput placeholder="Company ticker.." style={page2Styles.inputBox}
+            onChangeText={text => setSearchinput(text)}
+          />
+          <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
+        </View>
+        <Text>{searchResponse}</Text>
       </View>
-      <Text>{searchResponse}</Text>
-
       <View style={page2Styles.pageSection}>
-        <TextInput placeholder="Manually add.." style={page2Styles.inputBox}></TextInput>
-        <Ionicons.Button name="pencil" size={24} color="black" />
+        <Text>Manually Add a Company</Text>
+        <View style={page2Styles.pageSubSection}>
+          <View style={page2Styles.pageGroup}>
+            <TextInput placeholder="Name.." style={page2Styles.inputBox}></TextInput>
+            <TextInput placeholder="Notes.." style={page2Styles.inputBox}></TextInput>
+          </View>
+          <Ionicons.Button name="pencil" size={24} color="black" />
+        </View>
+        <Text>DB Response</Text>
       </View>
     </View>
   );
