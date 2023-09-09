@@ -4,6 +4,7 @@ import styles from './Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from './database.js';
 import { useIsFocused } from '@react-navigation/native';
+import page2Styles from './stylesheets/Page2Styles';
 
 export default function Page2() {
 
@@ -73,23 +74,16 @@ export default function Page2() {
 
   return (
     <View style={styles.container}>
-
-      <View style={{
-        flex: 1, flexDirection: 'row',
-        alignItems: 'center'
-      }}>
-        <TextInput placeholder="Company ticker.." style={{ width: 200, borderColor: 'gray', borderWidth: 1 }}
+      <View style={page2Styles.pageSection}>
+        <TextInput placeholder="Company ticker.." style={page2Styles.inputBox}
           onChangeText={text => setSearchinput(text)}
         />
         <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
       </View>
       <Text>{searchResponse}</Text>
 
-      <View style={{
-        flex: 1, flexDirection: 'row',
-        alignItems: 'center'
-      }}>
-        <Text style={{ width: 200, borderColor: 'gray', borderWidth: 1 }}>Manually add</Text>
+      <View style={page2Styles.pageSection}>
+        <TextInput placeholder="Manually add.." style={page2Styles.inputBox}></TextInput>
         <Ionicons.Button name="pencil" size={24} color="black" />
       </View>
     </View>
