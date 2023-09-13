@@ -5,6 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from './database.js';
 import { useIsFocused } from '@react-navigation/native';
 import page2Styles from './stylesheets/Page2Styles';
+import { useRef } from 'react'; // Used to clear the input box
 
 export default function Page2() {
 
@@ -15,12 +16,14 @@ export default function Page2() {
   const isFocused = useIsFocused();
 
   const [searchResponse, setSearchResponse] = useState(" ");
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     initDatabase();
     updateList();
     getCompanies((rows) => console.log('\nCompanies from DB:', rows));
     setSearchResponse("");
+    searchInputRef.current.clear();
   }, [isFocused]);
 
   // Save course
@@ -77,7 +80,10 @@ export default function Page2() {
       <View style={page2Styles.pageSection}>
         <Text>Search for a Company</Text>
         <View style={page2Styles.pageSubSection}>
-          <TextInput placeholder="Company ticker.." style={page2Styles.inputBox}
+          <TextInput
+            ref={searchInputRef}
+            placeholder="Company ticker.."
+            style={page2Styles.inputBox}
             onChangeText={text => setSearchinput(text)}
           />
           <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
