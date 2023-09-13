@@ -30,9 +30,9 @@ export default function HomeScreen() {
     // Show stock info
     const expandItem = (id) => {
         getCompany(id, (companyData) => {
-            Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker + "\nWebsite: " + companyData.website + 
-            "\nLocale: " +companyData.locale + "\nDescription: " + companyData.sic_description.toLowerCase() + "\nEmployees: " + 
-            companyData.employees +  "\nMarket Cap: " + companyData.marketCap);
+            Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker + "\nWebsite: " + companyData.website +
+                "\nLocale: " + companyData.locale + "\nDescription: " + companyData.sic_description.toLowerCase() + "\nEmployees: " +
+                companyData.employees + "\nMarket Cap: " + companyData.marketCap);
         });
     };
 
@@ -45,8 +45,18 @@ export default function HomeScreen() {
         getCompanies((rows) => setCompanies(rows));
     };
 
+    const placeholder = () => {
+        if (companies.length === 0) {
+            return (
+                <Text>No companies have been added.</Text>
+            );
+        }
+        return null;
+    };
+
     return (
         <View style={homeScreenstyles.container}>
+            {placeholder()}
             <FlatList
                 style={homeScreenstyles.flatList}
                 keyExtractor={(_, index) => index.toString()}
@@ -56,7 +66,7 @@ export default function HomeScreen() {
                             source={{ uri: item.icon + '?apiKey=' + apiKey }}
                             style={homeScreenstyles.image}
                         />
-                        <View> 
+                        <View>
                             {/* Splits company name by word, each on its own line */}
                             {item.name.split(' ').map((word, index) => (
                                 <Text key={index} style={homeScreenstyles.companyText}>{word}</Text>
