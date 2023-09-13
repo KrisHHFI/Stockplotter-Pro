@@ -37,38 +37,45 @@ export default function Page2() {
   };
 
   const fetchData = async (input) => {
+    input = input.toUpperCase()
     try {
       if (input.trim() !== "") {
-        let url = 'https://api.polygon.io/v3/reference/tickers/' + input.toUpperCase() + '?apiKey=' + apiKey;
-        const response = await fetch(url);
-        const jsonData = await response.json();
-        console.log("\nAPI response: " + jsonData.status); //OK / NOT_FOUND / ERROR
+        const existingCompany = companies.find(company => company.ticker === input);
 
-        if (jsonData.status == "OK") { // Gives the user feedback for company searches
-          setSearchResponse("Company added.");
-        } else if (jsonData.status == "NOT_FOUND") {
-          setSearchResponse("Company not found.");
+        if (existingCompany) {
+          setSearchResponse("Company already exists.");
         } else {
-          setSearchResponse("Error, please try again.");
+          let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
+          const response = await fetch(url);
+          const jsonData = await response.json();
+          console.log("\nAPI response: " + jsonData.status); //OK / NOT_FOUND / ERROR
+
+          if (jsonData.status == "OK") { // Gives the user feedback for company searches
+            setSearchResponse("Company added.");
+          } else if (jsonData.status == "NOT_FOUND") {
+            setSearchResponse("Company not found.");
+          } else {
+            setSearchResponse("Error, please try again.");
+          }
+
+          setResult(jsonData);
+          const companyName = jsonData.results.name;
+          const companyTicker = jsonData.results.ticker;
+          const companyIcon = jsonData.results.branding.icon_url;
+          const companyLocale = jsonData.results.locale;
+          const companySicDescription = jsonData.results.sic_description;
+          const companyWebsite = jsonData.results.homepage_url
+          const companyEmployees = jsonData.results.total_employees
+          const companyMarketCap = jsonData.results.market_cap
+
+          setCompanies([...companies, {
+            name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
+            sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
+            marketCap: companyMarketCap
+          }]);
+          saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
+            companyEmployees, companyMarketCap); // Save fetched data to the database
         }
-
-        setResult(jsonData);
-        const companyName = jsonData.results.name;
-        const companyTicker = jsonData.results.ticker;
-        const companyIcon = jsonData.results.branding.icon_url;
-        const companyLocale = jsonData.results.locale;
-        const companySicDescription = jsonData.results.sic_description;
-        const companyWebsite = jsonData.results.homepage_url
-        const companyEmployees = jsonData.results.total_employees
-        const companyMarketCap = jsonData.results.market_cap
-
-        setCompanies([...companies, {
-          name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
-          sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
-          marketCap: companyMarketCap
-        }]);
-        saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
-          companyEmployees, companyMarketCap); // Save fetched data to the database
       }
     } catch (error) {
       console.error('Error fetching data:', error);
