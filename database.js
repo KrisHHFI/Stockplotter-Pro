@@ -20,7 +20,7 @@ const deleteCompany = (id, callback) => {
 // Get saved companies
 const getCompanies = (callback) => {
     db.transaction(tx => {
-        tx.executeSql('select * from companies;', [], (_, { rows }) =>
+        tx.executeSql('select * from companies ORDER BY name;', [], (_, { rows }) =>
             callback(rows._array)
         );
     });
