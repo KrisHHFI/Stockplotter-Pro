@@ -31,11 +31,11 @@ export default function Page2() {
     //throw new Error(""); //Test error
     insertCompany(name, ticker, icon, locale, sicDescription, website, employees, marketCap)
       .then(() => {
-        console.log("Company added to DB");
-        setSearchResponse("Company added.");
+        console.log("Company added to DB.");
+        setSearchResponse("Company: " + name + " added.");
       })
       .catch(error => {
-        console.log(error + "Company not saved to DB");
+        console.log(error + "Company not saved to DB.");
       });
   };
 
@@ -51,7 +51,7 @@ export default function Page2() {
         const existingCompany = companies.find(company => company.ticker === input);
 
         if (existingCompany) {
-          setSearchResponse("Company already exists.");
+          setSearchResponse("Company: \"" + existingCompany.name +"\" already added.");
         } else {
           let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
           const response = await fetch(url);
@@ -59,9 +59,8 @@ export default function Page2() {
           console.log("API response: " + jsonData.status); //OK / NOT_FOUND / ERROR
 
           if (jsonData.status == "OK") { // Gives the user feedback for company searches
-            //setSearchResponse("Company added.");
-          } else if (jsonData.status == "NOT_FOUND") {
-            setSearchResponse("Company not found.");
+          }  if (jsonData.status == "NOT_FOUND") {
+            setSearchResponse("Company ticker: \"" + input + "\" not found.");
           } else {
             setSearchResponse("Error, please try again.");
           }
