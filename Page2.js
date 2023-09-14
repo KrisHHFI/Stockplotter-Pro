@@ -21,7 +21,7 @@ export default function Page2() {
   useEffect(() => {
     initDatabase();
     updateList();
-    getCompanies((rows) => console.log('\nAll companies in DB:', rows));
+    getCompanies((rows) => console.log('All of the companies in the DB:\n', rows));
     setSearchResponse("");
     searchInputRef.current.clear();
   }, [isFocused]);
@@ -32,6 +32,7 @@ export default function Page2() {
     insertCompany(name, ticker, icon, locale, sicDescription, website, employees, marketCap)
       .then(() => {
         console.log("Company added to DB");
+        setSearchResponse("Company added.");
       })
       .catch(error => {
         console.log(error + "Company not saved to DB");
@@ -55,10 +56,10 @@ export default function Page2() {
           let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
           const response = await fetch(url);
           const jsonData = await response.json();
-          console.log("\nAPI response: " + jsonData.status); //OK / NOT_FOUND / ERROR
+          console.log("API response: " + jsonData.status); //OK / NOT_FOUND / ERROR
 
           if (jsonData.status == "OK") { // Gives the user feedback for company searches
-            setSearchResponse("Company added.");
+            //setSearchResponse("Company added.");
           } else if (jsonData.status == "NOT_FOUND") {
             setSearchResponse("Company not found.");
           } else {
