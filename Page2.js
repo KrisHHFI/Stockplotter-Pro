@@ -27,19 +27,6 @@ export default function Page2() {
     setSearchinput("");
   }, [isFocused]);
 
-  // Save course
-  const saveItem = (name, ticker, icon, locale, sicDescription, website, employees, marketCap) => {
-    //throw new Error(""); //Test error
-    insertCompany(name, ticker, icon, locale, sicDescription, website, employees, marketCap)
-      .then(() => {
-        console.log("Company added to DB.");
-        setSearchResponse("Company: " + name + " added.");
-      })
-      .catch(error => {
-        console.log(error + "Company not saved to DB.");
-      });
-  };
-
   // Get the company list
   const updateList = () => {
     getCompanies((rows) => setCompanies(rows));
@@ -82,8 +69,15 @@ export default function Page2() {
               sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
               marketCap: companyMarketCap
             }]);
-            saveItem(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
-              companyEmployees, companyMarketCap); // Save fetched data to the database
+            insertCompany(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
+              companyEmployees, companyMarketCap)
+              .then(() => {
+                console.log("Company added to DB.");
+                setSearchResponse("Company: " + companyName + " added.");
+              })
+              .catch(error => {
+                console.log(error + "Company not saved to DB.");
+              });
           }
         }
       }
