@@ -38,10 +38,16 @@ const getCompany = (id, callback) => {
 };
 
 // Add a company
-const insertCompany = (name, ticker, icon, locale, sic_description, website,employees, marketCap, callback) => {
-    db.transaction(tx => {
-        tx.executeSql('insert into companies (name, ticker, icon, locale, sic_description, website, employees, marketCap) values (?, ?, ?, ?, ?, ?, ?, ?);', [name, ticker, icon, locale, sic_description, website, employees, marketCap]);
-    }, null, callback);
+const insertCompany = (name, ticker, icon, locale, sic_description, website, employees, marketCap) => {
+    return new Promise((resolve, reject) => {
+        db.transaction(tx => {
+            tx.executeSql('insert into companies (name, ticker, icon, locale, sic_description, website, employees, marketCap) values (?, ?, ?, ?, ?, ?, ?, ?);', [name, ticker, icon, locale, sic_description, website, employees, marketCap], (_, result) => {
+                resolve(result);
+            }, (_, error) => {
+                reject(error);
+            });
+        });
+    });
 };
 
 export { db, initDatabase, deleteCompany, getCompany, getCompanies, insertCompany };

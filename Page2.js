@@ -21,14 +21,21 @@ export default function Page2() {
   useEffect(() => {
     initDatabase();
     updateList();
-    getCompanies((rows) => console.log('\nCompanies from DB:', rows));
+    getCompanies((rows) => console.log('\nAll companies in DB:', rows));
     setSearchResponse("");
     searchInputRef.current.clear();
   }, [isFocused]);
 
   // Save course
   const saveItem = (name, ticker, icon, locale, sicDescription, website, employees, marketCap) => {
-    insertCompany(name, ticker, icon, locale, sicDescription, website, employees, marketCap, updateList);
+    //throw new Error(""); //Test error
+    insertCompany(name, ticker, icon, locale, sicDescription, website, employees, marketCap)
+      .then(() => {
+        console.log("Company added to DB");
+      })
+      .catch(error => {
+        console.log(error + "Company not saved to DB");
+      });
   };
 
   // Get the company list
