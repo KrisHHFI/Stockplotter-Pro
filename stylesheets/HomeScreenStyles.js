@@ -5,7 +5,12 @@ const homeScreenstyles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  placeholderCenter: {
+    position: "absolute", 
+    top: 0, left: 0, bottom: 0, right: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
   flatList: {
     marginLeft: "2.5%",

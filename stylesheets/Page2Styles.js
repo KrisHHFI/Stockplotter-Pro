@@ -9,7 +9,6 @@ const page2Styles = StyleSheet.create({
   },
   pageSection: {
     flex: 1,
-    //flexDirection: 'row',
     alignItems: 'center',
   },
   pageSubSection: {

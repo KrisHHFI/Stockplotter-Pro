@@ -56,7 +56,9 @@ export default function HomeScreen() {
 
     return (
         <View style={homeScreenstyles.container}>
-            {placeholder()}
+            <View style={homeScreenstyles.placeholderCenter}>
+                {placeholder()}
+            </View>
             <FlatList
                 style={homeScreenstyles.flatList}
                 keyExtractor={(_, index) => index.toString()}
