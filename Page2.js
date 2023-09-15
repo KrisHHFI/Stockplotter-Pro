@@ -18,6 +18,7 @@ export default function Page2() {
   const searchInputRef = useRef(null);
 
   useEffect(() => {
+    console.log("Page 2 active");
     initDatabase();
     updateList();
     setSearchResponse("");
@@ -31,8 +32,7 @@ export default function Page2() {
   };
 
   const fetchData = async (input) => {
-    if (searchInProgress) {
-      // If a search is already in progress, do nothing
+    if (searchInProgress) {// If a search is already in progress, do nothing
       return;
     }
     else {
@@ -59,7 +59,10 @@ export default function Page2() {
 
             setResult(jsonData);
             if (jsonData.results) {
-              const companyName = jsonData.results.name;
+              let companyName = jsonData.results.name;
+              if (companyName.split(' ').length > 3) {
+                companyName = companyName.split(' ').slice(0, 3).join(' ') + '...';
+              }
               const companyTicker = jsonData.results.ticker;
               const companyIcon = jsonData.results.branding.icon_url;
               const companyLocale = jsonData.results.locale;

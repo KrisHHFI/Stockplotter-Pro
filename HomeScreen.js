@@ -15,7 +15,7 @@ export default function HomeScreen() {
         if (isFocused) {
             initDatabase();
             updateList();
-            getCompanies((rows) => console.log('All of the companies in the DB:\n', rows));
+            getCompanies((rows) => console.log('Home Page active\nAll of the companies in the DB:\n', rows));
         }
     }, [isFocused]);
 
