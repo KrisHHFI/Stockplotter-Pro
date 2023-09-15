@@ -67,9 +67,15 @@ export default function Page2() {
               const companyIcon = jsonData.results.branding.icon_url;
               const companyLocale = jsonData.results.locale;
               const companySicDescription = jsonData.results.sic_description;
-              const companyWebsite = jsonData.results.homepage_url
-              const companyEmployees = jsonData.results.total_employees
-              const companyMarketCap = jsonData.results.market_cap
+              const companyWebsite = jsonData.results.homepage_url;
+              let companyEmployees = jsonData.results.total_employees;
+              companyEmployees = companyEmployees.toLocaleString();
+              companyEmployees = companyEmployees.split(',')[0];
+              companyEmployees = companyEmployees.replace(/\s/g, ',');
+              let companyMarketCap = jsonData.results.market_cap;
+              companyMarketCap = companyMarketCap.toLocaleString();
+              companyMarketCap = companyMarketCap.split(',')[0];
+              companyMarketCap = companyMarketCap.replace(/\s/g, ',');
 
               setCompanies([...companies, {
                 name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
