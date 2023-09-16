@@ -5,11 +5,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { initThemeTable, getTheme } from './SettingsDatabase.js';
+import { initThemeTable, getTheme, toggleTheme } from './SettingsDatabase.js';
 
 export default function Page4() {
 
-  let [theme, setTheme] = useState("Light");
   let [switchicon, setSwitchIcon] = useState("lightbulb-on");
   const isFocused = useIsFocused();
 
@@ -17,19 +16,33 @@ export default function Page4() {
     if (isFocused) {
       initThemeTable();
       console.log("Settings page active");
-      getTheme((rows) => console.log(rows));
+
+      getTheme((rows) => {
+        if (rows.length > 0) {
+          if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
+            setSwitchIcon("lightbulb-on");
+          } else {
+            setSwitchIcon("lightbulb-off");
+          }
+        }
+        console.log(rows); // Theme printed to screem
+      });
+
     }
   }, [isFocused]);
 
   const themeButtonPressed = () => {
-    if (theme === "Light") {
-      setTheme("Dark");
-      setSwitchIcon("lightbulb-off");
-    } else {
-      setTheme("Light");
-      setSwitchIcon("lightbulb-on");
-    }
-  }
+    getTheme((rows) => {
+      const currentTheme = rows[0].theme;
+      if (currentTheme === "Light") {
+        toggleTheme("Dark");
+        setSwitchIcon("lightbulb-off");
+      } else {
+        toggleTheme("Light");
+        setSwitchIcon("lightbulb-on");
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>

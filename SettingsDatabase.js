@@ -3,23 +3,18 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase('companiesdb.db');
 
 const initThemeTable = () => {
-    return new Promise((resolve) => {
-        db.transaction(tx => {
-            tx.executeSql('create table if not exists theme (id integer primary key not null, theme text);', [], () => {
-                // Check if the theme table is empty, and if it is, insert the default theme
-                tx.executeSql('select * from theme;', [], (_, { rows }) => {
-                    if (rows.length === 0) {
-                        tx.executeSql('insert into theme (theme) values (?);', ['light'], () => {
-                            resolve();
-                        });
-                    } else {
-                        resolve();
-                    }
-                });
+    db.transaction(tx => {
+        tx.executeSql('create table if not exists theme (id integer primary key not null, theme text);', [], () => {
+            // Check if the theme table is empty, and if it is, insert the default theme
+            tx.executeSql('select * from theme;', [], (_, { rows }) => {
+                if (rows.length === 0) {
+                    tx.executeSql('insert into theme (theme) values (?);', ['Light']);
+                }
             });
         });
     });
 };
+
 
 // Get theme table
 const getTheme = (callback) => {
@@ -30,4 +25,17 @@ const getTheme = (callback) => {
     });
 };
 
-export { db, initThemeTable, getTheme};
+// Function to update the theme
+const toggleTheme = (newTheme) => {
+    db.transaction((tx) => {
+        tx.executeSql('UPDATE theme SET theme = ? WHERE id = 1;', [newTheme], (_, result) => {
+            if (result.rowsAffected > 0) {
+                console.log(`Theme changed to \"${newTheme}\".`);
+            } else {
+                console.log(`No rows updated.`);
+            }
+        });
+    });
+};
+
+export { db, initThemeTable, getTheme, toggleTheme };
