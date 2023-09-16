@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, FlatList 
 import { useState, useEffect } from 'react';
 import styles from './Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from './database.js';
+import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from './CompaniesDatabase.js';
 import { useIsFocused } from '@react-navigation/native';
 import page2Styles from './stylesheets/Page2Styles';
 import { useRef } from 'react'; // Used to clear the input box

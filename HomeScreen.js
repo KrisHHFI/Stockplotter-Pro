@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, FlatList, Image, Button, Pressable, Alert } fro
 import { useState, useEffect } from 'react';
 import homeScreenstyles from './stylesheets/HomeScreenStyles';
 import { useIsFocused } from '@react-navigation/native';
-import { db, initDatabase, deleteCompany, getCompany, getCompanies } from './database.js';
+import { db, initDatabase, deleteCompany, getCompany, getCompanies } from './CompaniesDatabase.js';
 
 export default function HomeScreen() {
 

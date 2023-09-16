@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
+import { initThemeTable, getTheme } from './SettingsDatabase.js';
 
 export default function Page4() {
 
@@ -14,7 +15,9 @@ export default function Page4() {
 
   useEffect(() => {
     if (isFocused) {
+      initThemeTable();
       console.log("Settings page active");
+      getTheme((rows) => console.log(rows));
     }
   }, [isFocused]);
 
@@ -36,7 +39,7 @@ export default function Page4() {
         alignItems: 'center'
       }}>
         <Text>Tutorial</Text>
-        <Ionicons.Button name="link" size={24} color="black" onPress={() => Linking.openURL('https://www.google.com/')}/>
+        <Ionicons.Button name="link" size={24} color="black" onPress={() => Linking.openURL('https://www.google.com/')} />
       </View>
 
       <View style={{
