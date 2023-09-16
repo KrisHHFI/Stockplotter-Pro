@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
+import { Linking } from 'react-native';
 
 export default function Page4() {
 
@@ -35,7 +36,7 @@ export default function Page4() {
         alignItems: 'center'
       }}>
         <Text>Tutorial</Text>
-        <Ionicons.Button name="link" size={24} color="black" />
+        <Ionicons.Button name="link" size={24} color="black" onPress={() => Linking.openURL('https://www.google.com/')}/>
       </View>
 
       <View style={{
