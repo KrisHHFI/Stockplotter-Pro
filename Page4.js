@@ -2,12 +2,20 @@ import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
 import styles from './Styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Page4() {
 
   let [theme, setTheme] = useState("Light");
   let [switchicon, setSwitchIcon] = useState("lightbulb-on");
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      console.log("Settings page active");
+    }
+  }, [isFocused]);
 
   const themeButtonPressed = () => {
     if (theme === "Light") {

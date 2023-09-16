@@ -18,12 +18,14 @@ export default function Page2() {
   const searchInputRef = useRef(null);
 
   useEffect(() => {
-    console.log("Page 2 active");
-    initDatabase();
-    updateList();
-    setSearchResponse("");
-    searchInputRef.current.clear();
-    setSearchinput("");
+    if (isFocused) {
+      console.log("Add page active");
+      initDatabase();
+      updateList();
+      setSearchResponse("");
+      searchInputRef.current.clear();
+      setSearchinput("");
+    }
   }, [isFocused]);
 
   // Get the company list
