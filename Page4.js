@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme } from './SettingsDatabase.js';
+import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from './SettingsDatabase.js';
 
 export default function Page4() {
 
@@ -30,13 +30,13 @@ export default function Page4() {
       });
 
       getLanguage((rows) => {
-       /* if (rows.length > 0) {
-          if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
-            setSwitchIcon("lightbulb-on");
+        if (rows.length > 0) {
+          if (rows[0].theme === "English") { // Sets the appearance of the theme button, when page loads.
+            //setSwitchIcon("lightbulb-on");
           } else {
-            setSwitchIcon("lightbulb-off");
+            //setSwitchIcon("lightbulb-off");
           }
-        }*/
+        }
         console.log(rows); // Theme printed to screem
       });
 
@@ -52,6 +52,26 @@ export default function Page4() {
       } else {
         toggleTheme("Light");
         setSwitchIcon("lightbulb-on");
+      }
+    });
+  };
+
+  const englishButtonPressed = () => {
+    getLanguage((rows) => {
+      const currentLanguage = rows[0].language;
+      if (currentLanguage !== "English") {
+        toggleLanguage("English");
+        //setSwitchIcon("lightbulb-on");
+      }
+    });
+  };
+
+  const finnishButtonPressed = () => {
+    getLanguage((rows) => {
+      const currentLanguage = rows[0].language;
+      if (currentLanguage !== "Finnish") {
+        toggleLanguage("Finnish");
+        //setSwitchIcon("lightbulb-on");
       }
     });
   };
@@ -80,8 +100,8 @@ export default function Page4() {
         alignItems: 'center'
       }}>
         <Text>Language</Text>
-        <Button title="English" />
-        <Button title="Suomi" />
+        <Button title="English" onPress={englishButtonPressed} />
+        <Button title="Suomi" onPress={finnishButtonPressed} />
       </View>
 
       <Text>About</Text>

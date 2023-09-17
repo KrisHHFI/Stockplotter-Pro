@@ -60,4 +60,17 @@ const toggleTheme = (newTheme) => {
     });
 };
 
-export { db, initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme };
+// Function to update the theme
+const toggleLanguage = (newLanguage) => {
+    db.transaction((tx) => {
+        tx.executeSql('UPDATE language SET language = ? WHERE id = 1;', [newLanguage], (_, result) => {
+            if (result.rowsAffected > 0) {
+                console.log(`Language changed to \"${newLanguage}\".`);
+            } else {
+                console.log(`No rows updated.`);
+            }
+        });
+    });
+};
+
+export { db, initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage };
