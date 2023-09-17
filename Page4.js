@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, TextInput, Pressable } from 'react-native';
 import styles from './Styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from './SettingsDatabase.js';
+import SettingsPageStyles from './stylesheets/SettingsPageStyles';
 
 export default function Page4() {
 
@@ -77,31 +78,29 @@ export default function Page4() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={SettingsPageStyles.container}>
 
-      <View style={{
-        flex: 1, flexDirection: 'row',
-        alignItems: 'center'
-      }}>
+      <View style={SettingsPageStyles.segment}>
         <Text>Tutorial</Text>
         <Ionicons.Button name="link" size={24} color="black" onPress={() => Linking.openURL('https://www.google.com/')} />
       </View>
 
-      <View style={{
-        flex: 1, flexDirection: 'row',
-        alignItems: 'center'
-      }}>
+      <View style={SettingsPageStyles.segment}>
         <Text>Theme</Text>
         <MaterialCommunityIcons.Button name={switchicon} size={24} color="black" onPress={themeButtonPressed} />
       </View>
 
-      <View style={{
-        flex: 1, flexDirection: 'row',
-        alignItems: 'center'
-      }}>
+      <View style={SettingsPageStyles.segment}>
         <Text>Language</Text>
-        <Button title="English" onPress={englishButtonPressed} />
-        <Button title="Suomi" onPress={finnishButtonPressed} />
+
+
+        <Pressable style={SettingsPageStyles.expandButton} onPress={englishButtonPressed}>
+          <Text style={SettingsPageStyles.buttonFont}>English</Text>
+        </Pressable>
+
+        <Pressable style={SettingsPageStyles.expandButton} onPress={finnishButtonPressed}>
+          <Text style={SettingsPageStyles.buttonFont}>Finnish</Text>
+        </Pressable>
       </View>
 
       <Text>About</Text>
