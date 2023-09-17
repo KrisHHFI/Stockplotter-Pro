@@ -6,20 +6,17 @@ const SettingsPageStyles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
-
   segment: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
-
-
-  expandButton: {
-    backgroundColor: 'blue',
+  inactiveButton: {
+    backgroundColor: 'grey',
     paddingVertical: 2,
     paddingHorizontal: 4,
   },
-  deleteButton: {
+  activeButton: {
     backgroundColor: 'red',
     paddingVertical: 2,
     paddingHorizontal: 4,

@@ -11,6 +11,8 @@ import SettingsPageStyles from './stylesheets/SettingsPageStyles';
 export default function Page4() {
 
   let [switchicon, setSwitchIcon] = useState("lightbulb-on");
+  let [englishButtonState, setEnglishButtonState] = useState("");
+  let [finnishButtonState, setFinnishButtonState] = useState("");
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -30,12 +32,14 @@ export default function Page4() {
         console.log(rows); // Theme printed to screem
       });
 
-      getLanguage((rows) => {
+      getLanguage((rows) => { // Sets the appearance of the language buttons, when page loads.
         if (rows.length > 0) {
-          if (rows[0].theme === "English") { // Sets the appearance of the theme button, when page loads.
-            //setSwitchIcon("lightbulb-on");
+          if (rows[0].language === "English") {
+            setEnglishButtonState("activeButton");
+            setFinnishButtonState("inactiveButton");
           } else {
-            //setSwitchIcon("lightbulb-off");
+            setEnglishButtonState("inactiveButton");
+            setFinnishButtonState("activeButton");
           }
         }
         console.log(rows); // Theme printed to screem
@@ -62,7 +66,8 @@ export default function Page4() {
       const currentLanguage = rows[0].language;
       if (currentLanguage !== "English") {
         toggleLanguage("English");
-        //setSwitchIcon("lightbulb-on");
+        setEnglishButtonState("activeButton");
+        setFinnishButtonState("inactiveButton");
       }
     });
   };
@@ -72,7 +77,8 @@ export default function Page4() {
       const currentLanguage = rows[0].language;
       if (currentLanguage !== "Finnish") {
         toggleLanguage("Finnish");
-        //setSwitchIcon("lightbulb-on");
+        setEnglishButtonState("inactiveButton");
+        setFinnishButtonState("activeButton");
       }
     });
   };
@@ -93,12 +99,11 @@ export default function Page4() {
       <View style={SettingsPageStyles.segment}>
         <Text>Language</Text>
 
-
-        <Pressable style={SettingsPageStyles.expandButton} onPress={englishButtonPressed}>
+        <Pressable style={SettingsPageStyles[englishButtonState]} onPress={englishButtonPressed}>
           <Text style={SettingsPageStyles.buttonFont}>English</Text>
         </Pressable>
 
-        <Pressable style={SettingsPageStyles.expandButton} onPress={finnishButtonPressed}>
+        <Pressable style={SettingsPageStyles[finnishButtonState]} onPress={finnishButtonPressed}>
           <Text style={SettingsPageStyles.buttonFont}>Finnish</Text>
         </Pressable>
       </View>
