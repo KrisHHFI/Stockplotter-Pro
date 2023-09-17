@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { initThemeTable, getTheme, toggleTheme } from './SettingsDatabase.js';
+import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme } from './SettingsDatabase.js';
 
 export default function Page4() {
 
@@ -15,6 +15,7 @@ export default function Page4() {
   useEffect(() => {
     if (isFocused) {
       initThemeTable();
+      initLanguageTable();
       console.log("Settings page active");
 
       getTheme((rows) => {
@@ -25,6 +26,17 @@ export default function Page4() {
             setSwitchIcon("lightbulb-off");
           }
         }
+        console.log(rows); // Theme printed to screem
+      });
+
+      getLanguage((rows) => {
+       /* if (rows.length > 0) {
+          if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
+            setSwitchIcon("lightbulb-on");
+          } else {
+            setSwitchIcon("lightbulb-off");
+          }
+        }*/
         console.log(rows); // Theme printed to screem
       });
 
