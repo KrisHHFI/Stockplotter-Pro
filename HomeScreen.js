@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import homeScreenstyles from './stylesheets/HomeScreenStyles';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompany, getCompanies } from './CompaniesDatabase.js';
+import PlaceholderImage from './assets/PlaceholderImage.png';
 
 export default function HomeScreen() {
 
@@ -41,11 +42,12 @@ export default function HomeScreen() {
     const deleteItem = (id) => {
         deleteCompany(id, updateList);
     };
-    // Get the company list
+    // Update the companies list, by fetching from the db
     const updateList = () => {
         getCompanies((rows) => setCompanies(rows));
     };
 
+    // Show the companies H1 title/or not
     const companiesTitle = () => {
         if (companies.length > 0) {
             return (
@@ -55,6 +57,7 @@ export default function HomeScreen() {
         return null;
     };
 
+    // Show companies placeholder/or not
     const companiesPlaceholder = () => {
         if (companies.length === 0) {
             return (
