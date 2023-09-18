@@ -33,6 +33,7 @@ export default function Page2() {
     getCompanies((rows) => setCompanies(rows));
   };
 
+  // Searched for company by its ticker, via a stock API
   const fetchData = async (input) => {
     if (searchInProgress) {// If a search is already in progress, do nothing
       return;
@@ -61,15 +62,16 @@ export default function Page2() {
 
             setResult(jsonData);
             if (jsonData.results) {
+              const results = jsonData.results;
               let companyName = jsonData.results.name;
               if (companyName.split(' ').length > 3) {
                 companyName = companyName.split(' ').slice(0, 3).join(' ') + '...';
               }
-              const companyTicker = jsonData.results.ticker;
-              const companyIcon = jsonData.results.branding.icon_url;
-              const companyLocale = jsonData.results.locale;
-              const companySicDescription = jsonData.results.sic_description;
-              const companyWebsite = jsonData.results.homepage_url;
+              let companyTicker = jsonData.results.ticker || "Null";
+              let companyIcon = jsonData.results.branding.icon_url || "Null";
+              let companyLocale = jsonData.results.locale || "Null";
+              let companySicDescription = results.sic_description || "Null";
+              let companyWebsite = jsonData.results.homepage_url || "Null";
               let companyEmployees = jsonData.results.total_employees;
               companyEmployees = companyEmployees.toLocaleString();
               companyEmployees = companyEmployees.split(',')[0];

@@ -67,6 +67,25 @@ export default function HomeScreen() {
         return null;
     };
 
+    const renderCompanyImage = (item) => {
+
+        if (item.icon === "Null") {
+            return (
+                <Image
+                    source={require('./assets/PlaceholderImage.png')}
+                    style={homeScreenstyles.image}
+                />
+            );
+        } else {
+            return (
+                <Image
+                    source={{ uri: item.icon + '?apiKey=' + apiKey }}
+                    style={homeScreenstyles.image}
+                />
+            );
+        }
+    };
+
     return (
         <View style={homeScreenstyles.container}>
             {companiesTitle()}
@@ -78,10 +97,7 @@ export default function HomeScreen() {
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item }) =>
                     <View style={homeScreenstyles.flatListItem}>
-                        <Image
-                            source={{ uri: item.icon + '?apiKey=' + apiKey }}
-                            style={homeScreenstyles.image}
-                        />
+                        {renderCompanyImage(item)}
                         <View>
                             {/* Splits company name by word, each on its own line */}
                             {item.name.split(' ').map((word, index) => (
