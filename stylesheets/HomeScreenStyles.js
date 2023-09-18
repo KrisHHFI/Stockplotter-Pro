@@ -12,6 +12,9 @@ const homeScreenstyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  title: {
+    fontSize: 25,
+  },
   flatList: {
     marginLeft: "2.5%",
   },

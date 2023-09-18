@@ -46,7 +46,16 @@ export default function HomeScreen() {
         getCompanies((rows) => setCompanies(rows));
     };
 
-    const placeholder = () => {
+    const companiesTitle = () => {
+        if (companies.length > 0) {
+            return (
+                <Text style={homeScreenstyles.title}>Companies</Text>
+            );
+        }
+        return null;
+    };
+
+    const companiesPlaceholder = () => {
         if (companies.length === 0) {
             return (
                 <Text>No companies have been added.</Text>
@@ -57,8 +66,9 @@ export default function HomeScreen() {
 
     return (
         <View style={homeScreenstyles.container}>
+            {companiesTitle()}
             <View style={homeScreenstyles.placeholderCenter}>
-                {placeholder()}
+                {companiesPlaceholder()}
             </View>
             <FlatList
                 style={homeScreenstyles.flatList}
