@@ -112,8 +112,27 @@ export default function Page2() {
     }
   };
 
+  // Add a company manually
   const addCompany = () => {
-    console.log(addCompanyinput.name + " " + addCompanyinput.notes)
+    const { name = '', notes = '' } = addCompanyinput;
+    // If the inputs are empty do nothing
+    if (name.trim() === '' || notes.trim() === '') {
+      return;
+    }
+    const existingCompany = companies.find(company => company.name === name);
+
+    if (existingCompany) {
+      setSearchResponse("Company: \"" + name + "\" already added.");
+    } else {
+      insertCompany(name, "Null", "Null", "Null", "Null", "Null", "Null", "Null", notes)
+        .then(() => {
+          console.log('Company added to DB.');
+          setSearchResponse(`Company: ${name} added.`);
+        })
+        .catch((error) => {
+          console.error(`Error saving company to DB: ${error}`);
+        });
+    }
   };
 
   return (
@@ -129,7 +148,6 @@ export default function Page2() {
           />
           <Ionicons.Button name="search" size={24} color="black" onPress={() => searchForCompany(searchinput)} />
         </View>
-        <Text>{searchResponse}</Text>
       </View>
       <View style={page2Styles.pageSection}>
         <Text>Manually Add a Company</Text>
@@ -154,7 +172,7 @@ export default function Page2() {
           </View>
           <Ionicons.Button name="pencil" size={24} color="black" onPress={() => addCompany()} />
         </View>
-        <Text>DB Response</Text>
+        <Text>{searchResponse}</Text>
       </View>
     </View>
   );
