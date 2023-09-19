@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
-import styles from './Styles'
+import styles from '../Stylesheets/Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from './CompaniesDatabase.js';
+import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from '../Databases/CompaniesDatabase.js';
 import { useIsFocused } from '@react-navigation/native';
-import page2Styles from './stylesheets/Page2Styles';
+import page2Styles from '../Stylesheets/AddPageStyles';
 import { useRef } from 'react'; // Used to clear the input box
 
 export default function Page2() {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './HomeScreen'
-import Page2 from './Page2'
-import Page3 from './Page3'
-import Page4 from './Page4'
+import HomeScreen from './Pages/HomePage'
+import Page2 from './Pages/AddPage'
+import Page3 from './Pages/BoardPage'
+import Page4 from './Pages/SettingsPage'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();

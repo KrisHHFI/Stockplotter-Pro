@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import styles from './Styles'
+import styles from '../stylesheets/Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';

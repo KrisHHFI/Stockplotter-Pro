@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, FlatList, Image, Button, Pressable, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
-import homeScreenstyles from './stylesheets/HomeScreenStyles';
+import homeScreenstyles from '../Stylesheets/HomePageStyles';
 import { useIsFocused } from '@react-navigation/native';
-import { db, initDatabase, deleteCompany, getCompany, getCompanies } from './CompaniesDatabase.js';
-import PlaceholderImage from './assets/PlaceholderImage.png';
+import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
 
 export default function HomeScreen() {
 
@@ -72,7 +71,7 @@ export default function HomeScreen() {
         if (item.icon === "Null") {
             return (
                 <Image
-                    source={require('./assets/PlaceholderImage.png')}
+                    source={require('../assets/PlaceholderImage.png')}
                     style={homeScreenstyles.image}
                 />
             );
