@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
-import styles from '../Stylesheets/Styles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from '../Databases/CompaniesDatabase.js';
 import { useIsFocused } from '@react-navigation/native';
@@ -108,7 +107,7 @@ export default function Page2() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={page2Styles.container}>
       <View style={page2Styles.pageSection}>
         <Text>Search for a Company</Text>
         <View style={page2Styles.pageSubSection}>

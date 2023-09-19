@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View, Button, Alert, TextInput, Pressable } from 'react-native';
-import styles from '../stylesheets/Styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from '../Databases/SettingsDatabase.js';
-import SettingsPageStyles from '../stylesheets/SettingsPageStyles';
+import SettingsPageStyles from '../Stylesheets/SettingsPageStyles';
 
 export default function Page4() {
 

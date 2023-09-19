@@ -67,7 +67,6 @@ export default function HomeScreen() {
     };
 
     const renderCompanyImage = (item) => {
-
         if (item.icon === "Null") {
             return (
                 <Image
