@@ -80,14 +80,15 @@ export default function Page2() {
               companyMarketCap = companyMarketCap.toLocaleString();
               companyMarketCap = companyMarketCap.split(',')[0];
               companyMarketCap = companyMarketCap.replace(/\s/g, ',');
+              const companyNote = "Null";
 
               setCompanies([...companies, {
                 name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
                 sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
-                marketCap: companyMarketCap
+                marketCap: companyMarketCap, note: companyNote
               }]);
               insertCompany(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
-                companyEmployees, companyMarketCap)
+                companyEmployees, companyMarketCap, companyNote)
                 .then(() => {
                   console.log("Company added to DB.");
                   setSearchResponse("Company: " + companyName + " added.");

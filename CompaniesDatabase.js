@@ -4,7 +4,7 @@ const db = SQLite.openDatabase('companiesdb.db');
 
 const initDatabase = () => {
     db.transaction(tx => {
-        tx.executeSql('create table if not exists companies (id integer primary key not null, name text, ticker text, icon text, locale text, sic_description text, website text, employees integer, marketCap integer);');
+        tx.executeSql('create table if not exists companies (id integer primary key not null, name text, ticker text, icon text, locale text, sic_description text, website text, employees integer, marketCap integer, note text);');
     });
 };
 
@@ -38,10 +38,10 @@ const getCompany = (id, callback) => {
 };
 
 // Add a company
-const insertCompany = (name, ticker, icon, locale, sic_description, website, employees, marketCap) => {
+const insertCompany = (name, ticker, icon, locale, sic_description, website, employees, marketCap, note) => {
     return new Promise((resolve, reject) => {
         db.transaction(tx => {
-            tx.executeSql('insert into companies (name, ticker, icon, locale, sic_description, website, employees, marketCap) values (?, ?, ?, ?, ?, ?, ?, ?);', [name, ticker, icon, locale, sic_description, website, employees, marketCap], (_, result) => {
+            tx.executeSql('insert into companies (name, ticker, icon, locale, sic_description, website, employees, marketCap, note) values (?, ?, ?, ?, ?, ?, ?, ?, ?);', [name, ticker, icon, locale, sic_description, website, employees, marketCap, note], (_, result) => {
                 resolve(result);
             }, (_, error) => {
                 reject(error);
