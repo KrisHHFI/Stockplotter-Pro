@@ -8,6 +8,7 @@ import { useRef } from 'react'; // Used to clear the input box
 
 export default function Page2() {
   const [searchinput, setSearchinput] = useState("");
+  const [addCompanyinput, setAddCompanyinput] = useState("");
   const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
   const [result, setResult] = useState(null);
   const [companies, setCompanies] = useState([]);
@@ -15,6 +16,8 @@ export default function Page2() {
   const [searchInProgress, setSearchInProgress] = useState(false);
   const [searchResponse, setSearchResponse] = useState(" ");
   const searchInputRef = useRef(null);
+  const nameInputRef = useRef(null);
+  const notesInputRef = useRef(null);
 
   useEffect(() => {
     if (isFocused) {
@@ -22,8 +25,11 @@ export default function Page2() {
       initDatabase();
       updateList();
       setSearchResponse("");
-      searchInputRef.current.clear();
       setSearchinput("");
+      setAddCompanyinput("");
+      searchInputRef.current.clear();
+      nameInputRef.current.clear();
+      notesInputRef.current.clear();
     }
   }, [isFocused]);
 
@@ -32,8 +38,8 @@ export default function Page2() {
     getCompanies((rows) => setCompanies(rows));
   };
 
-  // Searched for company by its ticker, via a stock API
-  const fetchData = async (input) => {
+  // Searches for company by its ticker, via a stock API, then adds it to the db
+  const searchForCompany = async (input) => {
     if (searchInProgress) {// If a search is already in progress, do nothing
       return;
     }
@@ -106,6 +112,10 @@ export default function Page2() {
     }
   };
 
+  const addCompany = () => {
+    console.log(addCompanyinput.name + " " + addCompanyinput.notes)
+  };
+
   return (
     <View style={page2Styles.container}>
       <View style={page2Styles.pageSection}>
@@ -117,7 +127,7 @@ export default function Page2() {
             style={page2Styles.inputBox}
             onChangeText={text => setSearchinput(text)}
           />
-          <Ionicons.Button name="search" size={24} color="black" onPress={() => fetchData(searchinput)} />
+          <Ionicons.Button name="search" size={24} color="black" onPress={() => searchForCompany(searchinput)} />
         </View>
         <Text>{searchResponse}</Text>
       </View>
@@ -125,10 +135,24 @@ export default function Page2() {
         <Text>Manually Add a Company</Text>
         <View style={page2Styles.pageSubSection}>
           <View style={page2Styles.pageGroup}>
-            <TextInput placeholder="Name.." style={page2Styles.inputBox}></TextInput>
-            <TextInput placeholder="Notes.." style={page2Styles.inputBox}></TextInput>
+            <TextInput
+              ref={nameInputRef}
+              placeholder="Name.."
+              style={page2Styles.inputBox}
+              onChangeText={(text) => {
+                setAddCompanyinput((prevState) => ({ ...prevState, name: text }));
+              }}
+            />
+            <TextInput
+              ref={notesInputRef}
+              placeholder="Notes.."
+              style={page2Styles.inputBox}
+              onChangeText={(text) => {
+                setAddCompanyinput((prevState) => ({ ...prevState, notes: text }));
+              }}
+            />
           </View>
-          <Ionicons.Button name="pencil" size={24} color="black" />
+          <Ionicons.Button name="pencil" size={24} color="black" onPress={() => addCompany()} />
         </View>
         <Text>DB Response</Text>
       </View>
