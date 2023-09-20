@@ -124,7 +124,7 @@ export default function Page2() {
     if (existingCompany) {
       setSearchResponse("Company: \"" + name + "\" already added.");
     } else {
-      insertCompany(name, "Null", "Null", "Null", "Null", "Null", "Null", "Null", notes)
+      insertCompany(name, "manuallyAddedCompany", "Null", "Null", "Null", "Null", "Null", "Null", notes)
         .then(() => {
           console.log('Company added to DB.');
           setSearchResponse(`Company: ${name} added.`);

@@ -31,9 +31,14 @@ export default function HomeScreen() {
     // Show stock info
     const expandItem = (id) => {
         getCompany(id, (companyData) => {
-            Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker + "\nWebsite: " + companyData.website +
-                "\nLocale: " + companyData.locale + "\nDescription: " + companyData.sic_description.toLowerCase() + "\nEmployees: " +
-                companyData.employees + "\nMarket Cap: " + companyData.marketCap);
+
+            if (companyData.ticker === "manuallyAddedCompany") {
+                Alert.alert("Name: " + companyData.name, "\nNotes: " + companyData.note);
+            } else {
+                Alert.alert("Name: " + companyData.name, "\nTicker: " + companyData.ticker + "\nWebsite: " + companyData.website +
+                    "\nLocale: " + companyData.locale + "\nDescription: " + companyData.sic_description.toLowerCase() + "\nEmployees: " +
+                    companyData.employees + "\nMarket Cap: " + companyData.marketCap);
+            }
         });
     };
 
