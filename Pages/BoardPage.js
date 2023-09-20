@@ -19,8 +19,13 @@ export default function Page3() {
 
   return (
     <View style={BoardPageStyles.container}>
+
+      <View style={BoardPageStyles.boardContainer}>
+        {/* Content goes here */}
+      </View>
+
       <View style={BoardPageStyles.addButtonContainer}>
-        <Ionicons.Button name="md-add-circle-sharp" size={24} color="black" onPress={() => addNote()}/>
+        <Ionicons.Button name="md-add-circle-sharp" size={24} color="black" onPress={() => addNote()} />
       </View>
     </View>
   );
