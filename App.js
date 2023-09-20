@@ -21,7 +21,7 @@ export default function App() {
               iconName = 'md-home';
             } else if (route.name === 'Add') {
               iconName = 'md-add-circle-sharp';
-            } else if (route.name === 'Plotter') {
+            } else if (route.name === 'Cork Board') {
               iconName = 'easel';
             } else if (route.name === 'Settings') {
               iconName = 'md-settings';
@@ -32,7 +32,7 @@ export default function App() {
 
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Add" component={Page2} />
-        <Tab.Screen name="Plotter" component={Page3} />
+        <Tab.Screen name="Cork Board" component={Page3} />
         <Tab.Screen name="Settings" component={Page4} />
       </Tab.Navigator>
     </NavigationContainer>

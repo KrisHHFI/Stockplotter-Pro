@@ -13,10 +13,15 @@ export default function Page3() {
     }
   }, [isFocused]);
 
+  const addNote = () => {
+    console.log("Add note function called");
+  }
+
   return (
     <View style={BoardPageStyles.container}>
-      <Text>Cork Board</Text>
-      <Ionicons.Button name="md-add-circle-sharp" size={24} color="black" />
+      <View style={BoardPageStyles.addButtonContainer}>
+        <Ionicons.Button name="md-add-circle-sharp" size={24} color="black" onPress={() => addNote()}/>
+      </View>
     </View>
   );
 }
