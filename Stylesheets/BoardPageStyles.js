@@ -1,23 +1,28 @@
 import { StyleSheet } from 'react-native';
 
 const BoardPageStyles = StyleSheet.create({
-  container: { // Page body
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  addNoteContainer: {
+    position: 'absolute',
+    top: 30,
+    right: 30,
   },
   boardContainer: {
     backgroundColor: '#fff1c9',
     borderColor: 'black',
-    borderWidth: 10,
-    height: 1000,
-    width: 2000,
+    borderWidth: 15,
+    height: 800,
+    width: 800,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  addButtonContainer: {
-    position: 'absolute',
-    bottom: 50,
-    right: 50, 
+  centerOfBoard: {
+    textAlign: 'center',
+    fontSize: 50,
+    fontWeight: '100',
+  },
+  container: { // Page body
+    flex: 1,
+    backgroundColor: '#fff',
   },
 });
 

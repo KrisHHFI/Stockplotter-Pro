@@ -19,14 +19,14 @@ export default function Page3() {
 
   return (
     <View style={BoardPageStyles.container}>
-      <ScrollView>
-        <ScrollView horizontal={true} >
-          <View style={BoardPageStyles.boardContainer}>{/* The Board */}
-            <Text>A note</Text>
+      <ScrollView contentOffset={{ y: 100 }}>
+        <ScrollView horizontal={true} contentOffset={{ x: 225 }}>
+          <View style={BoardPageStyles.boardContainer}>{/* The board */}
+            <Text style={BoardPageStyles.centerOfBoard}>+</Text>{/* The center of the board */}
           </View>
         </ScrollView>
       </ScrollView>
-      <View style={BoardPageStyles.addButtonContainer}>
+      <View style={BoardPageStyles.addNoteContainer}>
         <Ionicons.Button name="md-add-circle-sharp" size={24} color="black" onPress={() => addNote()} />
       </View>
     </View>
