@@ -36,8 +36,8 @@ export default function Page3() {
 
   return (
     <View style={BoardPageStyles.container}>
-      <ScrollView contentOffset={{ y: 100 }}>
-        <ScrollView horizontal={true} contentOffset={{ x: 225 }}>
+      <ScrollView contentOffset={{ y: 120 }}>
+        <ScrollView horizontal={true} contentOffset={{ x: 250 }}>
           <View style={BoardPageStyles.boardContainer}>{/* The board */}
             <Text style={BoardPageStyles.centerOfBoard}>+</Text>{/* The center of the board */}
             {notes.map((note, index) => (

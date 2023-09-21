@@ -11,6 +11,7 @@ const BoardPageStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 15,
     height: 800,
+    margin: 30,
     width: 800,
     justifyContent: 'center',
     alignItems: 'center',
@@ -21,8 +22,8 @@ const BoardPageStyles = StyleSheet.create({
     fontWeight: '100',
   },
   container: { // Page body
-    flex: 1,
     backgroundColor: '#fff',
+    flex: 1,
   },
   note: {
     backgroundColor:'white',
