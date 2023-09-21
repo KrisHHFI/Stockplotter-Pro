@@ -11,8 +11,8 @@ const BoardPageStyles = StyleSheet.create({
     backgroundColor: '#fff1c9',
     borderColor: 'black',
     borderWidth: 10,
-    height: 400,
-    width: 300,
+    height: 1000,
+    width: 2000,
   },
   addButtonContainer: {
     position: 'absolute',
