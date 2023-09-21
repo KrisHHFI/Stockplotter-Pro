@@ -24,6 +24,12 @@ const BoardPageStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  note: {
+    backgroundColor:'white',
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 5,
+  }
 });
 
 export default BoardPageStyles;

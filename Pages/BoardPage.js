@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import BoardPageStyles from '../Stylesheets/BoardPageStyles'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function Page3() {
   const isFocused = useIsFocused();
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     if (isFocused) {
@@ -15,6 +16,7 @@ export default function Page3() {
 
   const addNote = () => {
     console.log("Add note function called");
+    setNotes([...notes, "New Note."]);
   }
 
   return (
@@ -23,6 +25,11 @@ export default function Page3() {
         <ScrollView horizontal={true} contentOffset={{ x: 225 }}>
           <View style={BoardPageStyles.boardContainer}>{/* The board */}
             <Text style={BoardPageStyles.centerOfBoard}>+</Text>{/* The center of the board */}
+            {notes.map((note, index) => (
+              <Text style={BoardPageStyles.note}
+                key={index}>{note}
+              </Text>
+            ))}
           </View>
         </ScrollView>
       </ScrollView>
