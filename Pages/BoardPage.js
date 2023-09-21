@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import BoardPageStyles from '../Stylesheets/BoardPageStyles'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState, useEffect } from 'react';
@@ -14,10 +14,25 @@ export default function Page3() {
     }
   }, [isFocused]);
 
+  // Add a note to the Board
   const addNote = () => {
     console.log("Add note function called");
-    setNotes([...notes, "New Note."]);
+    const newNote = { id: notes.length + 1, text: "New Note." };
+    setNotes([...notes, newNote]);
   }
+
+  // Edit an existing note
+  const changeNote = (text, noteId) => {
+    const updatedNotes = notes.map((note) => {
+      if (note.id === noteId) {
+        const updatedNote = { ...note, text };
+        return updatedNote;
+      } else {
+        return note;
+      }
+    });
+    setNotes(updatedNotes);
+  };
 
   return (
     <View style={BoardPageStyles.container}>
@@ -26,9 +41,12 @@ export default function Page3() {
           <View style={BoardPageStyles.boardContainer}>{/* The board */}
             <Text style={BoardPageStyles.centerOfBoard}>+</Text>{/* The center of the board */}
             {notes.map((note, index) => (
-              <Text style={BoardPageStyles.note}
-                key={index}>{note}
-              </Text>
+              <TextInput
+                style={BoardPageStyles.note}
+                key={note.id}
+                value={note.text}
+                onChangeText={(text) => changeNote(text, note.id)}
+              />
             ))}
           </View>
         </ScrollView>
