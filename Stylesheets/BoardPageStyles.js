@@ -30,6 +30,7 @@ const BoardPageStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     padding: 5,
+    position: 'absolute',
   }
 });
 

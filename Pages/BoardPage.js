@@ -8,6 +8,7 @@ export default function Page3() {
   const isFocused = useIsFocused();
   const [notes, setNotes] = useState([]);
 
+  // Runs every time page is viewed
   useEffect(() => {
     if (isFocused) {
       console.log("Cork Board page active");
@@ -17,7 +18,13 @@ export default function Page3() {
   // Add a note to the Board
   const addNote = () => {
     console.log("Add note function called");
-    const newNote = { id: notes.length + 1, text: "New Note." };
+
+    const newNote = {
+      id: notes.length + 1,
+      text: "New Note.",
+      x: 350,
+      y: 370,
+    };
     setNotes([...notes, newNote]);
   }
 
@@ -42,7 +49,10 @@ export default function Page3() {
             <Text style={BoardPageStyles.centerOfBoard}>+</Text>{/* The center of the board */}
             {notes.map((note, index) => (
               <TextInput
-                style={BoardPageStyles.note}
+                style={[
+                  BoardPageStyles.note,
+                  { left: note.x, top: note.y },
+                ]}
                 key={note.id}
                 value={note.text}
                 onChangeText={(text) => changeNote(text, note.id)}
