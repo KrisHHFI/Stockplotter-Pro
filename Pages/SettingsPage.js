@@ -7,7 +7,7 @@ import { Linking } from 'react-native';
 import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from '../Databases/SettingsDatabase.js';
 import SettingsPageStyles from '../Stylesheets/SettingsPageStyles';
 
-export default function Page4() {
+export default function SettingsPage() {
 
   let [switchicon, setSwitchIcon] = useState("lightbulb-on");
   let [englishButtonState, setEnglishButtonState] = useState("");

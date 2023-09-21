@@ -4,7 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 
-export default function Page3() {
+export default function BoardPage() {
   const isFocused = useIsFocused();
   const [notes, setNotes] = useState([]);
 

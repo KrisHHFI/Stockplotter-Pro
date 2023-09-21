@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const homeScreenstyles = StyleSheet.create({
+const HomePagestyles = StyleSheet.create({
   container: { // Page body
     flex: 1,
     backgroundColor: 'white',
@@ -52,4 +52,4 @@ const homeScreenstyles = StyleSheet.create({
   },
 });
 
-export default homeScreenstyles;
+export default HomePagestyles;

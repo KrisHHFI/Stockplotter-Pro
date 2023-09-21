@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const page2Styles = StyleSheet.create({
+const AddPageStyles = StyleSheet.create({
   container: { // Page body
     flex: 1,
     backgroundColor: 'white',
@@ -27,4 +27,4 @@ const page2Styles = StyleSheet.create({
   },
 });
 
-export default page2Styles;
+export default AddPageStyles;

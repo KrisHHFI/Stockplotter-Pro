@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, FlatList, Image, Button, Pressable, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
-import homeScreenstyles from '../Stylesheets/HomePageStyles';
+import HomePagestyles from '../Stylesheets/HomePageStyles';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
 
-export default function HomeScreen() {
+export default function HomePage() {
 
     const [companies, setCompanies] = useState([]);
     const isFocused = useIsFocused();
@@ -23,7 +23,7 @@ export default function HomeScreen() {
     const listSeparator = () => {
         return (
             <View
-                style={homeScreenstyles.listSeparator}
+                style={HomePagestyles.listSeparator}
             />
         );
     };
@@ -55,7 +55,7 @@ export default function HomeScreen() {
     const companiesTitle = () => {
         if (companies.length > 0) {
             return (
-                <Text style={homeScreenstyles.title}>Companies</Text>
+                <Text style={HomePagestyles.title}>Companies</Text>
             );
         }
         return null;
@@ -76,44 +76,44 @@ export default function HomeScreen() {
             return (
                 <Image
                     source={require('../assets/PlaceholderImage.png')}
-                    style={homeScreenstyles.image}
+                    style={HomePagestyles.image}
                 />
             );
         } else {
             return (
                 <Image
                     source={{ uri: item.icon + '?apiKey=' + apiKey }}
-                    style={homeScreenstyles.image}
+                    style={HomePagestyles.image}
                 />
             );
         }
     };
 
     return (
-        <View style={homeScreenstyles.container}>
+        <View style={HomePagestyles.container}>
             {companiesTitle()}
-            <View style={homeScreenstyles.placeholderCenter}>
+            <View style={HomePagestyles.placeholderCenter}>
                 {companiesPlaceholder()}
             </View>
             <FlatList
-                style={homeScreenstyles.flatList}
+                style={HomePagestyles.flatList}
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item }) =>
-                    <View style={homeScreenstyles.flatListItem}>
+                    <View style={HomePagestyles.flatListItem}>
                         {renderCompanyImage(item)}
                         <View>
                             {/* Splits company name by word, each on its own line */}
                             {item.name.split(' ').map((word, index) => (
-                                <Text key={index} style={homeScreenstyles.companyText}>{word}</Text>
+                                <Text key={index} style={HomePagestyles.companyText}>{word}</Text>
                             ))}
                         </View>
 
-                        <Pressable style={homeScreenstyles.expandButton} onPress={() => expandItem(item.id)}>
-                            <Text style={homeScreenstyles.buttonFont}>Expand</Text>
+                        <Pressable style={HomePagestyles.expandButton} onPress={() => expandItem(item.id)}>
+                            <Text style={HomePagestyles.buttonFont}>Expand</Text>
                         </Pressable>
 
-                        <Pressable style={homeScreenstyles.deleteButton} onPress={() => deleteItem(item.id)}>
-                            <Text style={homeScreenstyles.buttonFont}>Delete</Text>
+                        <Pressable style={HomePagestyles.deleteButton} onPress={() => deleteItem(item.id)}>
+                            <Text style={HomePagestyles.buttonFont}>Delete</Text>
                         </Pressable>
                     </View>}
                 data={companies}

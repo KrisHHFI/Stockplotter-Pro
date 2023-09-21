@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { db, initDatabase, deleteCompany, getCompanies, insertCompany } from '../Databases/CompaniesDatabase.js';
 import { useIsFocused } from '@react-navigation/native';
-import page2Styles from '../Stylesheets/AddPageStyles';
+import AddPageStyles from '../Stylesheets/AddPageStyles';
 import { useRef } from 'react'; // Used to clear the input box
 
-export default function Page2() {
+export default function AddPage() {
   const [searchinput, setSearchinput] = useState("");
   const [addCompanyinput, setAddCompanyinput] = useState("");
   const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
@@ -136,27 +136,27 @@ export default function Page2() {
   };
 
   return (
-    <View style={page2Styles.container}>
-      <View style={page2Styles.pageSection}>
+    <View style={AddPageStyles.container}>
+      <View style={AddPageStyles.pageSection}>
         <Text>Search for a Company</Text>
-        <View style={page2Styles.pageSubSection}>
+        <View style={AddPageStyles.pageSubSection}>
           <TextInput
             ref={searchInputRef}
             placeholder="Company ticker.."
-            style={page2Styles.inputBox}
+            style={AddPageStyles.inputBox}
             onChangeText={text => setSearchinput(text)}
           />
           <Ionicons.Button name="search" size={24} color="black" onPress={() => searchForCompany(searchinput)} />
         </View>
       </View>
-      <View style={page2Styles.pageSection}>
+      <View style={AddPageStyles.pageSection}>
         <Text>Manually Add a Company</Text>
-        <View style={page2Styles.pageSubSection}>
-          <View style={page2Styles.pageGroup}>
+        <View style={AddPageStyles.pageSubSection}>
+          <View style={AddPageStyles.pageGroup}>
             <TextInput
               ref={nameInputRef}
               placeholder="Name.."
-              style={page2Styles.inputBox}
+              style={AddPageStyles.inputBox}
               onChangeText={(text) => {
                 setAddCompanyinput((prevState) => ({ ...prevState, name: text }));
               }}
@@ -164,7 +164,7 @@ export default function Page2() {
             <TextInput
               ref={notesInputRef}
               placeholder="Notes.."
-              style={page2Styles.inputBox}
+              style={AddPageStyles.inputBox}
               onChangeText={(text) => {
                 setAddCompanyinput((prevState) => ({ ...prevState, notes: text }));
               }}

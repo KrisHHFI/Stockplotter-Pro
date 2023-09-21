@@ -29,7 +29,7 @@ const BoardPageStyles = StyleSheet.create({
     backgroundColor:'white',
     borderColor: 'black',
     borderWidth: 1,
-    padding: 5,
+    padding: 20,
     position: 'absolute',
   }
 });
