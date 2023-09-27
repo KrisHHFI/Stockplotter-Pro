@@ -3,7 +3,7 @@ import { Text, View, TextInput } from 'react-native';
 import BoardPageStyles from '../Stylesheets/BoardPageStyles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useIsFocused } from '@react-navigation/native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
 
@@ -51,6 +51,22 @@ export default function BoardPage() {
     setNotes(updatedNotes);
   };
 
+  // Handle the note drag
+  const moveNote = (event, noteId) => {
+    const { translationX, translationY } = event.nativeEvent;
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => {
+        if (note.id !== noteId) return note;
+
+        return {
+          ...note,
+          x: note.x + translationX,
+          y: note.y + translationY,
+        };
+      })
+    );
+  };
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PanGestureHandler onGestureEvent={boardPanningHandler}>
@@ -66,18 +82,23 @@ export default function BoardPage() {
             {/* The board */}
             <Text style={BoardPageStyles.centerOfBoard}>+</Text>
             {notes.map((note, index) => (
-              <TextInput
-                style={[
-                  BoardPageStyles.note,
-                  {
-                    left: note.x,
-                    top: note.y,
-                  },
-                ]}
+              {/* <TextInput */ },
+              <PanGestureHandler
                 key={note.id}
-                value={note.text}
-                onChangeText={(text) => changeNote(text, note.id)}
-              />
+                onGestureEvent={(event) => moveNote(event, note.id)}
+              >
+                {/*   <TextInput */}
+                <Text
+                  style={[
+                    BoardPageStyles.note,
+                    { left: note.x, top: note.y },
+                  ]}
+                  key={note.id}
+                  value={note.text}
+                  onChangeText={(text) => changeNote(text, note.id)}
+                  onStartShouldSetResponder={() => true}
+                />
+              </PanGestureHandler>
             ))}
           </View>
         </View>
