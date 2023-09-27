@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Dimensions } from 'react-native';
+import { Text, View, TextInput } from 'react-native';
 import BoardPageStyles from '../Stylesheets/BoardPageStyles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useIsFocused } from '@react-navigation/native';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { boardPanning } from './BoardPageFunctions/BoardPanning';
 
 export default function BoardPage() {
   const isFocused = useIsFocused();
@@ -12,6 +13,10 @@ export default function BoardPage() {
   // Define the initial screen position
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
+  // Uses imported BoardPanning.js function
+  const boardPanningHandler = (event) => {
+    boardPanning(event, translateX, setScreenXPosition, translateY, setScreenYPosition);
+  };
 
   // Runs every time the page is viewed
   useEffect(() => {
@@ -46,29 +51,9 @@ export default function BoardPage() {
     setNotes(updatedNotes);
   };
 
-  // Enables the user to pan around the screen
-  const boardPanning = (event) => {
-    const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
-    // Page boundaries
-    const pageXBoundary = windowWidth - 860;
-    const pageYBoundary = windowHeight - 975;
-    // The X and Y gesture movement
-    const { translationX, translationY, state } = event.nativeEvent;
-    // How fast the user can pan around the screen
-    const panningSpeed = 0.07;
-    // New X and Y position, with panning speed applied
-    const newXPosition = translationX * panningSpeed;
-    const newYPosition = translationY * panningSpeed;
-    // Move along X axis
-    setScreenXPosition((previousXPosition) => Math.min(0, Math.max(pageXBoundary, previousXPosition + newXPosition)));
-    // Move along Y axis
-    setScreenYPosition((previousYPosition) => Math.min(0, Math.max(pageYBoundary, previousYPosition + newYPosition)));
-  };
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <PanGestureHandler onGestureEvent={boardPanning}>
+      <PanGestureHandler onGestureEvent={boardPanningHandler}>
         <View style={BoardPageStyles.container}>
           <View
             style={[
