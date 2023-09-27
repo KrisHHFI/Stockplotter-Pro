@@ -57,11 +57,14 @@ export default function BoardPage() {
     setNotes((prevNotes) =>
       prevNotes.map((note) => {
         if (note.id !== noteId) return note;
-
+        const panningSpeed = 0.07;
+        // New X and Y position, with panning speed applied
+        const newXPosition = translationX * panningSpeed;
+        const newYPosition = translationY * panningSpeed;
         return {
           ...note,
-          x: note.x + translationX,
-          y: note.y + translationY,
+          x: note.x + newXPosition,
+          y: note.y + newYPosition,
         };
       })
     );
