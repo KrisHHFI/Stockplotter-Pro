@@ -6,6 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
+import { addNote } from './BoardPageFunctions/AddNote';
 import { moveNote } from './BoardPageFunctions/MoveNote';
 
 export default function BoardPage() {
@@ -15,17 +16,6 @@ export default function BoardPage() {
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
 
-  // Uses imported BoardPanning.js function
-  const boardPanningHandler = (event) => {
-    boardPanning(event, translateX, setScreenXPosition, translateY, setScreenYPosition);
-  };
-
-  // Uses imported moveNoteHandler.js function
-  const moveNoteHandler = (event, noteId) => {
-    const newNotes = moveNote(event, noteId, notes);
-    setNotes(newNotes);
-  };
-
   // Runs every time the page is viewed
   useEffect(() => {
     if (isFocused) {
@@ -33,17 +23,21 @@ export default function BoardPage() {
     }
   }, [isFocused]);
 
-  // Add a note to the Board
-  const addNote = () => {
-    console.log('Add note function called');
+  // Uses imported BoardPanning.js function
+  const handleBoardPanning = (event) => {
+    boardPanning(event, translateX, setScreenXPosition, translateY, setScreenYPosition);
+  };
 
-    const newNote = {
-      id: notes.length + 1,
-      text: 'New Note.',
-      x: 350,
-      y: 370,
-    };
-    setNotes([...notes, newNote]);
+  // Uses imported AddNote.js function
+  const handleAddNote = () => {
+    const newNotes = addNote(notes);
+    setNotes(newNotes);
+  };
+
+  // Uses imported moveNote.js function
+  const handleMoveNote = (event, noteId) => {
+    const newNotes = moveNote(event, noteId, notes);
+    setNotes(newNotes);
   };
 
   // Edit an existing note
@@ -61,7 +55,7 @@ export default function BoardPage() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <PanGestureHandler onGestureEvent={boardPanningHandler}>
+      <PanGestureHandler onGestureEvent={handleBoardPanning}>
         <View style={BoardPageStyles.container}>
           <View
             style={[
@@ -77,7 +71,7 @@ export default function BoardPage() {
               {/* <TextInput */ },
               <PanGestureHandler
                 key={note.id}
-                onGestureEvent={(event) => moveNoteHandler(event, note.id)}
+                onGestureEvent={(event) => handleMoveNote(event, note.id)}
               >
                 {/*   <TextInput */}
                 <Text
@@ -100,7 +94,7 @@ export default function BoardPage() {
           name="md-add-circle-sharp"
           size={24}
           color="black"
-          onPress={() => addNote()}
+          onPress={() => handleAddNote()}
         />
       </View>
     </GestureHandlerRootView>

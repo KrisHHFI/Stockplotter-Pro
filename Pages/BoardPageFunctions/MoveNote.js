@@ -1,4 +1,4 @@
-// Handle the note movement
+// The note movement
 export const moveNote = (event, noteId, prevNotes) => {
     const { translationX, translationY } = event.nativeEvent;
     return prevNotes.map((note) => {
