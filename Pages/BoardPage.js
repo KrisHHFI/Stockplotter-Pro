@@ -6,6 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
+import { moveNote } from './BoardPageFunctions/MoveNote';
 
 export default function BoardPage() {
   const isFocused = useIsFocused();
@@ -13,9 +14,16 @@ export default function BoardPage() {
   // Define the initial screen position
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
+
   // Uses imported BoardPanning.js function
   const boardPanningHandler = (event) => {
     boardPanning(event, translateX, setScreenXPosition, translateY, setScreenYPosition);
+  };
+
+  // Uses imported moveNoteHandler.js function
+  const moveNoteHandler = (event, noteId) => {
+    const newNotes = moveNote(event, noteId, notes);
+    setNotes(newNotes);
   };
 
   // Runs every time the page is viewed
@@ -39,7 +47,7 @@ export default function BoardPage() {
   };
 
   // Edit an existing note
-  const changeNote = (text, noteId) => {
+  const editNote = (text, noteId) => {
     const updatedNotes = notes.map((note) => {
       if (note.id === noteId) {
         const updatedNote = { ...note, text };
@@ -49,25 +57,6 @@ export default function BoardPage() {
       }
     });
     setNotes(updatedNotes);
-  };
-
-  // Handle the note drag
-  const moveNote = (event, noteId) => {
-    const { translationX, translationY } = event.nativeEvent;
-    setNotes((prevNotes) =>
-      prevNotes.map((note) => {
-        if (note.id !== noteId) return note;
-        const panningSpeed = 0.07;
-        // New X and Y position, with panning speed applied
-        const newXPosition = translationX * panningSpeed;
-        const newYPosition = translationY * panningSpeed;
-        return {
-          ...note,
-          x: note.x + newXPosition,
-          y: note.y + newYPosition,
-        };
-      })
-    );
   };
 
   return (
@@ -88,7 +77,7 @@ export default function BoardPage() {
               {/* <TextInput */ },
               <PanGestureHandler
                 key={note.id}
-                onGestureEvent={(event) => moveNote(event, note.id)}
+                onGestureEvent={(event) => moveNoteHandler(event, note.id)}
               >
                 {/*   <TextInput */}
                 <Text
@@ -98,7 +87,7 @@ export default function BoardPage() {
                   ]}
                   key={note.id}
                   value={note.text}
-                  onChangeText={(text) => changeNote(text, note.id)}
+                  onChangeText={(text) => editNote(text, note.id)}
                   onStartShouldSetResponder={() => true}
                 />
               </PanGestureHandler>
