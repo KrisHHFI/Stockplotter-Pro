@@ -68,22 +68,26 @@ export default function BoardPage() {
             {/* The board */}
             <Text style={BoardPageStyles.centerOfBoard}>+</Text>
             {notes.map((note, index) => (
-              {/* <TextInput */ },
               <PanGestureHandler
                 key={note.id}
                 onGestureEvent={(event) => handleMoveNote(event, note.id)}
               >
-                {/*   <TextInput */}
-                <Text
+                <View
                   style={[
-                    BoardPageStyles.note,
+                    BoardPageStyles.noteContainer,
                     { left: note.x, top: note.y },
                   ]}
-                  key={note.id}
-                  value={note.text}
-                  onChangeText={(text) => editNote(text, note.id)}
-                  onStartShouldSetResponder={() => true}
-                />
+                >
+                  <TextInput
+                    style={[
+                      BoardPageStyles.noteTextInput,
+                    ]}
+                    key={note.id}
+                    value={note.text}
+                    onChangeText={(text) => editNote(text, note.id)}
+                    onStartShouldSetResponder={() => true}
+                  />
+                </View>
               </PanGestureHandler>
             ))}
           </View>

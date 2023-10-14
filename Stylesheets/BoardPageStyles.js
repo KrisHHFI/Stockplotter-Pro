@@ -25,13 +25,20 @@ const BoardPageStyles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
-  note: {
-    backgroundColor:'white',
+  noteContainer: {
+    alignItems: 'center',
+    backgroundColor: 'white',
     borderColor: 'black',
     borderWidth: 1,
-    padding: 20,
+    justifyContent: 'center',
+    padding: 30,
     position: 'absolute',
-  }
+  },
+  noteTextInput: {
+    //backgroundColor: 'red', //For testing
+    flex: 1,
+    textAlign: 'center',
+  },
 });
 
 export default BoardPageStyles;
