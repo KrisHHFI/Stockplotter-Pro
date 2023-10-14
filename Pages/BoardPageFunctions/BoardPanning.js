@@ -1,7 +1,7 @@
 import { Dimensions } from 'react-native';
 
 // Enables the user to pan around the screen
-export const boardPanning = (event, translateX, setScreenXPosition, translateY, setScreenYPosition) => {
+export const boardPanning = (event, setScreenXPosition, setScreenYPosition) => {
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
     // Page boundaries

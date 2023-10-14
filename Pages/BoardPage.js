@@ -24,14 +24,9 @@ export default function BoardPage() {
     }
   }, [isFocused]);
 
-  // Uses imported BoardPanning.js function
-  const handleBoardPanning = (event) => {
-    boardPanning(event, translateX, setScreenXPosition, translateY, setScreenYPosition);
-  };
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <PanGestureHandler onGestureEvent={handleBoardPanning}>
+      <PanGestureHandler onGestureEvent={(event) => boardPanning(event, setScreenXPosition, setScreenYPosition)}>
         <View style={BoardPageStyles.container}>
           <View
             style={[
