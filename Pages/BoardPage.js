@@ -29,12 +29,6 @@ export default function BoardPage() {
     boardPanning(event, translateX, setScreenXPosition, translateY, setScreenYPosition);
   };
 
-  // Uses imported AddNote.js function
-  const handleAddNote = () => {
-    const newNotes = addNote(notes);
-    setNotes(newNotes);
-  };
-
   // Uses imported moveNote.js function
   const handleMoveNote = (event, noteId) => {
     const newNotes = moveNote(event, noteId, notes);
@@ -73,7 +67,6 @@ export default function BoardPage() {
                     key={note.id}
                     value={note.text}
                     onChangeText={(text) => editNote(text, note.id, notes, setNotes)}
-
                     onStartShouldSetResponder={() => true}
                   />
                 </View>
@@ -87,7 +80,7 @@ export default function BoardPage() {
           name="md-add-circle-sharp"
           size={24}
           color="black"
-          onPress={() => handleAddNote()}
+          onPress={() => addNote(notes, setNotes)}
         />
       </View>
     </GestureHandlerRootView>

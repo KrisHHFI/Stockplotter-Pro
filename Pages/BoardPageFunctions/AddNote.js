@@ -1,5 +1,5 @@
 // Add a note to the Board
-export const addNote = (notes) => {
+export const addNote = (notes, setNotes) => {
     console.log('Add note function called');
 
     const newNote = {
@@ -8,5 +8,5 @@ export const addNote = (notes) => {
         x: 350,
         y: 370,
     };
-    return [...notes, newNote];
+    setNotes(prevNotes => [...prevNotes, newNote]);
 };
