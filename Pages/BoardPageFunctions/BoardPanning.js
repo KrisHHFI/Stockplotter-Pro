@@ -14,8 +14,7 @@ export const boardPanning = (event, setScreenXPosition, setScreenYPosition) => {
     // New X and Y position, with panning speed applied
     const newXPosition = translationX * panningSpeed;
     const newYPosition = translationY * panningSpeed;
-    // Move along X axis
+    // Set new position, with page boundaries considered
     setScreenXPosition((previousXPosition) => Math.min(0, Math.max(pageXBoundary, previousXPosition + newXPosition)));
-    // Move along Y axis
     setScreenYPosition((previousYPosition) => Math.min(0, Math.max(pageYBoundary, previousYPosition + newYPosition)));
 };
