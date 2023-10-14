@@ -29,12 +29,6 @@ export default function BoardPage() {
     boardPanning(event, translateX, setScreenXPosition, translateY, setScreenYPosition);
   };
 
-  // Uses imported moveNote.js function
-  const handleMoveNote = (event, noteId) => {
-    const newNotes = moveNote(event, noteId, notes);
-    setNotes(newNotes);
-  };
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PanGestureHandler onGestureEvent={handleBoardPanning}>
@@ -52,7 +46,7 @@ export default function BoardPage() {
             {notes.map((note, index) => (
               <PanGestureHandler
                 key={note.id}
-                onGestureEvent={(event) => handleMoveNote(event, note.id)}
+                onGestureEvent={(event) => moveNote(event, note.id, notes, setNotes)}
               >
                 <View
                   style={[
