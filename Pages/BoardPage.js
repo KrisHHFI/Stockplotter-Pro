@@ -7,6 +7,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { addNote } from './BoardPageFunctions/AddNote';
+import { editNote } from './BoardPageFunctions/EditNote';
 import { moveNote } from './BoardPageFunctions/MoveNote';
 
 export default function BoardPage() {
@@ -40,19 +41,6 @@ export default function BoardPage() {
     setNotes(newNotes);
   };
 
-  // Edit an existing note
-  const editNote = (text, noteId) => {
-    const updatedNotes = notes.map((note) => {
-      if (note.id === noteId) {
-        const updatedNote = { ...note, text };
-        return updatedNote;
-      } else {
-        return note;
-      }
-    });
-    setNotes(updatedNotes);
-  };
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <PanGestureHandler onGestureEvent={handleBoardPanning}>
@@ -84,7 +72,8 @@ export default function BoardPage() {
                     ]}
                     key={note.id}
                     value={note.text}
-                    onChangeText={(text) => editNote(text, note.id)}
+                    onChangeText={(text) => editNote(text, note.id, notes, setNotes)}
+
                     onStartShouldSetResponder={() => true}
                   />
                 </View>
