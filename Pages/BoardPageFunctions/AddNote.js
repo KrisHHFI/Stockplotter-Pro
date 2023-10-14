@@ -5,8 +5,8 @@ export const addNote = (notes, setNotes) => {
     const newNote = {
         id: notes.length + 1,
         text: 'New Note.',
-        x: 350,
-        y: 370,
+        x: 320,
+        y: 340,
     };
     setNotes(prevNotes => [...prevNotes, newNote]);
 };

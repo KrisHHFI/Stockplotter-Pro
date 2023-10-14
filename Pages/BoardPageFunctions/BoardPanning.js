@@ -6,7 +6,7 @@ export const boardPanning = (event, setScreenXPosition, setScreenYPosition) => {
     const windowHeight = Dimensions.get('window').height;
     // Page boundaries
     const pageXBoundary = windowWidth - 860;
-    const pageYBoundary = windowHeight - 975;
+    const pageYBoundary = windowHeight - 1250;
     // The X and Y gesture movement
     const { translationX, translationY } = event.nativeEvent;
     // How fast the user can pan around the screen
