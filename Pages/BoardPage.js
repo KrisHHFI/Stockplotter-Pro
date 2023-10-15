@@ -9,6 +9,7 @@ import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { addNote } from './BoardPageFunctions/AddNote';
 import { editNote } from './BoardPageFunctions/EditNote';
 import { moveNote } from './BoardPageFunctions/MoveNote';
+import { db, initBoardTable, insertNote, getNotes} from '../Databases/BoardDatabase';
 
 export default function BoardPage() {
   const isFocused = useIsFocused();
@@ -21,6 +22,8 @@ export default function BoardPage() {
   useEffect(() => {
     if (isFocused) {
       console.log('Cork Board page active');
+      getNotes((rows) => console.log('Cork Board page active\nAll of the notes in the DB:\n', rows));
+      initBoardTable();
     }
   }, [isFocused]);
 
