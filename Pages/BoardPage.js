@@ -53,6 +53,8 @@ export default function BoardPage() {
                     style={[
                       BoardPageStyles.noteTextInput,
                     ]}
+                    multiline={true}
+                    numberOfLines={5}
                     key={note.id}
                     value={note.text}
                     onChangeText={(text) => editNote(text, note.id, notes, setNotes)}
