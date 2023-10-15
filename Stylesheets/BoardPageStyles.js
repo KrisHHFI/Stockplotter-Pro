@@ -31,13 +31,16 @@ const BoardPageStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     justifyContent: 'center',
-    padding: 30,
+    paddingHorizontal: 10,
+    paddingVertical: 30,
     position: 'absolute',
   },
   noteTextInput: {
     //backgroundColor: 'red', //For testing
     flex: 1,
     textAlign: 'center',
+    width:150,
+    height: 90,
   },
 });
 
