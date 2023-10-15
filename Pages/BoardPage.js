@@ -6,10 +6,9 @@ import { useIsFocused } from '@react-navigation/native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
-import { addNote } from './BoardPageFunctions/AddNote';
 import { editNote } from './BoardPageFunctions/EditNote';
 import { moveNote } from './BoardPageFunctions/MoveNote';
-import { db, initBoardTable, insertNote, getNotes} from '../Databases/BoardDatabase';
+import { db, initBoardTable, insertNote, getNotes } from '../Databases/BoardDatabase';
 
 export default function BoardPage() {
   const isFocused = useIsFocused();
@@ -18,10 +17,10 @@ export default function BoardPage() {
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
 
-   // Update the notes list, by fetching from the table
-   const updateList = () => {
+  // Update the notes list, by fetching from the table
+  const updateList = () => {
     getNotes((rows) => setNotes(rows));
-};
+  };
 
   // Runs every time the page is viewed
   useEffect(() => {
@@ -79,7 +78,16 @@ export default function BoardPage() {
           name="md-add-circle-sharp"
           size={24}
           color="black"
-          onPress={() => addNote(notes, setNotes)}
+          onPress={() => {
+            insertNote("New Note.", 320, 340)
+              .then(() => {
+                console.log('Note added to table.');
+                updateList(); // Refresh the list of notes from the database after adding
+              })
+              .catch((error) => {
+                console.error(`Error saving note to table: ${error}`);
+              });
+          }}
         />
       </View>
       <View style={BoardPageStyles.deleteNoteContainer}>
