@@ -11,7 +11,7 @@ export const addNote = (notes, setNotes, text) => {
         .catch((error) => {
           console.error(`Error saving note to table: ${error}`);
         });
-
+/*
     const newNote = {
         id: notes.length + 1,
         text: 'New Note.',
@@ -19,4 +19,5 @@ export const addNote = (notes, setNotes, text) => {
         y: 340,
     };
     setNotes(prevNotes => [...prevNotes, newNote]);
+    */
 };

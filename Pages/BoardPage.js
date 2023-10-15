@@ -18,12 +18,17 @@ export default function BoardPage() {
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
 
+   // Update the notes list, by fetching from the table
+   const updateList = () => {
+    getNotes((rows) => setNotes(rows));
+};
+
   // Runs every time the page is viewed
   useEffect(() => {
     if (isFocused) {
-      console.log('Cork Board page active');
       getNotes((rows) => console.log('Cork Board page active\nAll of the notes in the DB:\n', rows));
       initBoardTable();
+      updateList();
     }
   }, [isFocused]);
 
