@@ -74,6 +74,13 @@ export default function BoardPage() {
           onPress={() => addNote(notes, setNotes)}
         />
       </View>
+      <View style={BoardPageStyles.deleteNoteContainer}>
+        <Ionicons.Button
+          name="remove-circle"
+          size={24}
+          color="black"
+        />
+      </View>
     </GestureHandlerRootView>
   );
 }

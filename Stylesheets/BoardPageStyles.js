@@ -3,8 +3,13 @@ import { StyleSheet } from 'react-native';
 const BoardPageStyles = StyleSheet.create({
   addNoteContainer: {
     position: 'absolute',
-    top: 30,
-    right: 30,
+    top: 5,
+    right: 5,
+  },
+  deleteNoteContainer: {
+    position: 'absolute',
+    top: 70,
+    right: 5,
   },
   boardContainer: {
     backgroundColor: '#fff1c9',
