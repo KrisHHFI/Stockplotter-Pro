@@ -9,7 +9,7 @@ export const editNoteHandler = (text, noteId, notes, setNotes) => {
             // Update the note in the database
             editNote(noteId, text, note.x, note.y)
                 .then(() => {
-                    console.log('Note updated in table.'); //Testing only
+                    //console.log('Note updated in table.'); //Testing only
                 })
                 .catch((error) => {
                     console.error(`Error updating note in table: ${error}`);

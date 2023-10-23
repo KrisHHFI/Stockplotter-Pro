@@ -1,3 +1,5 @@
+import { editNote } from '../../Databases/BoardDatabase';
+
 // The note movement
 export const moveNote = (event, noteId, prevNotes, setNotes) => {
   const { translationX, translationY } = event.nativeEvent;
@@ -6,7 +8,7 @@ export const moveNote = (event, noteId, prevNotes, setNotes) => {
     if (note.id !== noteId) return note;
 
     const panningSpeed = 0.065;
-    // Calculate new absolute positions, not just deltas
+    // Calculate new positions
     let newXPosition = note.x + (translationX * panningSpeed);
     let newYPosition = note.y + (translationY * panningSpeed);
 
@@ -17,6 +19,17 @@ export const moveNote = (event, noteId, prevNotes, setNotes) => {
     // Right and bottom side
     newXPosition = Math.min(598, newXPosition);
     newYPosition = Math.min(915, newYPosition);
+
+    const text = note.text;
+
+    // Update the note in the database
+    editNote(noteId, text, note.x, note.y)
+    .then(() => {
+        //console.log('Note updated in table.'); //Testing only
+    })
+    .catch((error) => {
+        console.error(`Error updating note in table: ${error}`);
+    });
 
     return {
       ...note,
