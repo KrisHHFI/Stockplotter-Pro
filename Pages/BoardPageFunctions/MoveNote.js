@@ -1,4 +1,4 @@
-import { editNote } from '../../Databases/BoardDatabase';
+import { updateNote } from '../../Databases/BoardDatabase';
 
 // The note movement
 export const moveNote = (event, noteId, prevNotes, setNotes) => {
@@ -23,7 +23,7 @@ export const moveNote = (event, noteId, prevNotes, setNotes) => {
     const text = note.text;
 
     // Update the note in the database
-    editNote(noteId, text, note.x, note.y)
+    updateNote(noteId, text, note.x, note.y)
     .then(() => {
         //console.log('Note updated in table.'); //Testing only
     })

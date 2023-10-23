@@ -6,7 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
-import { editNoteHandler } from './BoardPageFunctions/EditNoteHandler';
+import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
 import { db, initBoardTable, insertNote, getNotes } from '../Databases/BoardDatabase';
 
@@ -64,7 +64,7 @@ export default function BoardPage() {
                     numberOfLines={5}
                     key={note.id}
                     value={note.text}
-                    onChangeText={(text) => editNoteHandler(text, note.id, notes, setNotes)}
+                    onChangeText={(text) => updateNoteHandler(text, note.id, notes, setNotes)}
                     onStartShouldSetResponder={() => true}
                   />
                 </View>

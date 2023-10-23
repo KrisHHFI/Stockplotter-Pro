@@ -1,13 +1,13 @@
 // Edit an existing note
-import { editNote } from '../../Databases/BoardDatabase';
+import { updateNote } from '../../Databases/BoardDatabase';
 
-export const editNoteHandler = (text, noteId, notes, setNotes) => {
+export const updateNoteHandler = (text, noteId, notes, setNotes) => {
     const updatedNotes = notes.map((note) => {
         if (note.id === noteId) {
             const updatedNote = { ...note, text };
 
             // Update the note in the database
-            editNote(noteId, text, note.x, note.y)
+            updateNote(noteId, text, note.x, note.y)
                 .then(() => {
                     //console.log('Note updated in table.'); //Testing only
                 })
