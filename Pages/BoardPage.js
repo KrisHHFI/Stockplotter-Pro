@@ -17,6 +17,8 @@ export default function BoardPage() {
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
 
+  const [activeNoteId, setActiveNoteId] = useState(null);
+
   // Update the notes list, by fetching from the table
   const updateList = () => {
     getNotes((rows) => setNotes(rows));
@@ -28,6 +30,7 @@ export default function BoardPage() {
       getNotes((rows) => console.log('Cork Board page active\nAll of the notes in the DB:\n', rows));
       initBoardTable();
       updateList();
+      setActiveNoteId(null);
     }
   }, [isFocused]);
 
@@ -49,6 +52,11 @@ export default function BoardPage() {
               <PanGestureHandler
                 key={note.id}
                 onGestureEvent={(event) => moveNote(event, note.id, notes, setNotes)}
+                onHandlerStateChange={(event) => {
+                  if (event.nativeEvent.state === State.BEGAN) {
+                    setActiveNoteId(note.id);
+                  }
+                }}
               >
                 <View
                   style={[
@@ -82,7 +90,7 @@ export default function BoardPage() {
             insertNote("New Note.", 320, 340)
               .then(() => {
                 console.log('Note added to table.');
-                updateList(); // Refresh the list of notes from the database after adding
+                updateList(); // Refresh the list of notes from the table after adding
               })
               .catch((error) => {
                 console.error(`Error saving note to table: ${error}`);
@@ -95,7 +103,7 @@ export default function BoardPage() {
           name="remove-circle"
           size={24}
           color="black"
-          onPress={() => deleteNote()}
+          onPress={() => deleteNote(activeNoteId)}
         />
       </View>
     </GestureHandlerRootView>

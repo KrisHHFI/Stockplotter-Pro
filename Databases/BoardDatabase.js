@@ -30,9 +30,9 @@ const insertNote = (text, x, y) => {
     });
 };
 
-// Delete note
-const deleteNote = () => {
-    console.log('Note deleted');
+// Delete the selected note
+const deleteNote = (activeNoteId) => {
+    console.log('Note ' + activeNoteId + ' deleted');
 };
 
 // Update an existing note
