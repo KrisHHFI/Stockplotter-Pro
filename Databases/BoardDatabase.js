@@ -30,4 +30,17 @@ const insertNote = (text, x, y) => {
     });
 };
 
-export { db, initBoardTable, insertNote, getNotes };
+// Update an existing note
+const editNoteTemp = (id, text, x, y) => {
+    return new Promise((resolve, reject) => {
+        db.transaction(tx => {
+            tx.executeSql('update board set text = ?, x = ?, y = ? where id = ?;', [text, x, y, id], (_, result) => {
+                resolve(result);
+            }, (_, error) => {
+                reject(error);
+            });
+        });
+    });
+};
+
+export { db, initBoardTable, insertNote, getNotes, editNoteTemp };
