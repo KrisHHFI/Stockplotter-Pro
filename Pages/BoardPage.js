@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
-import { db, initBoardTable, insertNote, getNotes } from '../Databases/BoardDatabase';
+import { db, initBoardTable, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
 
 export default function BoardPage() {
   const isFocused = useIsFocused();
@@ -95,6 +95,7 @@ export default function BoardPage() {
           name="remove-circle"
           size={24}
           color="black"
+          onPress={() => deleteNote()}
         />
       </View>
     </GestureHandlerRootView>

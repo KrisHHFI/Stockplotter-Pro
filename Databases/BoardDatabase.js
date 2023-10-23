@@ -30,6 +30,11 @@ const insertNote = (text, x, y) => {
     });
 };
 
+// Delete note
+const deleteNote = () => {
+    console.log('Note deleted');
+};
+
 // Update an existing note
 const updateNote = (id, text, x, y) => {
     return new Promise((resolve, reject) => {
@@ -43,4 +48,4 @@ const updateNote = (id, text, x, y) => {
     });
 };
 
-export { db, initBoardTable, insertNote, getNotes, updateNote }
+export { db, initBoardTable, insertNote, deleteNote, getNotes, updateNote }
