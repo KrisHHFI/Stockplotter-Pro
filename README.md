@@ -1,6 +1,11 @@
-# MP-Final-Project
+#  Stockplotter Pro
 
-### Installed Packages
+## About
+- This program was a university project, created in the autumn of 2023.
+- The user can search for stocks via Polygon.io. Stocks can be saved and examined. The user can also use a simple cork board, to plan their next market moves.
+- The project was not continued after the course. However, the idea may be developed in a future project.
+
+## Installed Packages
 
 Package  | What it is | Usage
 ------------- | ------------- | -------------
