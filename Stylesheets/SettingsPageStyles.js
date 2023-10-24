@@ -31,17 +31,17 @@ const SettingsPageStyles = StyleSheet.create({
   },
   inactiveButton: {
     backgroundColor: 'grey',
-    paddingVertical: 2,
-    paddingHorizontal: 4,
+    padding: 5,
   },
   activeButton: {
     backgroundColor: 'gold',
-    paddingVertical: 2,
-    paddingHorizontal: 4,
+    borderColor: 'black',
+    borderWidth: 3,
+    padding: 5,
   },
   buttonFont: {
     fontSize: 18,
-    color: 'white',
+    color: 'black',
   },
 });
 

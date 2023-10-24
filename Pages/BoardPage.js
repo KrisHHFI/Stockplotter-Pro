@@ -92,8 +92,8 @@ export default function BoardPage() {
         <View style={BoardPageStyles.addNoteContainer}>
           <Ionicons.Button
             name="md-add-circle-sharp"
-            size={24}
-            color="black"
+            size={30}
+            style={BoardPageStyles.addNoteButton}
             onPress={() => {
               insertNote("New Note.", 320, 340)
                 .then(() => {
@@ -110,9 +110,9 @@ export default function BoardPage() {
           activeNoteId !== null && ( // Render delete button when a note is active
             <View style={BoardPageStyles.deleteNoteContainer}>
               <Ionicons.Button
-                name="remove-circle"
-                size={24}
-                color="black"
+                name="trash"
+                size={30}
+                style={BoardPageStyles.deleteNoteButton}
                 onPress={() => {
                   deleteNote(activeNoteId)
                     .then(() => {
