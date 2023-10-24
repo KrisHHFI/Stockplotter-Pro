@@ -10,6 +10,7 @@ import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
 import { db, initBoardTable, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 export default function BoardPage() {
   const isFocused = useIsFocused();
@@ -40,47 +41,52 @@ export default function BoardPage() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <PanGestureHandler onGestureEvent={(event) => boardPanning(event, setScreenXPosition, setScreenYPosition)}>
           <View style={BoardPageStyles.container}>
-            <View
-              style={[
-                BoardPageStyles.boardContainer, {/* Initial Screen position */ },
-                {
-                  transform: [{ translateX }, { translateY }],
-                },
-              ]}
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              activeOpacity={1}
+              onPress={() => setActiveNoteId(null)}
             >
-              {/* The board */}
-              <Text style={BoardPageStyles.centerOfBoard}>+</Text>
-              {notes.map((note, index) => (
-                <PanGestureHandler
-                  key={note.id}
-                  onGestureEvent={(event) => moveNote(event, note.id, notes, setNotes)}
-                  onHandlerStateChange={(event) => {
-                    if (event.nativeEvent.state === State.BEGAN) {
-                      setActiveNoteId(note.id);
-                    }
-                  }}
-                >
-                  <View
-                    style={[
-                      BoardPageStyles.noteContainer,
-                      { left: note.x, top: note.y },
-                    ]}
+              <View
+                style={[
+                  BoardPageStyles.boardContainer, {/* Initial Screen position */ },
+                  { transform: [{ translateX }, { translateY }] },
+                ]}
+                onStartShouldSetResponder={() => {
+                  setActiveNoteId(null);
+                  Keyboard.dismiss();
+                  return false;
+                }}
+              >
+                {/* The board */}
+                <Text style={BoardPageStyles.centerOfBoard}>+</Text>
+                {notes.map((note, index) => (
+                  <PanGestureHandler
+                    key={note.id}
+                    onGestureEvent={(event) => moveNote(event, note.id, notes, setNotes)}
                   >
-                    <TextInput
+                    <View
                       style={[
-                        BoardPageStyles.noteTextInput,
+                        BoardPageStyles.noteContainer,
+                        { left: note.x, top: note.y },
                       ]}
-                      multiline={true}
-                      numberOfLines={5}
-                      key={note.id}
-                      value={note.text}
-                      onChangeText={(text) => updateNoteHandler(text, note.id, notes, setNotes)}
-                      onStartShouldSetResponder={() => true}
-                    />
-                  </View>
-                </PanGestureHandler>
-              ))}
-            </View>
+                    >
+                      <TextInput
+                        style={[
+                          BoardPageStyles.noteTextInput,
+                        ]}
+                        multiline={true}
+                        numberOfLines={5}
+                        key={note.id}
+                        value={note.text}
+                        onChangeText={(text) => updateNoteHandler(text, note.id, notes, setNotes)}
+                        onStartShouldSetResponder={() => true}
+                        onFocus={() => setActiveNoteId(note.id)}
+                      />
+                    </View>
+                  </PanGestureHandler>
+                ))}
+              </View>
+            </TouchableOpacity>
           </View>
         </PanGestureHandler>
         <View style={BoardPageStyles.addNoteContainer}>
@@ -92,7 +98,7 @@ export default function BoardPage() {
               insertNote("New Note.", 320, 340)
                 .then(() => {
                   console.log('Note added to table.');
-                  updateList(); // Refresh the list of notes from the table after adding
+                  updateList();
                 })
                 .catch((error) => {
                   console.error(`Error saving note to table: ${error}`);
