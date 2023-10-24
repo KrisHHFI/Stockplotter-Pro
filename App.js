@@ -6,12 +6,15 @@ import AddPage from './Pages/AddPage'
 import BoardPage from './Pages/BoardPage'
 import SettingsPage from './Pages/SettingsPage'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { StatusBar } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
+      {/* Ensures that systems icons aren't hidden by the top bar*/}
+      <StatusBar backgroundColor="black" barStyle="light-content" />
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarShowLabel: false,
@@ -28,12 +31,40 @@ export default function App() {
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
+          // Styling
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gold',
+          tabBarActiveBackgroundColor: 'gold',
+          tabBarStyle: {
+            backgroundColor: 'black',
+            borderTopWidth: 2,
+            borderTopColor: 'black',
+          },
         })}>
-
-        <Tab.Screen name="Home" component={HomePage} />
-        <Tab.Screen name="Add" component={AddPage} />
-        <Tab.Screen name="Cork Board" component={BoardPage} />
-        <Tab.Screen name="Settings" component={SettingsPage} />
+        <Tab.Screen name="Home" component={HomePage}
+          options={{
+            headerStyle: {
+              backgroundColor: 'black',
+            }, headerTintColor: 'gold',
+          }} />
+        <Tab.Screen name="Add" component={AddPage}
+          options={{
+            headerStyle: {
+              backgroundColor: 'black',
+            }, headerTintColor: 'gold',
+          }} />
+        <Tab.Screen name="Cork Board" component={BoardPage}
+          options={{
+            headerStyle: {
+              backgroundColor: 'black',
+            }, headerTintColor: 'gold',
+          }} />
+        <Tab.Screen name="Settings" component={SettingsPage}
+          options={{
+            headerStyle: {
+              backgroundColor: 'black',
+            }, headerTintColor: 'gold',
+          }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
