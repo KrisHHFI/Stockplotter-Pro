@@ -109,6 +109,7 @@ export default function BoardPage() {
               deleteNote(activeNoteId)
                 .then(() => {
                   updateList();
+                  setActiveNoteId(null);
                 })
                 .catch((error) => {
                   console.error(`Error deleting note: ${error}`);

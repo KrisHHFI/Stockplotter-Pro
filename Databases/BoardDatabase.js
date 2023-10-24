@@ -52,7 +52,6 @@ const deleteNote = (activeNoteId) => {
     });
 };
 
-
 // Update an existing note
 const updateNote = (id, text, x, y) => {
     return new Promise((resolve, reject) => {
