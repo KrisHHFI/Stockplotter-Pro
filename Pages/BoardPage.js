@@ -106,23 +106,27 @@ export default function BoardPage() {
             }}
           />
         </View>
-        <View style={BoardPageStyles.deleteNoteContainer}>
-          <Ionicons.Button
-            name="remove-circle"
-            size={24}
-            color="black"
-            onPress={() => {
-              deleteNote(activeNoteId)
-                .then(() => {
-                  updateList();
-                  setActiveNoteId(null);
-                })
-                .catch((error) => {
-                  console.error(`Error deleting note: ${error}`);
-                });
-            }}
-          />
-        </View>
+        {
+          activeNoteId !== null && ( // Render delete button when a note is active
+            <View style={BoardPageStyles.deleteNoteContainer}>
+              <Ionicons.Button
+                name="remove-circle"
+                size={24}
+                color="black"
+                onPress={() => {
+                  deleteNote(activeNoteId)
+                    .then(() => {
+                      updateList();
+                      setActiveNoteId(null);
+                    })
+                    .catch((error) => {
+                      console.error(`Error deleting note: ${error}`);
+                    });
+                }}
+              />
+            </View>
+          )
+        }
       </GestureHandlerRootView>
     </TouchableWithoutFeedback>
   );
