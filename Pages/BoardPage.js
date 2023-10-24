@@ -105,7 +105,15 @@ export default function BoardPage() {
             name="remove-circle"
             size={24}
             color="black"
-            onPress={() => deleteNote(activeNoteId)}
+            onPress={() => {
+              deleteNote(activeNoteId)
+                .then(() => {
+                  updateList();
+                })
+                .catch((error) => {
+                  console.error(`Error deleting note: ${error}`);
+                });
+            }}
           />
         </View>
       </GestureHandlerRootView>
