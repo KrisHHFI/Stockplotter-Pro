@@ -32,13 +32,18 @@ const insertNote = (text, x, y) => {
 
 // Delete the selected note
 const deleteNote = (activeNoteId) => {
+    if (activeNoteId == 0) {
+        console.log('No note selected.');
+        return;
+    }
+
     db.transaction(tx => {
         tx.executeSql('delete from board where id = ?;', [activeNoteId],
             (_, result) => {
                 console.log('Note ' + activeNoteId + ' deleted');
             },
             (_, error) => {
-                console.error(`Error deleting note with ID ${activeNoteId}: ${error.message}`);
+                console.error(`Error deleting note${activeNoteId}: ${error.message}`);
             }
         );
     });
