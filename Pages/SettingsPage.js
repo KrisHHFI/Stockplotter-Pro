@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Alert, TextInput, Pressable } from 'react-native';
+import { Text, View, Button, Pressable, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
@@ -86,40 +86,27 @@ export default function SettingsPage() {
     <View style={SettingsPageStyles.container}>
 
       <View style={SettingsPageStyles.segment}>
-        <Text>Tutorial</Text>
-        <Ionicons.Button name="link" size={24} color="black" onPress={() => Linking.openURL('https://www.google.com/')} />
+        <Text style={SettingsPageStyles.segmentText}>Tutorial</Text>
+        <Ionicons.Button name="link" style={SettingsPageStyles.segmentButton} onPress={() => Linking.openURL('https://www.google.com/')} />
       </View>
 
       <View style={SettingsPageStyles.segment}>
-        <Text>Theme</Text>
-        <MaterialCommunityIcons.Button name={switchicon} size={24} color="black" onPress={themeButtonPressed} />
+        <Text style={SettingsPageStyles.segmentText}>Theme</Text>
+        <MaterialCommunityIcons.Button name={switchicon} style={SettingsPageStyles.segmentButton} onPress={themeButtonPressed} />
       </View>
 
       <View style={SettingsPageStyles.segment}>
-        <Text>Language</Text>
+        <Text style={SettingsPageStyles.segmentText}>Language</Text>
+        <View>
+          <Pressable style={SettingsPageStyles[englishButtonState]} onPress={englishButtonPressed}>
+            <Text style={SettingsPageStyles.buttonFont}>English</Text>
+          </Pressable>
 
-        <Pressable style={SettingsPageStyles[englishButtonState]} onPress={englishButtonPressed}>
-          <Text style={SettingsPageStyles.buttonFont}>English</Text>
-        </Pressable>
-
-        <Pressable style={SettingsPageStyles[finnishButtonState]} onPress={finnishButtonPressed}>
-          <Text style={SettingsPageStyles.buttonFont}>Finnish</Text>
-        </Pressable>
+          <Pressable style={SettingsPageStyles[finnishButtonState]} onPress={finnishButtonPressed}>
+            <Text style={SettingsPageStyles.buttonFont}>Finnish</Text>
+          </Pressable>
+        </View>
       </View>
-
-      <Text>About</Text>
-      <Text>This app was created in 2023 by me, Kristopher Pepper. I created the app as a university project, in my final year at
-        Haaga-Helia. React Native was the software used to house the project. The project is almost entirely JavaScript,
-        apart from a handful of SQL statements.
-        {"\n\n"}
-        The goal of the app was to enable investors to strategize and plan their market moves. The app enables the user to search
-        for companies via a stock market API. Users can also create notes/manually add companies. These items are saved via a local
-         SQLite database. There is also a cork board page, which enables the user to create a virtual cork board and map out their 
-         companies and notes.
-        {"\n\n"}
-        The project was not continued after the course. Since, using a stock API which could supply the demands of real users
-        would be costly. The project will serve as a portfolio piece and as a personal tool.
-      </Text>
     </View>
   );
 }
