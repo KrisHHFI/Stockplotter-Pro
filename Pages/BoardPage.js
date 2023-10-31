@@ -110,7 +110,7 @@ export default function BoardPage() {
             size={30}
             style={BoardPageStyles.addNoteButton}
             onPress={() => {
-              insertNote("New Note.", 320, 340)
+              insertNote("New Note.", 290, 320)
                 .then(() => {
                   console.log('Note added to table.');
                   updateList();

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import HomePagestyles from '../Stylesheets/HomePageStyles';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function HomePage() {
 
@@ -71,7 +72,7 @@ export default function HomePage() {
         return null;
     };
 
-    const renderCompanyImage = (item) => {
+    const renderFlatListImage = (item) => {
         if (item.icon === "Null") {
             return (
                 <Image
@@ -100,7 +101,7 @@ export default function HomePage() {
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item }) =>
                     <View style={HomePagestyles.flatListItem}>
-                        {renderCompanyImage(item)}
+                        {renderFlatListImage(item)}
                         <View>
                             {/* Splits company name by word, each on its own line */}
                             {item.name.split(' ').map((word, index) => (
@@ -109,11 +110,15 @@ export default function HomePage() {
                         </View>
                         <View style={HomePagestyles.flatListItemButtons}>
                             <Pressable style={HomePagestyles.expandButton} onPress={() => expandItem(item.id)}>
-                                <Text style={HomePagestyles.buttonFont}>Expand</Text>
+                                <Text style={HomePagestyles.buttonFont}>Info</Text>
                             </Pressable>
-
-                            <Pressable style={HomePagestyles.deleteButton} onPress={() => deleteItem(item.id)}>
-                                <Text style={HomePagestyles.buttonFont}>Delete</Text>
+                            <Pressable style={HomePagestyles.deleteButton}>
+                                <Ionicons.Button
+                                    name="trash"
+                                    onPress={() => deleteItem(item.id)}
+                                    size={20}
+                                    style={HomePagestyles.deleteButton}
+                                />
                             </Pressable>
                         </View>
                     </View>}
