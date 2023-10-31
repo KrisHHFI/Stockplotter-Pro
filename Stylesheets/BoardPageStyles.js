@@ -61,15 +61,17 @@ const BoardPageStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 30,
     paddingVertical: 30,
     position: 'absolute',
   },
   noteTextInput: {
     //backgroundColor: 'red', //For testing
+    borderColor: '#e3e3e3',
+    borderWidth: 0.5,
     flex: 1,
     textAlign: 'center',
-    width:150,
+    width:125,
     height: 90,
   },
 });

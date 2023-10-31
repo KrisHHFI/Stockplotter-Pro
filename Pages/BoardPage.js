@@ -78,13 +78,14 @@ export default function BoardPage() {
                         style={[
                           BoardPageStyles.noteTextInput,
                         ]}
+                        key={note.id}
+                        maxLength={50}
                         multiline={true}
                         numberOfLines={5}
-                        key={note.id}
-                        value={note.text}
                         onChangeText={(text) => updateNoteHandler(text, note.id, notes, setNotes)}
-                        onStartShouldSetResponder={() => true}
                         onFocus={() => setActiveNoteId(note.id)}
+                        onStartShouldSetResponder={() => true}
+                        value={note.text}
                       />
                     </View>
                   </PanGestureHandler>
