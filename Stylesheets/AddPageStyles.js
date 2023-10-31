@@ -6,6 +6,7 @@ const AddPageStyles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 20,
   },
   pageSection: {
     flex: 1,

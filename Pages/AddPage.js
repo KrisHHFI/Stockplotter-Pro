@@ -14,7 +14,6 @@ export default function AddPage() {
   const [companies, setCompanies] = useState([]);
   const isFocused = useIsFocused();
   const [searchInProgress, setSearchInProgress] = useState(false);
-  const [searchResponse, setSearchResponse] = useState(" ");
   const searchInputRef = useRef(null);
   const nameInputRef = useRef(null);
   const notesInputRef = useRef(null);
@@ -24,7 +23,6 @@ export default function AddPage() {
       console.log("Add page active");
       initDatabase();
       updateList();
-      setSearchResponse("");
       setSearchinput("");
       setAddCompanyinput("");
       searchInputRef.current.clear();
@@ -51,7 +49,7 @@ export default function AddPage() {
           const existingCompany = companies.find(company => company.ticker === input);
 
           if (existingCompany) {
-            setSearchResponse("Company: \"" + existingCompany.name + "\" already added.");
+            Alert.alert("Info", "Company: \"" + existingCompany.name + "\" already added.");
           } else {
             let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
             const response = await fetch(url);
@@ -60,9 +58,9 @@ export default function AddPage() {
 
             if (jsonData.status == "OK") { // Gives the user feedback for company searches
             } if (jsonData.status == "NOT_FOUND") {
-              setSearchResponse("Company ticker: \"" + input + "\" not found.");
+              Alert.alert("Info", "Company ticker: \"" + input + "\" not found.");
             } else {
-              setSearchResponse("Error, please try again.");
+              Alert.alert("Info", "Error, please try again.");
             }
 
             setResult(jsonData);
@@ -96,7 +94,7 @@ export default function AddPage() {
                 companyEmployees, companyMarketCap, companyNote)
                 .then(() => {
                   console.log("Company added to DB.");
-                  setSearchResponse("Company: " + companyName + " added.");
+                  Alert.alert("Info", "Company: " + companyName + " added.");
                 })
                 .catch(error => {
                   console.log(error + "Company not saved to DB.");
@@ -122,12 +120,12 @@ export default function AddPage() {
     const existingCompany = companies.find(company => company.name === name);
 
     if (existingCompany) {
-      setSearchResponse("Company: \"" + name + "\" already added.");
+      Alert.alert("Info", "Company: \"" + name + "\" already added.");
     } else {
       insertCompany(name, "manuallyAddedCompany", "Null", "Null", "Null", "Null", "Null", "Null", notes)
         .then(() => {
           console.log('Company added to DB.');
-          setSearchResponse(`Company: ${name} added.`);
+          Alert.alert("Info", `Company: ${name} added.`);
         })
         .catch((error) => {
           console.error(`Error saving company to DB: ${error}`);
@@ -174,7 +172,6 @@ export default function AddPage() {
           <Ionicons.Button name="pencil" size={24} color="black" onPress={() => addCompany()} />
         </View>
       </View>
-      <Text>{searchResponse}</Text>
     </View>
   );
 }
