@@ -20,6 +20,19 @@ const BoardPageStyles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
   },
+  clearBoardButton: {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: 'bold',
+    padding: 10,
+  },
+  clearBoardContainer: {
+    backgroundColor: 'red',
+    right: -20,
+    position: 'absolute',
+    top: 1020,
+    borderRadius: 10, 
+  },
   deleteNoteContainer: {
     position: 'absolute',
     top: 70,

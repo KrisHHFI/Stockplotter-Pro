@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, TextInput, Pressable } from 'react-native';
 import BoardPageStyles from '../Stylesheets/BoardPageStyles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useIsFocused } from '@react-navigation/native';
@@ -57,6 +57,11 @@ export default function BoardPage() {
                   return false;
                 }}
               >
+                <View style={BoardPageStyles.clearBoardContainer}>
+                  <Pressable onPress={""}>
+                    <Text style={BoardPageStyles.clearBoardButton} onPress={() => { }}>Reset Board?</Text>
+                  </Pressable>
+                </View>
                 {/* The board */}
                 <Text style={BoardPageStyles.centerOfBoard}>+</Text>
                 {notes.map((note, index) => (
@@ -64,7 +69,7 @@ export default function BoardPage() {
                     key={note.id}
                     onGestureEvent={(event) => {
                       moveNote(event, note.id, notes, setNotes),
-                      setActiveNoteId(note.id)
+                        setActiveNoteId(note.id)
                     }}
                   >
                     <View
