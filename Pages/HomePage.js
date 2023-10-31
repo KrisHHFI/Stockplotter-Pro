@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, FlatList, Image, Pressable, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
-import HomePagestyles from '../Stylesheets/HomePageStyles';
+import HomePagestyles from '../Stylesheets/LightTheme/HomePageStyles';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
 import Ionicons from '@expo/vector-icons/Ionicons';

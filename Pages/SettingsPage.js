@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from '../Databases/SettingsDatabase.js';
-import SettingsPageStyles from '../Stylesheets/SettingsPageStyles';
+import SettingsPageStyles from '../Stylesheets/LightTheme/SettingsPageStyles.js';
 
 export default function SettingsPage() {
 
@@ -28,7 +28,7 @@ export default function SettingsPage() {
             setSwitchIcon("lightbulb-off");
           }
         }
-        console.log(rows); // Theme printed to screem
+        console.log(rows); // Theme printed to screen
       });
 
       getLanguage((rows) => { // Sets the appearance of the language buttons, when page loads.
@@ -41,7 +41,7 @@ export default function SettingsPage() {
             setFinnishButtonState("activeButton");
           }
         }
-        console.log(rows); // Theme printed to screem
+        console.log(rows); // Language printed to screen
       });
 
     }

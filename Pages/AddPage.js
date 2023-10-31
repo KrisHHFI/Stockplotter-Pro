@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { initDatabase, getCompanies, insertCompany } from '../Databases/CompaniesDatabase.js';
 import { useIsFocused } from '@react-navigation/native';
-import AddPageStyles from '../Stylesheets/AddPageStyles';
+import AddPageStyles from '../Stylesheets/LightTheme/AddPageStyles';
 import { useRef } from 'react'; // Used to clear the input box
 
 export default function AddPage() {

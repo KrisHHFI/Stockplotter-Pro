@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TextInput, Pressable } from 'react-native';
-import BoardPageStyles from '../Stylesheets/BoardPageStyles';
+import BoardPageStyles from '../Stylesheets/LightTheme/BoardPageStyles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useIsFocused } from '@react-navigation/native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
