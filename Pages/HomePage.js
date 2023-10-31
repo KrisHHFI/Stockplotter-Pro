@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View, FlatList, Image, Pressable, Alert } from 'react-native';
+import { Text, View, FlatList, Image, Pressable, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
-import HomePagestyles from '../Stylesheets/LightTheme/HomePageStyles';
+import HomePageStyles from '../Stylesheets/LightTheme/HomePageStyles';
+import HomePageStylesDark from '../Stylesheets/DarkTheme/HomePageStylesDark.js';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
+import { getTheme} from '../Databases/SettingsDatabase.js';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function HomePage() {
-
+    const [themeStyles, setThemeStyles] = useState(HomePageStyles);
     const [companies, setCompanies] = useState([]);
     const isFocused = useIsFocused();
     const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
@@ -17,6 +19,17 @@ export default function HomePage() {
             initDatabase();
             updateList();
             getCompanies((rows) => console.log('Home Page active\nAll of the companies in the DB:\n', rows));
+
+            getTheme((rows) => {
+                if (rows.length > 0) {
+                  if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
+                    setThemeStyles(HomePageStyles);
+                  } else {
+                    setThemeStyles(HomePageStylesDark);
+                  }
+                }
+                console.log(rows); // Theme printed to screen
+              });
         }
     }, [isFocused]);
 
@@ -24,7 +37,7 @@ export default function HomePage() {
     const listSeparator = () => {
         return (
             <View
-                style={HomePagestyles.listSeparator}
+                style={themeStyles.listSeparator}
             />
         );
     };
@@ -56,7 +69,7 @@ export default function HomePage() {
     const companiesTitle = () => {
         if (companies.length > 0) {
             return (
-                <Text style={HomePagestyles.title}>Saved Companies</Text>
+                <Text style={themeStyles.title}>Saved Companies</Text>
             );
         }
         return null;
@@ -77,47 +90,47 @@ export default function HomePage() {
             return (
                 <Image
                     source={require('../assets/PlaceholderImage.png')}
-                    style={HomePagestyles.image}
+                    style={themeStyles.image}
                 />
             );
         } else {
             return (
                 <Image
                     source={{ uri: item.icon + '?apiKey=' + apiKey }}
-                    style={HomePagestyles.image}
+                    style={themeStyles.image}
                 />
             );
         }
     };
 
     return (
-        <View style={HomePagestyles.container}>
+        <View style={themeStyles.container}>
             {companiesTitle()}
-            <View style={HomePagestyles.placeholderCenter}>
+            <View style={themeStyles.placeholderCenter}>
                 {companiesPlaceholder()}
             </View>
             <FlatList
-                style={HomePagestyles.flatList}
+                style={themeStyles.flatList}
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item }) =>
-                    <View style={HomePagestyles.flatListItem}>
+                    <View style={themeStyles.flatListItem}>
                         {renderFlatListImage(item)}
                         <View>
                             {/* Splits company name by word, each on its own line */}
                             {item.name.split(' ').map((word, index) => (
-                                <Text key={index} style={HomePagestyles.companyText}>{word}</Text>
+                                <Text key={index} style={themeStyles.companyText}>{word}</Text>
                             ))}
                         </View>
-                        <View style={HomePagestyles.flatListItemButtons}>
-                            <Pressable style={HomePagestyles.expandButton} onPress={() => expandItem(item.id)}>
-                                <Text style={HomePagestyles.buttonFont}>Info</Text>
+                        <View style={themeStyles.flatListItemButtons}>
+                            <Pressable style={themeStyles.expandButton} onPress={() => expandItem(item.id)}>
+                                <Text style={themeStyles.buttonFont}>Info</Text>
                             </Pressable>
-                            <Pressable style={HomePagestyles.deleteButtonContainer}>
+                            <Pressable style={themeStyles.deleteButtonContainer}>
                                 <Ionicons.Button
                                     name="trash"
                                     onPress={() => deleteItem(item.id)}
                                     size={20}
-                                    style={HomePagestyles.deleteButton}
+                                    style={themeStyles.deleteButton}
                                 />
                             </Pressable>
                         </View>

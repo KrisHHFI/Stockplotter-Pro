@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-const HomePageStyles = StyleSheet.create({
+const HomePageStylesDark = StyleSheet.create({
   container: { // Page body
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     alignItems: 'center',
     paddingVertical: 20,
   },
@@ -14,6 +14,7 @@ const HomePageStyles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
+    color: 'white',
     fontSize: 30,
     fontWeight: "bold",
     paddingBottom: 20,
@@ -43,6 +44,7 @@ const HomePageStyles = StyleSheet.create({
     width: 100,
   },
   companyText: {
+    color: 'white',
     fontSize: 18,
     textAlign: 'center',
   },
@@ -71,4 +73,4 @@ const HomePageStyles = StyleSheet.create({
   },
 });
 
-export default HomePageStyles;
+export default HomePageStylesDark;
