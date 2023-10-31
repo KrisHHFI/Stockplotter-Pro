@@ -9,21 +9,22 @@ const AddPageStyles = StyleSheet.create({
   },
   pageSection: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
+    //backgroundColor: 'red', // Testing
   },
   pageSubSection: {
-    flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-  },
-  pageSubSectionGroup: {
-    flex: 1,
-    alignItems: 'center',
   },
   inputBox: {
     width: 200,
     borderColor: 'gray',
     borderWidth: 1,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    paddingBottom: 20,
   },
 });
 

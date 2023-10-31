@@ -12,7 +12,8 @@ const SettingsPageStyles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: 125,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 20,
     width: '100%',
   },
   segmentText: {

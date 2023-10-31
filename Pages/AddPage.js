@@ -138,7 +138,7 @@ export default function AddPage() {
   return (
     <View style={AddPageStyles.container}>
       <View style={AddPageStyles.pageSection}>
-        <Text>Search for a Company</Text>
+        <Text style={AddPageStyles.title}>Search</Text>
         <View style={AddPageStyles.pageSubSection}>
           <TextInput
             ref={searchInputRef}
@@ -149,10 +149,11 @@ export default function AddPage() {
           <Ionicons.Button name="search" size={24} color="black" onPress={() => searchForCompany(searchinput)} />
         </View>
       </View>
+
       <View style={AddPageStyles.pageSection}>
-        <Text>Manually Add a Company</Text>
+        <Text style={AddPageStyles.title}>Create</Text>
         <View style={AddPageStyles.pageSubSection}>
-          <View style={AddPageStyles.pageGroup}>
+          <View>
             <TextInput
               ref={nameInputRef}
               placeholder="Name.."
@@ -172,8 +173,8 @@ export default function AddPage() {
           </View>
           <Ionicons.Button name="pencil" size={24} color="black" onPress={() => addCompany()} />
         </View>
-        <Text>{searchResponse}</Text>
       </View>
+      <Text>{searchResponse}</Text>
     </View>
   );
 }
