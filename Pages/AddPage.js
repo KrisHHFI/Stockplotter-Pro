@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { initDatabase, getCompanies, insertCompany } from '../Databases/CompaniesDatabase.js';
@@ -144,7 +144,9 @@ export default function AddPage() {
             style={AddPageStyles.inputBox}
             onChangeText={text => setSearchinput(text)}
           />
-          <Ionicons.Button name="search" size={24} color="black" onPress={() => searchForCompany(searchinput)} />
+          <Pressable style={AddPageStyles.buttonContainer}>
+            <Ionicons.Button name="search" size={24} style={AddPageStyles.button} onPress={() => searchForCompany(searchinput)} />
+          </Pressable>
         </View>
       </View>
 
@@ -169,7 +171,14 @@ export default function AddPage() {
               }}
             />
           </View>
-          <Ionicons.Button name="pencil" size={24} color="black" onPress={() => addCompany()} />
+          <Pressable style={AddPageStyles.buttonContainer}>
+            <Ionicons.Button
+              name="pencil"
+              onPress={() => addCompany()}
+              size={24}
+              style={AddPageStyles.button}
+            />
+          </Pressable>
         </View>
       </View>
     </View>

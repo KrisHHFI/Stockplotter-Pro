@@ -28,7 +28,6 @@ const SettingsPageStyles = StyleSheet.create({
     width: 50,
     paddingRight: 0,
     justifyContent: 'center', 
-    alignItems: 'center',
   },
   inactiveButton: {
     backgroundColor: 'grey',

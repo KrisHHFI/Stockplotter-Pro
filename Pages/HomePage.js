@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Image, Button, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Pressable, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import HomePagestyles from '../Stylesheets/HomePageStyles';
 import { useIsFocused } from '@react-navigation/native';

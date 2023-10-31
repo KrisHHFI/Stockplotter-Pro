@@ -1,11 +1,21 @@
 import { StyleSheet } from 'react-native';
 
 const AddPageStyles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    backgroundColor: 'black',
+    height: 60,
+    justifyContent: 'center',
+    paddingLeft: 15,
+    width: 60,
+  },
+  buttonContainer: {
+    
+  },
   container: { // Page body
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingVertical: 20,
   },
   pageSection: {
@@ -25,7 +35,7 @@ const AddPageStyles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: "bold",
-    paddingBottom: 20,
+    paddingBottom: 10,
   },
 });
 
