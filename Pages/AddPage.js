@@ -4,6 +4,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { initDatabase, getCompanies, insertCompany } from '../Databases/CompaniesDatabase.js';
 import { useIsFocused } from '@react-navigation/native';
 import AddPageStyles from '../Stylesheets/LightTheme/AddPageStyles';
+import AddPageStylesDark from '../Stylesheets/DarkTheme/AddPageStylesDark.js';
+import { getTheme } from '../Databases/SettingsDatabase.js';
 import { useRef } from 'react'; // Used to clear the input box
 
 export default function AddPage() {
@@ -17,6 +19,7 @@ export default function AddPage() {
   const searchInputRef = useRef(null);
   const nameInputRef = useRef(null);
   const notesInputRef = useRef(null);
+  const [themeStyles, setThemeStyles] = useState(AddPageStyles);
 
   useEffect(() => {
     if (isFocused) {
@@ -28,6 +31,17 @@ export default function AddPage() {
       searchInputRef.current.clear();
       nameInputRef.current.clear();
       notesInputRef.current.clear();
+
+      getTheme((rows) => {
+        if (rows.length > 0) {
+          if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
+            setThemeStyles(AddPageStyles);
+          } else {
+            setThemeStyles(AddPageStylesDark);
+          }
+        }
+        console.log(rows); // Theme printed to screen
+      });
     }
   }, [isFocused]);
 
@@ -134,30 +148,32 @@ export default function AddPage() {
   };
 
   return (
-    <View style={AddPageStyles.container}>
-      <View style={AddPageStyles.pageSection}>
-        <Text style={AddPageStyles.title}>Search</Text>
-        <View style={AddPageStyles.pageSubSection}>
+    <View style={themeStyles.container}>
+      <View style={themeStyles.pageSection}>
+        <Text style={themeStyles.title}>Search</Text>
+        <View style={themeStyles.pageSubSection}>
           <TextInput
             ref={searchInputRef}
             placeholder="Company ticker.."
-            style={AddPageStyles.inputBox}
+            placeholderTextColor={themeStyles.placeholderTextColor.color}
+            style={themeStyles.inputBox}
             onChangeText={text => setSearchinput(text)}
           />
-          <Pressable style={AddPageStyles.buttonContainer}>
-            <Ionicons.Button name="search" size={24} style={AddPageStyles.button} onPress={() => searchForCompany(searchinput)} />
+          <Pressable style={themeStyles.buttonContainer}>
+            <Ionicons.Button name="search" size={24} style={themeStyles.button} onPress={() => searchForCompany(searchinput)} />
           </Pressable>
         </View>
       </View>
 
-      <View style={AddPageStyles.pageSection}>
-        <Text style={AddPageStyles.title}>Create</Text>
-        <View style={AddPageStyles.pageSubSection}>
+      <View style={themeStyles.pageSection}>
+        <Text style={themeStyles.title}>Create</Text>
+        <View style={themeStyles.pageSubSection}>
           <View>
             <TextInput
               ref={nameInputRef}
               placeholder="Name.."
-              style={AddPageStyles.inputBox}
+              placeholderTextColor={themeStyles.placeholderTextColor.color}
+              style={themeStyles.inputBox}
               onChangeText={(text) => {
                 setAddCompanyinput((prevState) => ({ ...prevState, name: text }));
               }}
@@ -165,18 +181,19 @@ export default function AddPage() {
             <TextInput
               ref={notesInputRef}
               placeholder="Notes.."
-              style={AddPageStyles.inputBox}
+              placeholderTextColor={themeStyles.placeholderTextColor.color}
+              style={themeStyles.inputBox}
               onChangeText={(text) => {
                 setAddCompanyinput((prevState) => ({ ...prevState, notes: text }));
               }}
             />
           </View>
-          <Pressable style={AddPageStyles.buttonContainer}>
+          <Pressable style={themeStyles.buttonContainer}>
             <Ionicons.Button
               name="pencil"
               onPress={() => addCompany()}
               size={24}
-              style={AddPageStyles.button}
+              style={themeStyles.button}
             />
           </Pressable>
         </View>

@@ -1,20 +1,20 @@
 import { StyleSheet } from 'react-native';
 
-const AddPageStyles = StyleSheet.create({
+const AddPageStylesDark = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'grey',
     height: 60,
     justifyContent: 'center',
     paddingLeft: 15,
     width: 60,
   },
   buttonContainer: {
-    
+
   },
   container: { // Page body
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     alignItems: 'center',
     paddingVertical: 20,
   },
@@ -28,18 +28,19 @@ const AddPageStyles = StyleSheet.create({
     flexDirection: 'row',
   },
   placeholderTextColor: {
-    color: 'grey'
+    color: 'white'
   },
   inputBox: {
     width: 200,
-    borderColor: 'gray',
+    borderColor: 'white',
     borderWidth: 1,
   },
   title: {
+    color: 'white',
     fontSize: 30,
     fontWeight: "bold",
     paddingBottom: 10,
   },
 });
 
-export default AddPageStyles;
+export default AddPageStylesDark;

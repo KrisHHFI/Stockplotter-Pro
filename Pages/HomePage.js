@@ -4,7 +4,7 @@ import HomePageStyles from '../Stylesheets/LightTheme/HomePageStyles';
 import HomePageStylesDark from '../Stylesheets/DarkTheme/HomePageStylesDark.js';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
-import { getTheme} from '../Databases/SettingsDatabase.js';
+import { getTheme } from '../Databases/SettingsDatabase.js';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function HomePage() {
@@ -22,14 +22,14 @@ export default function HomePage() {
 
             getTheme((rows) => {
                 if (rows.length > 0) {
-                  if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
-                    setThemeStyles(HomePageStyles);
-                  } else {
-                    setThemeStyles(HomePageStylesDark);
-                  }
+                    if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
+                        setThemeStyles(HomePageStyles);
+                    } else {
+                        setThemeStyles(HomePageStylesDark);
+                    }
                 }
                 console.log(rows); // Theme printed to screen
-              });
+            });
         }
     }, [isFocused]);
 
