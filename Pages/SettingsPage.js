@@ -6,6 +6,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from '../Databases/SettingsDatabase.js';
 import SettingsPageStyles from '../Stylesheets/LightTheme/SettingsPageStyles.js';
+import SettingsPageStylesDark from '../Stylesheets/DarkTheme/SettingsPageStylesDark.js';
 
 export default function SettingsPage() {
 
@@ -13,6 +14,8 @@ export default function SettingsPage() {
   let [englishButtonState, setEnglishButtonState] = useState("");
   let [finnishButtonState, setFinnishButtonState] = useState("");
   const isFocused = useIsFocused();
+
+  const [themeStyles, setThemeStyles] = useState(SettingsPageStyles);
 
   useEffect(() => {
     if (isFocused) {
@@ -24,8 +27,10 @@ export default function SettingsPage() {
         if (rows.length > 0) {
           if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
             setSwitchIcon("lightbulb-on");
+            setThemeStyles(SettingsPageStyles);
           } else {
             setSwitchIcon("lightbulb-off");
+            setThemeStyles(SettingsPageStylesDark);
           }
         }
         console.log(rows); // Theme printed to screen
@@ -53,9 +58,11 @@ export default function SettingsPage() {
       if (currentTheme === "Light") {
         toggleTheme("Dark");
         setSwitchIcon("lightbulb-off");
+        setThemeStyles(SettingsPageStylesDark);
       } else {
         toggleTheme("Light");
         setSwitchIcon("lightbulb-on");
+        setThemeStyles(SettingsPageStyles);
       }
     });
   };
@@ -83,27 +90,27 @@ export default function SettingsPage() {
   };
 
   return (
-    <View style={SettingsPageStyles.container}>
+    <View style={themeStyles.container}>
 
-      <View style={SettingsPageStyles.segment}>
-        <Text style={SettingsPageStyles.segmentText}>Tutorial</Text>
-        <Ionicons.Button name="link" style={SettingsPageStyles.segmentButton} onPress={() => Linking.openURL('https://www.google.com/')} />
+      <View style={themeStyles.segment}>
+        <Text style={themeStyles.segmentText}>Tutorial</Text>
+        <Ionicons.Button name="link" style={themeStyles.segmentButton} onPress={() => Linking.openURL('https://www.google.com/')} />
       </View>
 
-      <View style={SettingsPageStyles.segment}>
-        <Text style={SettingsPageStyles.segmentText}>Theme</Text>
-        <MaterialCommunityIcons.Button name={switchicon} style={SettingsPageStyles.segmentButton} onPress={themeButtonPressed} />
+      <View style={themeStyles.segment}>
+        <Text style={themeStyles.segmentText}>Theme</Text>
+        <MaterialCommunityIcons.Button name={switchicon} style={themeStyles.segmentButton} onPress={themeButtonPressed} />
       </View>
 
-      <View style={SettingsPageStyles.segment}>
-        <Text style={SettingsPageStyles.segmentText}>Language</Text>
+      <View style={themeStyles.segment}>
+        <Text style={themeStyles.segmentText}>Language</Text>
         <View>
-          <Pressable style={SettingsPageStyles[englishButtonState]} onPress={englishButtonPressed}>
-            <Text style={SettingsPageStyles.buttonFont}>English</Text>
+          <Pressable style={themeStyles[englishButtonState]} onPress={englishButtonPressed}>
+            <Text style={themeStyles.buttonFont}>English</Text>
           </Pressable>
 
-          <Pressable style={SettingsPageStyles[finnishButtonState]} onPress={finnishButtonPressed}>
-            <Text style={SettingsPageStyles.buttonFont}>Finnish</Text>
+          <Pressable style={themeStyles[finnishButtonState]} onPress={finnishButtonPressed}>
+            <Text style={themeStyles.buttonFont}>Finnish</Text>
           </Pressable>
         </View>
       </View>

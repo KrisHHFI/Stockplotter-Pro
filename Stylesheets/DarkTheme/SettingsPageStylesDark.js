@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-const SettingsPageStyles = StyleSheet.create({
+const SettingsPageStylesDark = StyleSheet.create({
   container: { // Page body
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     flex: 1,
     paddingBottom: 20,
     paddingTop: 20,
@@ -15,15 +15,18 @@ const SettingsPageStyles = StyleSheet.create({
     justifyContent: 'space-evenly',
     paddingHorizontal: 20,
     width: '100%',
+    borderColor: 'white',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   segmentText: {
+    color: 'white',
     fontSize: 25,
     paddingRight: 15,
   },
   segmentButton: {
     alignItems: 'center',
-    backgroundColor: 'black',
-    color: 'white',
+    backgroundColor: 'grey',
     height: 50,
     width: 50,
     paddingRight: 0,
@@ -45,4 +48,4 @@ const SettingsPageStyles = StyleSheet.create({
   },
 });
 
-export default SettingsPageStyles;
+export default SettingsPageStylesDark;
