@@ -112,7 +112,7 @@ export default function HomePage() {
                             <Pressable style={HomePagestyles.expandButton} onPress={() => expandItem(item.id)}>
                                 <Text style={HomePagestyles.buttonFont}>Info</Text>
                             </Pressable>
-                            <Pressable style={HomePagestyles.deleteButton}>
+                            <Pressable style={HomePagestyles.deleteButtonContainer}>
                                 <Ionicons.Button
                                     name="trash"
                                     onPress={() => deleteItem(item.id)}

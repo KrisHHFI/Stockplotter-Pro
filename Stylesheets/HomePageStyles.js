@@ -55,12 +55,15 @@ const HomePagestyles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   deleteButton: {
-    alignItems: 'center',
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    padding: 0,
+    paddingLeft: 5,
+  },
+  deleteButtonContainer: {
     backgroundColor: 'red',
     flex: 1,
     justifyContent: 'center',
-    padding: 0,
-    paddingLeft: 2.5,
   },
   buttonFont: {
     fontSize: 18,
