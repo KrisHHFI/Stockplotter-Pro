@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
-import { db, initBoardTable, deleteAllNotes, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
+import { initBoardTable, deleteAllNotes, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
@@ -18,7 +18,6 @@ export default function BoardPage() {
   // Define the initial screen position
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
-
   const [activeNoteId, setActiveNoteId] = useState(null);
 
   // Update the notes list, by fetching from the table
@@ -58,17 +57,15 @@ export default function BoardPage() {
                 }}
               >
                 <View style={BoardPageStyles.resetBoardContainer}>
-                  <Pressable onPress={""}>
-                    <Text style={BoardPageStyles.resetBoardButton}
-                      onPress={() => {
-                        deleteAllNotes()
-                          .then(() => {
-                            updateList();
-                          })
-                      }}>
-                      Reset Board?
-                    </Text>
-                  </Pressable>
+                  <Text style={BoardPageStyles.resetBoardButton}
+                    onPress={() => {
+                      deleteAllNotes()
+                        .then(() => {
+                          updateList();
+                        })
+                    }}>
+                    Reset Board?
+                  </Text>
                 </View>
                 {/* The board */}
                 <Text style={BoardPageStyles.centerOfBoard}>+</Text>
