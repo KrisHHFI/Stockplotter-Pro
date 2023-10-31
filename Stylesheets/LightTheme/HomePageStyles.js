@@ -18,6 +18,9 @@ const HomePageStyles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 20,
   },
+  text: {
+    color: 'black',
+  },
   flatList: {
     width: '100%',
   },

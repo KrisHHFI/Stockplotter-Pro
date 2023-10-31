@@ -26,7 +26,9 @@ const SettingsPageStylesDark = StyleSheet.create({
   },
   segmentButton: {
     alignItems: 'center',
-    backgroundColor: 'grey',
+    backgroundColor: 'black',
+    borderColor: 'white',
+    borderWidth: 2,
     height: 50,
     width: 50,
     paddingRight: 0,

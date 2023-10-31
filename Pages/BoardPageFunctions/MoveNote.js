@@ -17,7 +17,7 @@ export const moveNote = (event, noteId, prevNotes, setNotes) => {
     newXPosition = Math.max(0, newXPosition);
     newYPosition = Math.max(0, newYPosition);
     // Right and bottom side
-    newXPosition = Math.min(598, newXPosition);
+    newXPosition = Math.min(580, newXPosition);
     newYPosition = Math.min(915, newYPosition);
 
     const text = note.text;

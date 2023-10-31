@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TextInput, Pressable } from 'react-native';
 import BoardPageStyles from '../Stylesheets/LightTheme/BoardPageStyles';
+import BoardPageStylesDark from '../Stylesheets/DarkTheme/BoardPageStylesDark';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useIsFocused } from '@react-navigation/native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
@@ -9,10 +10,12 @@ import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
 import { initBoardTable, deleteAllNotes, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
+import { getTheme } from '../Databases/SettingsDatabase.js';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 export default function BoardPage() {
+  const [themeStyles, setThemeStyles] = useState(BoardPageStyles);
   const isFocused = useIsFocused();
   const [notes, setNotes] = useState([]);
   // Define the initial screen position
@@ -32,6 +35,17 @@ export default function BoardPage() {
       initBoardTable();
       updateList();
       setActiveNoteId(null);
+
+      getTheme((rows) => {
+        if (rows.length > 0) {
+            if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
+                setThemeStyles(BoardPageStyles);
+            } else {
+                setThemeStyles(BoardPageStylesDark);
+            }
+        }
+        console.log(rows); // Theme printed to screen
+    });
     }
   }, [isFocused]);
 
@@ -39,7 +53,7 @@ export default function BoardPage() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <PanGestureHandler onGestureEvent={(event) => boardPanning(event, setScreenXPosition, setScreenYPosition)}>
-          <View style={BoardPageStyles.container}>
+          <View style={themeStyles.container}>
             <TouchableOpacity
               style={{ flex: 1 }}
               activeOpacity={1}
@@ -47,7 +61,7 @@ export default function BoardPage() {
             >
               <View
                 style={[
-                  BoardPageStyles.boardContainer, {/* Initial Screen position */ },
+                  themeStyles.boardContainer, {/* Initial Screen position */ },
                   { transform: [{ translateX }, { translateY }] },
                 ]}
                 onStartShouldSetResponder={() => {
@@ -56,8 +70,8 @@ export default function BoardPage() {
                   return false;
                 }}
               >
-                <View style={BoardPageStyles.resetBoardContainer}>
-                  <Text style={BoardPageStyles.resetBoardButton}
+                <View style={themeStyles.resetBoardContainer}>
+                  <Text style={themeStyles.resetBoardButton}
                     onPress={() => {
                       deleteAllNotes()
                         .then(() => {
@@ -68,7 +82,7 @@ export default function BoardPage() {
                   </Text>
                 </View>
                 {/* The board */}
-                <Text style={BoardPageStyles.centerOfBoard}>+</Text>
+                <Text style={themeStyles.centerOfBoard}>+</Text>
                 {notes.map((note, index) => (
                   <PanGestureHandler
                     key={note.id}
@@ -79,14 +93,14 @@ export default function BoardPage() {
                   >
                     <View
                       style={[
-                        BoardPageStyles.noteContainer,
+                        themeStyles.noteContainer,
                         { left: note.x, top: note.y },
-                        (activeNoteId === note.id) && BoardPageStyles.activeNoteContainer
+                        (activeNoteId === note.id) && themeStyles.activeNoteContainer
                       ]}
                     >
                       <TextInput
                         style={[
-                          BoardPageStyles.noteTextInput,
+                          themeStyles.noteTextInput,
                         ]}
                         key={note.id}
                         maxLength={50}
@@ -104,11 +118,11 @@ export default function BoardPage() {
             </TouchableOpacity>
           </View>
         </PanGestureHandler>
-        <View style={BoardPageStyles.addNoteContainer}>
+        <View style={themeStyles.addNoteContainer}>
           <Ionicons.Button
             name="md-add-circle-sharp"
             size={30}
-            style={BoardPageStyles.addNoteButton}
+            style={themeStyles.addNoteButton}
             onPress={() => {
               insertNote("New Note.", 290, 320)
                 .then(() => {
@@ -123,11 +137,11 @@ export default function BoardPage() {
         </View>
         {
           activeNoteId !== null && ( // Render delete button when a note is active
-            <View style={BoardPageStyles.deleteNoteContainer}>
+            <View style={themeStyles.deleteNoteContainer}>
               <Ionicons.Button
                 name="trash"
                 size={30}
-                style={BoardPageStyles.deleteNoteButton}
+                style={themeStyles.deleteNoteButton}
                 onPress={() => {
                   deleteNote(activeNoteId)
                     .then(() => {

@@ -19,6 +19,9 @@ const HomePageStylesDark = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 20,
   },
+  text: {
+    color: 'white',
+  },
   flatList: {
     width: '100%',
   },

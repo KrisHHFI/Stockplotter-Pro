@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 const AddPageStylesDark = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: 'grey',
+    backgroundColor: 'black',
+    borderColor: 'white',
+    borderWidth: 2,
     height: 60,
     justifyContent: 'center',
     paddingLeft: 15,
@@ -34,6 +36,7 @@ const AddPageStylesDark = StyleSheet.create({
     width: 200,
     borderColor: 'white',
     borderWidth: 1,
+    color: 'white',
   },
   title: {
     color: 'white',

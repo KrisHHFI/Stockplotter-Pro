@@ -79,7 +79,7 @@ export default function HomePage() {
     const companiesPlaceholder = () => {
         if (companies.length === 0) {
             return (
-                <Text>No companies have been added.</Text>
+                <Text style={themeStyles.text}>No companies have been added.</Text>
             );
         }
         return null;
