@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const BoardPageStyles = StyleSheet.create({
+  activeNoteContainer: {
+    borderColor: 'red',
+    borderWidth: 2,
+  },
   addNoteContainer: {
     position: 'absolute',
     top: 5,
@@ -53,6 +57,7 @@ const BoardPageStyles = StyleSheet.create({
   noteContainer: {
     alignItems: 'center',
     backgroundColor: 'white',
+    //backgroundColor: 'red', //For testing
     borderColor: 'black',
     borderWidth: 1,
     justifyContent: 'center',

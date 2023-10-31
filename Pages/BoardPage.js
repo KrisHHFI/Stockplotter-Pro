@@ -62,12 +62,16 @@ export default function BoardPage() {
                 {notes.map((note, index) => (
                   <PanGestureHandler
                     key={note.id}
-                    onGestureEvent={(event) => moveNote(event, note.id, notes, setNotes)}
+                    onGestureEvent={(event) => {
+                      moveNote(event, note.id, notes, setNotes),
+                      setActiveNoteId(note.id)
+                    }}
                   >
                     <View
                       style={[
                         BoardPageStyles.noteContainer,
                         { left: note.x, top: note.y },
+                        (activeNoteId === note.id) && BoardPageStyles.activeNoteContainer
                       ]}
                     >
                       <TextInput
