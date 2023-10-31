@@ -55,7 +55,7 @@ export default function HomePage() {
     const companiesTitle = () => {
         if (companies.length > 0) {
             return (
-                <Text style={HomePagestyles.title}>Companies</Text>
+                <Text style={HomePagestyles.title}>Saved Companies</Text>
             );
         }
         return null;
@@ -107,14 +107,15 @@ export default function HomePage() {
                                 <Text key={index} style={HomePagestyles.companyText}>{word}</Text>
                             ))}
                         </View>
+                        <View style={HomePagestyles.flatListItemButtons}>
+                            <Pressable style={HomePagestyles.expandButton} onPress={() => expandItem(item.id)}>
+                                <Text style={HomePagestyles.buttonFont}>Expand</Text>
+                            </Pressable>
 
-                        <Pressable style={HomePagestyles.expandButton} onPress={() => expandItem(item.id)}>
-                            <Text style={HomePagestyles.buttonFont}>Expand</Text>
-                        </Pressable>
-
-                        <Pressable style={HomePagestyles.deleteButton} onPress={() => deleteItem(item.id)}>
-                            <Text style={HomePagestyles.buttonFont}>Delete</Text>
-                        </Pressable>
+                            <Pressable style={HomePagestyles.deleteButton} onPress={() => deleteItem(item.id)}>
+                                <Text style={HomePagestyles.buttonFont}>Delete</Text>
+                            </Pressable>
+                        </View>
                     </View>}
                 data={companies}
                 ItemSeparatorComponent={listSeparator}
