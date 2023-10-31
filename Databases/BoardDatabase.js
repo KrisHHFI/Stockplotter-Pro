@@ -30,6 +30,23 @@ const insertNote = (text, x, y) => {
     });
 };
 
+// Delete all notes
+const deleteAllNotes = () => {
+    return new Promise((resolve, reject) => {
+        db.transaction(tx => {
+            tx.executeSql('delete from board;', [],
+                (_, result) => {
+                    console.log('All notes deleted');
+                    resolve(result);
+                },
+                (_, error) => {
+                    reject(error);
+                }
+            );
+        });
+    });
+};
+
 // Delete the selected note
 const deleteNote = (activeNoteId) => {
     return new Promise((resolve, reject) => {
@@ -65,4 +82,4 @@ const updateNote = (id, text, x, y) => {
     });
 };
 
-export { db, initBoardTable, insertNote, deleteNote, getNotes, updateNote }
+export { db, initBoardTable, insertNote, deleteAllNotes, deleteNote, getNotes, updateNote }

@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
-import { db, initBoardTable, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
+import { db, initBoardTable, deleteAllNotes, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
@@ -57,9 +57,17 @@ export default function BoardPage() {
                   return false;
                 }}
               >
-                <View style={BoardPageStyles.clearBoardContainer}>
+                <View style={BoardPageStyles.resetBoardContainer}>
                   <Pressable onPress={""}>
-                    <Text style={BoardPageStyles.clearBoardButton} onPress={() => { }}>Reset Board?</Text>
+                    <Text style={BoardPageStyles.resetBoardButton}
+                      onPress={() => {
+                        deleteAllNotes()
+                          .then(() => {
+                            updateList();
+                          })
+                      }}>
+                      Reset Board?
+                    </Text>
                   </Pressable>
                 </View>
                 {/* The board */}

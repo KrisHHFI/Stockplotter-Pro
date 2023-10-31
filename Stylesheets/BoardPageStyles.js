@@ -20,13 +20,13 @@ const BoardPageStyles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
   },
-  clearBoardButton: {
+  resetBoardButton: {
     color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
     padding: 10,
   },
-  clearBoardContainer: {
+  resetBoardContainer: {
     backgroundColor: 'red',
     right: -20,
     position: 'absolute',
