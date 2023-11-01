@@ -5,7 +5,7 @@ import { initDatabase, getCompanies, insertCompany } from '../Databases/Companie
 import { useIsFocused } from '@react-navigation/native';
 import AddPageStyles from '../Stylesheets/LightTheme/AddPageStyles';
 import AddPageStylesDark from '../Stylesheets/DarkTheme/AddPageStylesDark.js';
-import { getTheme } from '../Databases/SettingsDatabase.js';
+import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
 import { useRef } from 'react'; // Used to clear the input box
 
 export default function AddPage() {
@@ -20,6 +20,7 @@ export default function AddPage() {
   const nameInputRef = useRef(null);
   const notesInputRef = useRef(null);
   const [themeStyles, setThemeStyles] = useState(AddPageStyles);
+  const [currentLanguage, setCurrentLanguage] = useState("English");
 
   useEffect(() => {
     if (isFocused) {
@@ -42,8 +43,36 @@ export default function AddPage() {
         }
         console.log(rows); // Theme printed to screen
       });
+      getLanguage((rows) => { // Sets the page language
+        if (rows.length > 0) {
+          if (rows[0].language === "English") {
+            setCurrentLanguage("English");
+          } else {
+            setCurrentLanguage("Finnish");
+          }
+        }
+        console.log(rows); // Language printed to screen
+      });
     }
   }, [isFocused]);
+
+  // Language options
+  const text = {
+    English: {
+      search: "Search",
+      ticker: "Company ticker...",
+      create: "Create",
+      name: "Name...",
+      notes: "Notes...",
+    },
+    Finnish: {
+      search: "Hae",
+      ticker: "Yrityksen ticker...",
+      create: "Luoda",
+      name: "Nimi...",
+      notes: "Huomautuksia...",
+    }
+  };
 
   // Get the company list
   const updateList = () => {
@@ -150,11 +179,11 @@ export default function AddPage() {
   return (
     <View style={themeStyles.container}>
       <View style={themeStyles.pageSection}>
-        <Text style={themeStyles.title}>Search</Text>
+        <Text style={themeStyles.title}>{text[currentLanguage].search}</Text>
         <View style={themeStyles.pageSubSection}>
           <TextInput
             ref={searchInputRef}
-            placeholder="Company ticker.."
+            placeholder={text[currentLanguage].ticker}
             placeholderTextColor={themeStyles.placeholderTextColor.color}
             style={themeStyles.inputBox}
             onChangeText={text => setSearchinput(text)}
@@ -166,12 +195,12 @@ export default function AddPage() {
       </View>
 
       <View style={themeStyles.pageSection}>
-        <Text style={themeStyles.title}>Create</Text>
+        <Text style={themeStyles.title}>{text[currentLanguage].create}</Text>
         <View style={themeStyles.pageSubSection}>
           <View>
             <TextInput
               ref={nameInputRef}
-              placeholder="Name.."
+              placeholder={text[currentLanguage].name}
               placeholderTextColor={themeStyles.placeholderTextColor.color}
               style={themeStyles.inputBox}
               onChangeText={(text) => {
@@ -180,7 +209,7 @@ export default function AddPage() {
             />
             <TextInput
               ref={notesInputRef}
-              placeholder="Notes.."
+              placeholder={text[currentLanguage].notes}
               placeholderTextColor={themeStyles.placeholderTextColor.color}
               style={themeStyles.inputBox}
               onChangeText={(text) => {

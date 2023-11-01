@@ -60,17 +60,17 @@ export default function BoardPage() {
     }
   }, [isFocused]);
 
-    // Language options
-    const text = {
-      English: {
-        resetBoard: "Reset Board?",
-        newNote: "New note.",
-      },
-      Finnish: {
-        resetBoard: "Nollaa Lauta",
-        newNote: "Uusi muistiinpano.",
-      }
-    };
+  // Language options
+  const text = {
+    English: {
+      resetBoard: "Reset Board?",
+      newNote: "New note.",
+    },
+    Finnish: {
+      resetBoard: "Nollaa Lauta",
+      newNote: "Uusi muistiinpano.",
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
