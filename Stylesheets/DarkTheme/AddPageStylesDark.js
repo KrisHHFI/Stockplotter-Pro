@@ -11,35 +11,31 @@ const AddPageStylesDark = StyleSheet.create({
     paddingLeft: 15,
     width: 60,
   },
-  buttonContainer: {
-
-  },
   container: { // Page body
-    flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center',
-    paddingVertical: 20,
+    backgroundColor: 'black',
+    borderBottomWidth: 1,
     borderColor: 'gold',
     borderTopWidth: 1,
-    borderBottomWidth: 1,
+    flex: 1,
+    paddingVertical: 20,
+  },
+  inputBox: {
+    color: 'white',
+    borderColor: 'white',
+    borderWidth: 1,
+    width: 200,
   },
   pageSection: {
+    alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-    //backgroundColor: 'red', // Testing
   },
   pageSubSection: {
     flexDirection: 'row',
   },
   placeholderTextColor: {
     color: 'white'
-  },
-  inputBox: {
-    width: 200,
-    borderColor: 'white',
-    borderWidth: 1,
-    color: 'white',
   },
   title: {
     color: 'white',

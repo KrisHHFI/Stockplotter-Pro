@@ -9,9 +9,6 @@ const AddPageStyles = StyleSheet.create({
     paddingLeft: 15,
     width: 60,
   },
-  buttonContainer: {
-    
-  },
   container: { // Page body
     flex: 1,
     backgroundColor: 'white',

@@ -214,7 +214,7 @@ export default function AddPage() {
             style={themeStyles.inputBox}
             onChangeText={text => setSearchinput(text)}
           />
-          <Pressable style={themeStyles.buttonContainer}>
+          <Pressable>
             <Ionicons.Button name="search" size={24} style={themeStyles.button} onPress={() => searchForCompany(searchinput)} />
           </Pressable>
         </View>
