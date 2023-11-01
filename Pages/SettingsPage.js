@@ -37,7 +37,7 @@ export default function SettingsPage() {
         console.log(rows); // Theme printed to screen
       });
 
-      getLanguage((rows) => { // Sets the appearance of the language buttons, when page loads.
+      getLanguage((rows) => { // Sets the page language
         if (rows.length > 0) {
           if (rows[0].language === "English") {
             setEnglishButtonState("activeButton");

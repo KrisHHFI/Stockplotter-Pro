@@ -10,12 +10,13 @@ import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
 import { initBoardTable, deleteAllNotes, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
-import { getTheme } from '../Databases/SettingsDatabase.js';
+import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
 export default function BoardPage() {
   const [themeStyles, setThemeStyles] = useState(BoardPageStyles);
+  const [currentLanguage, setCurrentLanguage] = useState("English");
   const isFocused = useIsFocused();
   const [notes, setNotes] = useState([]);
   // Define the initial screen position
@@ -38,16 +39,38 @@ export default function BoardPage() {
 
       getTheme((rows) => {
         if (rows.length > 0) {
-            if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
-                setThemeStyles(BoardPageStyles);
-            } else {
-                setThemeStyles(BoardPageStylesDark);
-            }
+          if (rows[0].theme === "Light") {
+            setThemeStyles(BoardPageStyles);
+          } else {
+            setThemeStyles(BoardPageStylesDark);
+          }
         }
         console.log(rows); // Theme printed to screen
-    });
+      });
+      getLanguage((rows) => { // Sets the page language
+        if (rows.length > 0) {
+          if (rows[0].language === "English") {
+            setCurrentLanguage("English");
+          } else {
+            setCurrentLanguage("Finnish");
+          }
+        }
+        console.log(rows); // Language printed to screen
+      });
     }
   }, [isFocused]);
+
+    // Language options
+    const text = {
+      English: {
+        resetBoard: "Reset Board?",
+        newNote: "New note.",
+      },
+      Finnish: {
+        resetBoard: "Nollaa Lauta",
+        newNote: "Uusi muistiinpano.",
+      }
+    };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -78,7 +101,7 @@ export default function BoardPage() {
                           updateList();
                         })
                     }}>
-                    Reset Board?
+                    {text[currentLanguage].resetBoard}
                   </Text>
                 </View>
                 {/* The board */}
@@ -124,7 +147,7 @@ export default function BoardPage() {
             size={30}
             style={themeStyles.addNoteButton}
             onPress={() => {
-              insertNote("New Note.", 290, 320)
+              insertNote(`${text[currentLanguage].newNote}`, 290, 320)
                 .then(() => {
                   console.log('Note added to table.');
                   updateList();
