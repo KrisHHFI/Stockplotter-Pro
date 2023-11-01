@@ -16,6 +16,7 @@ export default function SettingsPage() {
   const isFocused = useIsFocused();
 
   const [themeStyles, setThemeStyles] = useState(SettingsPageStyles);
+  const [currentLanguage, setCurrentLanguage] = useState("English");
 
   useEffect(() => {
     if (isFocused) {
@@ -41,9 +42,11 @@ export default function SettingsPage() {
           if (rows[0].language === "English") {
             setEnglishButtonState("activeButton");
             setFinnishButtonState("inactiveButton");
+            setCurrentLanguage("English");
           } else {
             setEnglishButtonState("inactiveButton");
             setFinnishButtonState("activeButton");
+            setCurrentLanguage("Finnish");
           }
         }
         console.log(rows); // Language printed to screen
@@ -51,6 +54,20 @@ export default function SettingsPage() {
 
     }
   }, [isFocused]);
+
+  // Language options
+  const text = {
+    English: {
+      tutorial: "Tutorial",
+      theme: "Theme",
+      language: "Language",
+    },
+    Finnish: {
+      tutorial: "Opetusohjelma",
+      theme: "Teema",
+      language: "Kieli",
+    }
+  };
 
   const themeButtonPressed = () => {
     getTheme((rows) => {
@@ -71,7 +88,8 @@ export default function SettingsPage() {
     getLanguage((rows) => {
       const currentLanguage = rows[0].language;
       if (currentLanguage !== "English") {
-        toggleLanguage("English");
+        toggleLanguage("English"); // Change in the table
+        setCurrentLanguage("English");
         setEnglishButtonState("activeButton");
         setFinnishButtonState("inactiveButton");
       }
@@ -82,7 +100,8 @@ export default function SettingsPage() {
     getLanguage((rows) => {
       const currentLanguage = rows[0].language;
       if (currentLanguage !== "Finnish") {
-        toggleLanguage("Finnish");
+        toggleLanguage("Finnish"); // Change in the table
+        setCurrentLanguage("Finnish");
         setEnglishButtonState("inactiveButton");
         setFinnishButtonState("activeButton");
       }
@@ -93,24 +112,24 @@ export default function SettingsPage() {
     <View style={themeStyles.container}>
 
       <View style={themeStyles.segment}>
-        <Text style={themeStyles.segmentText}>Tutorial</Text>
+        <Text style={themeStyles.segmentText}>{text[currentLanguage].tutorial}</Text>
         <Ionicons.Button name="link" style={themeStyles.segmentButton} onPress={() => Linking.openURL('https://www.google.com/')} />
       </View>
 
       <View style={themeStyles.segment}>
-        <Text style={themeStyles.segmentText}>Theme</Text>
+        <Text style={themeStyles.segmentText}>{text[currentLanguage].theme}</Text>
         <MaterialCommunityIcons.Button name={switchicon} style={themeStyles.segmentButton} onPress={themeButtonPressed} />
       </View>
 
       <View style={themeStyles.segment}>
-        <Text style={themeStyles.segmentText}>Language</Text>
+        <Text style={themeStyles.segmentText}>{text[currentLanguage].language}</Text>
         <View>
           <Pressable style={themeStyles[englishButtonState]} onPress={englishButtonPressed}>
             <Text style={themeStyles.buttonFont}>English</Text>
           </Pressable>
 
           <Pressable style={themeStyles[finnishButtonState]} onPress={finnishButtonPressed}>
-            <Text style={themeStyles.buttonFont}>Finnish</Text>
+            <Text style={themeStyles.buttonFont}>Suomi</Text>
           </Pressable>
         </View>
       </View>

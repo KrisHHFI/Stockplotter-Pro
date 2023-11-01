@@ -37,12 +37,16 @@ const SettingsPageStylesDark = StyleSheet.create({
   inactiveButton: {
     backgroundColor: 'grey',
     padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center', 
   },
   activeButton: {
     backgroundColor: 'gold',
     borderColor: 'black',
     borderWidth: 3,
     padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center', 
   },
   buttonFont: {
     fontSize: 18,
