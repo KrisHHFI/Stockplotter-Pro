@@ -111,7 +111,7 @@ export default function HomePage() {
     };
 
     const renderFlatListImage = (item) => {
-        if (item.icon === "Null") {
+        if (item?.icon === "Null") {
             return (
                 <Image
                     source={require('../assets/PlaceholderImage.png')}

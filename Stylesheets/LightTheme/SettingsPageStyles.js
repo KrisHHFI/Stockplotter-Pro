@@ -12,13 +12,12 @@ const SettingsPageStyles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: 125,
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 20,
+    justifyContent: 'space-between',
+    paddingHorizontal: 50,
     width: '100%',
   },
   segmentText: {
     fontSize: 25,
-    paddingRight: 15,
   },
   segmentButton: {
     alignItems: 'center',
@@ -40,6 +39,7 @@ const SettingsPageStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 3,
     padding: 5,
+    width: 75,
     alignItems: 'center',
     justifyContent: 'center',
   },
