@@ -19,6 +19,9 @@ const AddPageStylesDark = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     paddingVertical: 20,
+    borderColor: 'gold',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   pageSection: {
     flex: 1,

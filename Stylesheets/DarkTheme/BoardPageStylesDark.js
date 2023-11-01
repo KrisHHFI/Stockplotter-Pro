@@ -69,6 +69,9 @@ const BoardPageStylesDark = StyleSheet.create({
   container: { // Page body
     backgroundColor: 'black',
     flex: 1,
+    borderColor: 'gold',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   noteContainer: {
     alignItems: 'center',

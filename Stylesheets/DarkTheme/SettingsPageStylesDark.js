@@ -6,6 +6,9 @@ const SettingsPageStylesDark = StyleSheet.create({
     flex: 1,
     paddingBottom: 20,
     paddingTop: 20,
+    borderColor: 'gold',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   segment: {
     alignItems: 'center',
