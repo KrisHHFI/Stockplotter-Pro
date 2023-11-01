@@ -64,6 +64,14 @@ export default function AddPage() {
       create: "Create",
       name: "Name...",
       notes: "Notes...",
+      //The alert messages
+      info: "Info",
+      company: "Company",
+      alertTicker: " ticker",
+      notFound: " not found.",
+      error: "Error, please try again.",
+      alreadyAdded: " already added.",
+      added: " added.",
     },
     Finnish: {
       search: "Hae",
@@ -71,6 +79,14 @@ export default function AddPage() {
       create: "Luoda",
       name: "Nimi...",
       notes: "Huomautuksia...",
+      //The alert messages
+      info: "Tiedot",
+      company: "Yhtiö",
+      alertTicker: " koodi",
+      notFound: " ei löydetty.",
+      error: "Virhe, yritä uudelleen.",
+      alreadyAdded: " jo lisätty.",
+      added: " lisätty.",
     }
   };
 
@@ -92,7 +108,8 @@ export default function AddPage() {
           const existingCompany = companies.find(company => company.ticker === input);
 
           if (existingCompany) {
-            Alert.alert("Info", "Company: \"" + existingCompany.name + "\" already added.");
+            Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": \"" + existingCompany.name +
+              "\"" + `${text[currentLanguage].alreadyAdded}`);
           } else {
             let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
             const response = await fetch(url);
@@ -101,9 +118,10 @@ export default function AddPage() {
 
             if (jsonData.status == "OK") { // Gives the user feedback for company searches
             } if (jsonData.status == "NOT_FOUND") {
-              Alert.alert("Info", "Company ticker: \"" + input + "\" not found.");
+              Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + `${text[currentLanguage].alertTicker}` +
+                ": \"" + input + "\"" + `${text[currentLanguage].notFound}` + ".");
             } else {
-              Alert.alert("Info", "Error, please try again.");
+              Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].error}` + ".");
             }
 
             setResult(jsonData);
@@ -137,7 +155,8 @@ export default function AddPage() {
                 companyEmployees, companyMarketCap, companyNote)
                 .then(() => {
                   console.log("Company added to DB.");
-                  Alert.alert("Info", "Company: " + companyName + " added.");
+                  Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": " + companyName + 
+                  `${text[currentLanguage].added}`);
                 })
                 .catch(error => {
                   console.log(error + "Company not saved to DB.");
@@ -163,12 +182,19 @@ export default function AddPage() {
     const existingCompany = companies.find(company => company.name === name);
 
     if (existingCompany) {
-      Alert.alert("Info", "Company: \"" + name + "\" already added.");
+      Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": \"" + name + "\"" +
+        `${text[currentLanguage].alreadyAdded}`);
+      return;
     } else {
+      setCompanies([...companies, {
+        name: name, ticker: "manuallyAddedCompany", icon: "Null", locale: "Null",
+        sicDescription: "Null", website: "Null", employees: "Null",
+        marketCap: "Null", note: notes
+      }]);
       insertCompany(name, "manuallyAddedCompany", "Null", "Null", "Null", "Null", "Null", "Null", notes)
         .then(() => {
           console.log('Company added to DB.');
-          Alert.alert("Info", `Company: ${name} added.`);
+          Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": " + `${name}` + `${text[currentLanguage].added}`);
         })
         .catch((error) => {
           console.error(`Error saving company to DB: ${error}`);

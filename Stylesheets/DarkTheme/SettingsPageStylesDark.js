@@ -12,8 +12,8 @@ const SettingsPageStylesDark = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: 125,
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 20,
+    justifyContent: 'space-between',
+    paddingHorizontal: 50,
     width: '100%',
     borderColor: 'white',
     borderTopWidth: 1,
@@ -22,7 +22,6 @@ const SettingsPageStylesDark = StyleSheet.create({
   segmentText: {
     color: 'white',
     fontSize: 25,
-    paddingRight: 15,
   },
   segmentButton: {
     alignItems: 'center',
@@ -42,11 +41,12 @@ const SettingsPageStylesDark = StyleSheet.create({
   },
   activeButton: {
     backgroundColor: 'gold',
-    borderColor: 'black',
+    borderColor: 'white',
     borderWidth: 3,
     padding: 5,
     alignItems: 'center',
     justifyContent: 'center', 
+    width: 75,
   },
   buttonFont: {
     fontSize: 18,
