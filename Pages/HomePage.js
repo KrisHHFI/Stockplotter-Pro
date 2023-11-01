@@ -4,11 +4,12 @@ import HomePageStyles from '../Stylesheets/LightTheme/HomePageStyles';
 import HomePageStylesDark from '../Stylesheets/DarkTheme/HomePageStylesDark.js';
 import { useIsFocused } from '@react-navigation/native';
 import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
-import { getTheme } from '../Databases/SettingsDatabase.js';
+import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function HomePage() {
     const [themeStyles, setThemeStyles] = useState(HomePageStyles);
+    const [currentLanguage, setCurrentLanguage] = useState("English");
     const [companies, setCompanies] = useState([]);
     const isFocused = useIsFocused();
     const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
@@ -30,8 +31,32 @@ export default function HomePage() {
                 }
                 console.log(rows); // Theme printed to screen
             });
+            getLanguage((rows) => { // Sets the page language
+                if (rows.length > 0) {
+                    if (rows[0].language === "English") {
+                        setCurrentLanguage("English");
+                    } else {
+                        setCurrentLanguage("Finnish");
+                    }
+                }
+                console.log(rows); // Language printed to screen
+            });
         }
     }, [isFocused]);
+
+    // Language options
+    const text = {
+        English: {
+            noCompaniesPlaceHolder: "No companies have been added.",
+            savedCompanies: "Saved Companies",
+            info: "Info",
+        },
+        Finnish: {
+            noCompaniesPlaceHolder: "Yhtään yritystä ei ole lisätty.",
+            savedCompanies: "Tallennetut Yritykset",
+            info: "Tiedot",
+        }
+    };
 
     // Used when displaying the rows on screen
     const listSeparator = () => {
@@ -69,7 +94,7 @@ export default function HomePage() {
     const companiesTitle = () => {
         if (companies.length > 0) {
             return (
-                <Text style={themeStyles.title}>Saved Companies</Text>
+                <Text style={themeStyles.title}>{text[currentLanguage].savedCompanies}</Text>
             );
         }
         return null;
@@ -79,7 +104,7 @@ export default function HomePage() {
     const companiesPlaceholder = () => {
         if (companies.length === 0) {
             return (
-                <Text style={themeStyles.text}>No companies have been added.</Text>
+                <Text style={themeStyles.text}>{text[currentLanguage].noCompaniesPlaceHolder}</Text>
             );
         }
         return null;
@@ -123,7 +148,7 @@ export default function HomePage() {
                         </View>
                         <View style={themeStyles.flatListItemButtons}>
                             <Pressable style={themeStyles.expandButton} onPress={() => expandItem(item.id)}>
-                                <Text style={themeStyles.buttonFont}>Info</Text>
+                                <Text style={themeStyles.buttonFont}>{text[currentLanguage].info}</Text>
                             </Pressable>
                             <Pressable style={themeStyles.deleteButtonContainer}>
                                 <Ionicons.Button
