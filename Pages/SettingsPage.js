@@ -63,7 +63,7 @@ export default function SettingsPage() {
       language: "Language",
     },
     Finnish: {
-      tutorial: "Opetusohjelma",
+      tutorial: "Opetusvideo",
       theme: "Teema",
       language: "Kieli",
     }

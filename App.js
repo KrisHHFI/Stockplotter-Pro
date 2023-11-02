@@ -35,8 +35,8 @@ export default function App() {
     },
     Finnish: {
       home: "Koti",
-      add: "Lisätä",
-      corkBoard: "Korkkimatto",
+      add: "Lisää",
+      corkBoard: "Muistio",
       settings: "Asetukset",
     }
   };
@@ -52,9 +52,9 @@ export default function App() {
             let iconName;
             if (route.name === 'Home' || route.name === 'Koti') {
               iconName = 'md-home';
-            } else if (route.name === 'Add' || route.name === 'Lisätä') {
+            } else if (route.name === 'Add' || route.name === 'Lisää') {
               iconName = 'md-add-circle-sharp';
-            } else if (route.name === 'Cork Board' || route.name === 'Korkkimatto') {
+            } else if (route.name === 'Cork Board' || route.name === 'Muistio') {
               iconName = 'easel';
             } else if (route.name === 'Settings' || route.name === 'Asetukset') {
               iconName = 'md-settings';

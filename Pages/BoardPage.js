@@ -67,7 +67,7 @@ export default function BoardPage() {
       newNote: "New note.",
     },
     Finnish: {
-      resetBoard: "Nollaa Lauta",
+      resetBoard: "Tyhjennä",
       newNote: "Uusi muistiinpano.",
     }
   };

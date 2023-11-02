@@ -52,8 +52,8 @@ export default function HomePage() {
             info: "Info",
         },
         Finnish: {
-            noCompaniesPlaceHolder: "Yhtään yritystä ei ole lisätty.",
-            savedCompanies: "Tallennetut Yritykset",
+            noCompaniesPlaceHolder: "Yrityksia ei lisätty.",
+            savedCompanies: "Tallennetut yritykset",
             info: "Tiedot",
         }
     };
