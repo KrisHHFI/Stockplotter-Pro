@@ -1,28 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, Pressable } from 'react-native';
+// Table functions
+import { initBoardTable, deleteAllNotes, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
+import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
+// Themes
 import BoardPageStyles from '../Stylesheets/LightTheme/BoardPageStyles';
 import BoardPageStylesDark from '../Stylesheets/DarkTheme/BoardPageStylesDark';
+// Page objects
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Text, View, TextInput } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+// React functionality
+import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+// Board external functions
 import { boardPanning } from './BoardPageFunctions/BoardPanning';
 import { updateNoteHandler } from './BoardPageFunctions/UpdateNoteHandler';
 import { moveNote } from './BoardPageFunctions/MoveNote';
-import { initBoardTable, deleteAllNotes, deleteNote, insertNote, getNotes } from '../Databases/BoardDatabase';
-import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { TouchableOpacity } from 'react-native';
 
 export default function BoardPage() {
-  const [themeStyles, setThemeStyles] = useState(BoardPageStyles);
-  const [currentLanguage, setCurrentLanguage] = useState("English");
   const isFocused = useIsFocused();
   const [notes, setNotes] = useState([]);
+  // Theme and language default values
+  const [themeStyles, setThemeStyles] = useState(BoardPageStyles);
+  const [currentLanguage, setCurrentLanguage] = useState("English");
   // Define the initial screen position
   const [translateX, setScreenXPosition] = useState(-250);
   const [translateY, setScreenYPosition] = useState(-140);
   const [activeNoteId, setActiveNoteId] = useState(null);
+
+  // Language options
+  const text = {
+    English: {
+      resetBoard: "Reset Board?",
+      newNote: "New note.",
+    },
+    Finnish: {
+      resetBoard: "Tyhjennä",
+      newNote: "Uusi muistiinpano.",
+    }
+  };
 
   // Update the notes list, by fetching from the table
   const updateList = () => {
@@ -37,6 +55,7 @@ export default function BoardPage() {
       updateList();
       setActiveNoteId(null);
 
+      // Sets the page theme
       getTheme((rows) => {
         if (rows.length > 0) {
           if (rows[0].theme === "Light") {
@@ -46,7 +65,9 @@ export default function BoardPage() {
           }
         }
       });
-      getLanguage((rows) => { // Sets the page language
+
+      // Sets the page language
+      getLanguage((rows) => {
         if (rows.length > 0) {
           if (rows[0].language === "English") {
             setCurrentLanguage("English");
@@ -58,28 +79,20 @@ export default function BoardPage() {
     }
   }, [isFocused]);
 
-  // Language options
-  const text = {
-    English: {
-      resetBoard: "Reset Board?",
-      newNote: "New note.",
-    },
-    Finnish: {
-      resetBoard: "Tyhjennä",
-      newNote: "Uusi muistiinpano.",
-    }
-  };
-
   return (
+    // Keyboard closed when user clicks on background
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      {/* Gesture panning container and handler */}
       <GestureHandlerRootView style={{ flex: 1 }}>
         <PanGestureHandler onGestureEvent={(event) => boardPanning(event, setScreenXPosition, setScreenYPosition)}>
+          {/* The page content container */}
           <View style={themeStyles.container}>
             <TouchableOpacity
               style={{ flex: 1 }}
               activeOpacity={1}
               onPress={() => setActiveNoteId(null)}
             >
+              {/* The board container */}
               <View
                 style={[
                   themeStyles.boardContainer, {/* Initial Screen position */ },
@@ -102,8 +115,8 @@ export default function BoardPage() {
                     {text[currentLanguage].resetBoard}
                   </Text>
                 </View>
-                {/* The board */}
                 <Text style={themeStyles.centerOfBoard}>+</Text>
+                {/* Notes returned to the board */}
                 {notes.map((note, index) => (
                   <PanGestureHandler
                     key={note.id}
@@ -112,6 +125,7 @@ export default function BoardPage() {
                         setActiveNoteId(note.id)
                     }}
                   >
+                    {/* Note attributes */}
                     <View
                       style={[
                         themeStyles.noteContainer,
@@ -139,6 +153,7 @@ export default function BoardPage() {
             </TouchableOpacity>
           </View>
         </PanGestureHandler>
+        {/* Fixed buttons */}
         <View style={themeStyles.addNoteContainer}>
           <Ionicons.Button
             name="md-add-circle-sharp"
