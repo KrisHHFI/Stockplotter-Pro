@@ -1,46 +1,25 @@
-import { Text, View, FlatList, Image, Pressable, Alert } from 'react-native';
-import { useState, useEffect } from 'react';
+// Table functions
+import { initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
+import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
+// Themes
 import HomePageStyles from '../Stylesheets/LightTheme/HomePageStyles';
 import HomePageStylesDark from '../Stylesheets/DarkTheme/HomePageStylesDark.js';
-import { useIsFocused } from '@react-navigation/native';
-import { db, initDatabase, deleteCompany, getCompany, getCompanies } from '../Databases/CompaniesDatabase.js';
-import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
+// Page objects
+import { Text, View, FlatList, Image, Pressable, Alert } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+// React functionality
+import { useIsFocused } from '@react-navigation/native';
+import { useState, useEffect } from 'react';
 
 export default function HomePage() {
+    const isFocused = useIsFocused();
+    // Theme and language default values
     const [themeStyles, setThemeStyles] = useState(HomePageStyles);
     const [currentLanguage, setCurrentLanguage] = useState("English");
-    const [companies, setCompanies] = useState([]);
-    const isFocused = useIsFocused();
+    // API search for company icons 
     const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
-
-    // Fetch and update data when the screen is active
-    useEffect(() => {
-        if (isFocused) {
-            initDatabase();
-            updateList();
-            getCompanies((rows) => console.log('Home Page active\nAll of the companies in the DB:\n', rows));
-
-            getTheme((rows) => {
-                if (rows.length > 0) {
-                    if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
-                        setThemeStyles(HomePageStyles);
-                    } else {
-                        setThemeStyles(HomePageStylesDark);
-                    }
-                }
-            });
-            getLanguage((rows) => { // Sets the page language
-                if (rows.length > 0) {
-                    if (rows[0].language === "English") {
-                        setCurrentLanguage("English");
-                    } else {
-                        setCurrentLanguage("Finnish");
-                    }
-                }
-            });
-        }
-    }, [isFocused]);
+    // Company list
+    const [companies, setCompanies] = useState([]);
 
     // Language options
     const text = {
@@ -56,7 +35,38 @@ export default function HomePage() {
         }
     };
 
-    // Used when displaying the rows on screen
+    // Fetch and update data when the screen is active
+    useEffect(() => {
+        if (isFocused) {
+            initDatabase();
+            updateList();
+            getCompanies((rows) => console.log('Home Page active\nAll of the companies in the DB:\n', rows));
+
+            // Sets the page theme
+            getTheme((rows) => {
+                if (rows.length > 0) {
+                    if (rows[0].theme === "Light") {
+                        setThemeStyles(HomePageStyles);
+                    } else {
+                        setThemeStyles(HomePageStylesDark);
+                    }
+                }
+            });
+
+            // Sets the page language
+            getLanguage((rows) => {
+                if (rows.length > 0) {
+                    if (rows[0].language === "English") {
+                        setCurrentLanguage("English");
+                    } else {
+                        setCurrentLanguage("Finnish");
+                    }
+                }
+            });
+        }
+    }, [isFocused]);
+
+    // Used when displaying the rows on the screen
     const listSeparator = () => {
         return (
             <View
@@ -68,7 +78,6 @@ export default function HomePage() {
     // Show stock info
     const expandItem = (id) => {
         getCompany(id, (companyData) => {
-
             if (companyData.ticker === "manuallyAddedCompany") {
                 Alert.alert("Name: " + companyData.name, "\nNotes: " + companyData.note);
             } else {
@@ -83,12 +92,13 @@ export default function HomePage() {
     const deleteItem = (id) => {
         deleteCompany(id, updateList);
     };
+
     // Update the companies list, by fetching from the db
     const updateList = () => {
         getCompanies((rows) => setCompanies(rows));
     };
 
-    // Show the companies H1 title/or not
+    // Show the page "Saved Companies" title/or not
     const companiesTitle = () => {
         if (companies.length > 0) {
             return (
@@ -108,6 +118,7 @@ export default function HomePage() {
         return null;
     };
 
+    // Show icon fetched from API or placeholder image
     const renderFlatListImage = (item) => {
         if (item?.icon === "Null") {
             return (
@@ -127,23 +138,32 @@ export default function HomePage() {
     };
 
     return (
+        // Page container
         <View style={themeStyles.container}>
+            {/* The page header */}
             {companiesTitle()}
+            {/* Companies placeholder, if no companies have been added */}
             <View style={themeStyles.placeholderCenter}>
                 {companiesPlaceholder()}
             </View>
+            {/* The company list */}
             <FlatList
                 style={themeStyles.flatList}
                 keyExtractor={(_, index) => index.toString()}
+                data={companies}
+                ItemSeparatorComponent={listSeparator}
                 renderItem={({ item }) =>
+                    // A company/ flat list item
                     <View style={themeStyles.flatListItem}>
+                        {/* The company icon */}
                         {renderFlatListImage(item)}
                         <View>
-                            {/* Splits company name by word, each on its own line */}
+                            {/* Company name, split by word, each on its own line */}
                             {item.name.split(' ').map((word, index) => (
                                 <Text key={index} style={themeStyles.companyText}>{word}</Text>
                             ))}
                         </View>
+                        {/* The item info and delete buttons */}
                         <View style={themeStyles.flatListItemButtons}>
                             <Pressable style={themeStyles.expandButton} onPress={() => expandItem(item.id)}>
                                 <Text style={themeStyles.buttonFont}>{text[currentLanguage].info}</Text>
@@ -157,9 +177,8 @@ export default function HomePage() {
                                 />
                             </Pressable>
                         </View>
-                    </View>}
-                data={companies}
-                ItemSeparatorComponent={listSeparator}
+                    </View>
+                }
             />
         </View>
     );
