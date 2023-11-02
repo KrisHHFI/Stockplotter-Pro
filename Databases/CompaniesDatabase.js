@@ -2,12 +2,6 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('companiesdb.db');
 
-const initDatabase = () => {
-    db.transaction(tx => {
-        tx.executeSql('create table if not exists companies (id integer primary key not null, name text, ticker text, icon text, locale text, sic_description text, website text, employees integer, marketCap integer, note text);');
-    });
-};
-
 // Delete company
 const deleteCompany = (id, callback) => {
     db.transaction(
@@ -37,6 +31,13 @@ const getCompany = (id, callback) => {
     );
 };
 
+// Initialise company table
+const initDatabase = () => {
+    db.transaction(tx => {
+        tx.executeSql('create table if not exists companies (id integer primary key not null, name text, ticker text, icon text, locale text, sic_description text, website text, employees integer, marketCap integer, note text);');
+    });
+};
+
 // Add a company
 const insertCompany = (name, ticker, icon, locale, sic_description, website, employees, marketCap, note) => {
     return new Promise((resolve, reject) => {
@@ -50,4 +51,4 @@ const insertCompany = (name, ticker, icon, locale, sic_description, website, emp
     });
 };
 
-export { db, initDatabase, deleteCompany, getCompany, getCompanies, insertCompany };
+export { db, deleteCompany, getCompanies, getCompany, initDatabase, insertCompany };
