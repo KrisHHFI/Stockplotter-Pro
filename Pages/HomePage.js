@@ -29,7 +29,6 @@ export default function HomePage() {
                         setThemeStyles(HomePageStylesDark);
                     }
                 }
-                console.log(rows); // Theme printed to screen
             });
             getLanguage((rows) => { // Sets the page language
                 if (rows.length > 0) {
@@ -39,7 +38,6 @@ export default function HomePage() {
                         setCurrentLanguage("Finnish");
                     }
                 }
-                console.log(rows); // Language printed to screen
             });
         }
     }, [isFocused]);

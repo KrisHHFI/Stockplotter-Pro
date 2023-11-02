@@ -45,7 +45,6 @@ export default function BoardPage() {
             setThemeStyles(BoardPageStylesDark);
           }
         }
-        console.log(rows); // Theme printed to screen
       });
       getLanguage((rows) => { // Sets the page language
         if (rows.length > 0) {
@@ -55,7 +54,6 @@ export default function BoardPage() {
             setCurrentLanguage("Finnish");
           }
         }
-        console.log(rows); // Language printed to screen
       });
     }
   }, [isFocused]);

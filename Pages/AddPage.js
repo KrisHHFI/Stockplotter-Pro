@@ -1,60 +1,33 @@
-import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, Pressable } from 'react-native';
-import { useState, useEffect } from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
+// Table functions
 import { initDatabase, getCompanies, insertCompany } from '../Databases/CompaniesDatabase.js';
-import { useIsFocused } from '@react-navigation/native';
+import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
+// Themes
 import AddPageStyles from '../Stylesheets/LightTheme/AddPageStyles';
 import AddPageStylesDark from '../Stylesheets/DarkTheme/AddPageStylesDark.js';
-import { getLanguage, getTheme } from '../Databases/SettingsDatabase.js';
+// Page objects
+import { Text, View, Alert, TextInput, Pressable } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+// React functionality
+import { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { useRef } from 'react'; // Used to clear the input box
 
 export default function AddPage() {
+  const isFocused = useIsFocused();
+  // Page objects
   const [searchinput, setSearchinput] = useState("");
   const [addCompanyinput, setAddCompanyinput] = useState("");
-  const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
-  const [result, setResult] = useState(null);
-  const [companies, setCompanies] = useState([]);
-  const isFocused = useIsFocused();
-  const [searchInProgress, setSearchInProgress] = useState(false);
   const searchInputRef = useRef(null);
   const nameInputRef = useRef(null);
   const notesInputRef = useRef(null);
+  // Theme and language default values
   const [themeStyles, setThemeStyles] = useState(AddPageStyles);
   const [currentLanguage, setCurrentLanguage] = useState("English");
-
-  useEffect(() => {
-    if (isFocused) {
-      console.log("Add page active");
-      initDatabase();
-      updateList();
-      setSearchinput("");
-      setAddCompanyinput("");
-      searchInputRef.current.clear();
-      nameInputRef.current.clear();
-      notesInputRef.current.clear();
-
-      getTheme((rows) => {
-        if (rows.length > 0) {
-          if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
-            setThemeStyles(AddPageStyles);
-          } else {
-            setThemeStyles(AddPageStylesDark);
-          }
-        }
-        console.log(rows); // Theme printed to screen
-      });
-      getLanguage((rows) => { // Sets the page language
-        if (rows.length > 0) {
-          if (rows[0].language === "English") {
-            setCurrentLanguage("English");
-          } else {
-            setCurrentLanguage("Finnish");
-          }
-        }
-        console.log(rows); // Language printed to screen
-      });
-    }
-  }, [isFocused]);
+  // API company search
+  const apiKey = "cl7Ia65FhThK_ldjqiazYEB_qK4yhlFe";
+  const [searchInProgress, setSearchInProgress] = useState(false);
+  // Company list
+  const [companies, setCompanies] = useState([]);
 
   // Language options
   const text = {
@@ -72,6 +45,7 @@ export default function AddPage() {
       error: "Error, please try again",
       alreadyAdded: " already added.",
       added: " added.",
+      inputCantBeBlank: "Inputs can't be blank.",
     },
     Finnish: {
       search: "Hae",
@@ -87,15 +61,52 @@ export default function AddPage() {
       error: "Virhe, yritä uudelleen",
       alreadyAdded: " jo lisätty.",
       added: " lisätty.",
+      inputCantBeBlank: "Kentät eivät voi olla tyhjiä.",
     }
   };
 
-  // Get the company list
+  // called whenever the page is loaded
+  useEffect(() => {
+    if (isFocused) {
+      console.log("Add page active");
+      initDatabase();
+      updateList();
+      setSearchinput("");
+      setAddCompanyinput("");
+      searchInputRef.current.clear();
+      nameInputRef.current.clear();
+      notesInputRef.current.clear();
+
+      // Sets the page theme
+      getTheme((rows) => {
+        if (rows.length > 0) {
+          if (rows[0].theme === "Light") {
+            setThemeStyles(AddPageStyles);
+          } else {
+            setThemeStyles(AddPageStylesDark);
+          }
+        }
+      });
+
+      // Sets the page language
+      getLanguage((rows) => {
+        if (rows.length > 0) {
+          if (rows[0].language === "English") {
+            setCurrentLanguage("English");
+          } else {
+            setCurrentLanguage("Finnish");
+          }
+        }
+      });
+    }
+  }, [isFocused]);
+
+  // Update the company list from the table
   const updateList = () => {
     getCompanies((rows) => setCompanies(rows));
   };
 
-  // Searches for company by its ticker, via a stock API, then adds it to the db
+  // Searches for company by its ticker, via a stock API, then adds it to the table
   const searchForCompany = async (input) => {
     if (searchInProgress) {// If a search is already in progress, do nothing
       return;
@@ -106,25 +117,25 @@ export default function AddPage() {
       try {
         if (input.trim() !== "") {
           const existingCompany = companies.find(company => company.ticker === input);
-
+          // If company already exists, then don't search
           if (existingCompany) {
             Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": \"" + existingCompany.name +
               "\"" + `${text[currentLanguage].alreadyAdded}`);
+            // The API search
           } else {
             let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
             const response = await fetch(url);
             const jsonData = await response.json();
             console.log("API response: " + jsonData.status); //OK / NOT_FOUND / ERROR
-
-            if (jsonData.status == "OK") { // Gives the user feedback for company searches
+            // How the search response is handled
+            if (jsonData.status == "OK") {
             } if (jsonData.status == "NOT_FOUND") {
               Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + `${text[currentLanguage].alertTicker}` +
                 ": \"" + input + "\"" + `${text[currentLanguage].notFound}` + ".");
             } else {
               Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].error}` + ".");
             }
-
-            setResult(jsonData);
+            // If the JSON features a "results" property, then the company is added
             if (jsonData.results) {
               const results = jsonData.results;
               let companyName = jsonData.results.name;
@@ -145,18 +156,19 @@ export default function AddPage() {
               companyMarketCap = companyMarketCap.split(',')[0];
               companyMarketCap = companyMarketCap.replace(/\s/g, ',');
               const companyNote = "Null";
-
+              // Update the company list
               setCompanies([...companies, {
                 name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
                 sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
                 marketCap: companyMarketCap, note: companyNote
               }]);
+              // Add company to table
               insertCompany(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
                 companyEmployees, companyMarketCap, companyNote)
                 .then(() => {
                   console.log("Company added to DB.");
-                  Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": " + companyName + 
-                  `${text[currentLanguage].added}`);
+                  Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": " + companyName +
+                    `${text[currentLanguage].added}`);
                 })
                 .catch(error => {
                   console.log(error + "Company not saved to DB.");
@@ -177,14 +189,17 @@ export default function AddPage() {
     const { name = '', notes = '' } = addCompanyinput;
     // If the inputs are empty do nothing
     if (name.trim() === '' || notes.trim() === '') {
+      Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].inputCantBeBlank}`);
       return;
     }
     const existingCompany = companies.find(company => company.name === name);
 
+    // If company exists don't add it again
     if (existingCompany) {
       Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": \"" + name + "\"" +
         `${text[currentLanguage].alreadyAdded}`);
       return;
+      // Add company
     } else {
       setCompanies([...companies, {
         name: name, ticker: "manuallyAddedCompany", icon: "Null", locale: "Null",

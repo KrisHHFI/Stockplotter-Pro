@@ -21,6 +21,7 @@ export default function SettingsPage() {
   // Theme and language default values
   const [themeStyles, setThemeStyles] = useState(SettingsPageStyles);
   const [currentLanguage, setCurrentLanguage] = useState("English");
+
   // Language options
   const text = {
     English: {
@@ -34,7 +35,8 @@ export default function SettingsPage() {
       language: "Kieli",
     }
   };
-  // called whenever the screen is loaded
+
+  // called whenever the page is loaded
   useEffect(() => {
     if (isFocused) {
       initThemeTable();
@@ -68,7 +70,6 @@ export default function SettingsPage() {
         }
         console.log(rows); // Language printed to screen
       });
-
     }
   }, [isFocused]);
 
@@ -113,17 +114,14 @@ export default function SettingsPage() {
 
   return (
     <View style={themeStyles.container}>
-
       <View style={themeStyles.segment}>
         <Text style={themeStyles.segmentText}>{text[currentLanguage].tutorial}</Text>
         <Ionicons.Button name="link" style={themeStyles.segmentButton} onPress={() => Linking.openURL('https://www.google.com/')} />
       </View>
-
       <View style={themeStyles.segment}>
         <Text style={themeStyles.segmentText}>{text[currentLanguage].theme}</Text>
         <MaterialCommunityIcons.Button name={switchicon} style={themeStyles.segmentButton} onPress={themeButtonPressed} />
       </View>
-
       <View style={themeStyles.segment}>
         <Text style={themeStyles.segmentText}>{text[currentLanguage].language}</Text>
         <View>
