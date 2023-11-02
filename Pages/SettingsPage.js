@@ -1,32 +1,49 @@
+// Table functions
+import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from '../Databases/SettingsDatabase.js';
+// Themes
+import SettingsPageStyles from '../Stylesheets/LightTheme/SettingsPageStyles.js';
+import SettingsPageStylesDark from '../Stylesheets/DarkTheme/SettingsPageStylesDark.js';
+// Page objects
 import { Text, View, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+// React functionality
 import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { initThemeTable, initLanguageTable, getTheme, getLanguage, toggleTheme, toggleLanguage } from '../Databases/SettingsDatabase.js';
-import SettingsPageStyles from '../Stylesheets/LightTheme/SettingsPageStyles.js';
-import SettingsPageStylesDark from '../Stylesheets/DarkTheme/SettingsPageStylesDark.js';
 
 export default function SettingsPage() {
-
+  const isFocused = useIsFocused();
+  // Page objects
   let [switchicon, setSwitchIcon] = useState("lightbulb-on");
   let [englishButtonState, setEnglishButtonState] = useState("");
   let [finnishButtonState, setFinnishButtonState] = useState("");
-  const isFocused = useIsFocused();
-
+  // Theme and language default values
   const [themeStyles, setThemeStyles] = useState(SettingsPageStyles);
   const [currentLanguage, setCurrentLanguage] = useState("English");
-
+  // Language options
+  const text = {
+    English: {
+      tutorial: "Tutorial",
+      theme: "Theme",
+      language: "Language",
+    },
+    Finnish: {
+      tutorial: "Opetusvideo",
+      theme: "Teema",
+      language: "Kieli",
+    }
+  };
+  // called whenever the screen is loaded
   useEffect(() => {
     if (isFocused) {
       initThemeTable();
       initLanguageTable();
       console.log("Settings page active");
-
+      // Sets the page theme
       getTheme((rows) => {
         if (rows.length > 0) {
-          if (rows[0].theme === "Light") { // Sets the appearance of the theme button, when page loads.
+          if (rows[0].theme === "Light") { 
             setSwitchIcon("lightbulb-on");
             setThemeStyles(SettingsPageStyles);
           } else {
@@ -36,8 +53,8 @@ export default function SettingsPage() {
         }
         console.log(rows); // Theme printed to screen
       });
-
-      getLanguage((rows) => { // Sets the page language
+      // Sets the page language
+      getLanguage((rows) => {
         if (rows.length > 0) {
           if (rows[0].language === "English") {
             setEnglishButtonState("activeButton");
@@ -55,29 +72,15 @@ export default function SettingsPage() {
     }
   }, [isFocused]);
 
-  // Language options
-  const text = {
-    English: {
-      tutorial: "Tutorial",
-      theme: "Theme",
-      language: "Language",
-    },
-    Finnish: {
-      tutorial: "Opetusvideo",
-      theme: "Teema",
-      language: "Kieli",
-    }
-  };
-
   const themeButtonPressed = () => {
     getTheme((rows) => {
       const currentTheme = rows[0].theme;
       if (currentTheme === "Light") {
-        toggleTheme("Dark");
+        toggleTheme("Dark"); // Change in the table
         setSwitchIcon("lightbulb-off");
         setThemeStyles(SettingsPageStylesDark);
       } else {
-        toggleTheme("Light");
+        toggleTheme("Light"); // Change in the table
         setSwitchIcon("lightbulb-on");
         setThemeStyles(SettingsPageStyles);
       }
@@ -127,7 +130,6 @@ export default function SettingsPage() {
           <Pressable style={themeStyles[englishButtonState]} onPress={englishButtonPressed}>
             <Text style={themeStyles.buttonFont}>English</Text>
           </Pressable>
-
           <Pressable style={themeStyles[finnishButtonState]} onPress={finnishButtonPressed}>
             <Text style={themeStyles.buttonFont}>Suomi</Text>
           </Pressable>
