@@ -33,7 +33,7 @@
 2.  Download/clone the project to your system.
 3. Navigate to the project via command line.
 4. Then execute the command: npx expo start
-5. Then press "a" if you have a configured emulator running. Or use mobile hotspot and run the Expo Go app.
+5. Then press "a" if you have a configured emulator running. Or, use mobile hotspot and run the Expo Go app.
 ### Note
 - Ensure that your wifi is set to private to avoid errors. 
 - The app is smoother and more enjoyable to use on an Android device.
