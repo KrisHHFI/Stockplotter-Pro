@@ -3,6 +3,10 @@
 
 ## Features
 
+### Cork Board
+
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/f3a48cdb-a8c2-4503-b80f-f2003d7b8e83/Sequence+%231%2819%29.gif" width="250"/>
+
 ### Light / Dark Theme
 
 <img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/987e5554-956a-4ed9-8b5f-0f832a0e979c/Sequence+%231%2815%29.gif" width="250"/>
