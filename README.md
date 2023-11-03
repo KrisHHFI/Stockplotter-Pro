@@ -3,6 +3,10 @@
 
 ## Features
 
+### Find and Save US Companies
+
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/4c45d882-9dff-430a-a4e9-6024837a978d/Sequence+%231%2820%29.gif" width="250"/>
+
 ### Cork Board
 
 <img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/f3a48cdb-a8c2-4503-b80f-f2003d7b8e83/Sequence+%231%2819%29.gif" width="250"/>
