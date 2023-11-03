@@ -2,10 +2,23 @@
 <br>
 
 ## About
-- This program was a university project, created in the autumn of 2023.
+- This mobile application was a university project, created in the autumn of 2023.
 - The user can search for stocks via Polygon.io. Stocks can be saved and examined. The user can also use a simple cork board, to plan their next market moves.
+- A light/dark theme and English/Finnish language settings can be toggled.
 - The project was not continued after the course. However, the idea may be developed in a future project.
 - Check out the [demo video](https://www.google.com/).
+<br>
+
+## Get started
+1. Install: Git, Node.js, Expo CLI, Expo Go (if you want to run it on your Android Device).
+2.  Download/clone the project to your system.
+3. Navigate to the project via command line.
+4. Then execute the command: npx expo start
+5. Then press "a" if you have a configured emulator running. Or use mobile hotspot and run the Expo Go app.
+### Note
+- Ensure that your wifi is set to private to avoid errors. 
+- The app is smoother and more enjoyable to use on an Android device.
+
 <br>
 
 ## Installed Packages
