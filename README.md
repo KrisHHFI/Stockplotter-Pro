@@ -1,5 +1,4 @@
 #  Stockplotter Pro
-<br>
 
 ## About
 - This mobile application was a university project, created in the autumn of 2023.
