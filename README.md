@@ -1,6 +1,8 @@
 #  Stockplotter Pro
 <br>
+
 ### Light & Dark Theme
+
 <img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/987e5554-956a-4ed9-8b5f-0f832a0e979c/Sequence+%231%2815%29.gif"/>
 
 
