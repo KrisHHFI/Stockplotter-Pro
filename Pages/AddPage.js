@@ -113,66 +113,72 @@ export default function AddPage() {
     }
     else {
       setSearchInProgress(true);
-      input = input.toUpperCase()
+      input = input.toUpperCase().replace(/[^A-Z0-9&@.]/g, ''); // Allows all characters/symbols and replaces with blank space
       try {
-        if (input.trim() !== "") {
-          const existingCompany = companies.find(company => company.ticker === input);
-          // If company already exists, then don't search
-          if (existingCompany) {
-            Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": \"" + existingCompany.name +
-              "\"" + `${text[currentLanguage].alreadyAdded}`);
-            // The API search
-          } else {
-            let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
-            const response = await fetch(url);
-            const jsonData = await response.json();
-            console.log("API response: " + jsonData.status); //OK / NOT_FOUND / ERROR
-            // How the search response is handled
-            if (jsonData.status == "OK") {
-            } if (jsonData.status == "NOT_FOUND") {
-              Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + `${text[currentLanguage].alertTicker}` +
-                ": \"" + input + "\"" + `${text[currentLanguage].notFound}` + ".");
+        // If result is blank, show error message
+        if (input.trim() == "") {
+          Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].error}` + ".");
+          // If input is not blank
+        } else {
+          if (input.trim() !== "") {
+            const existingCompany = companies.find(company => company.ticker === input);
+            // If company already exists, then don't search
+            if (existingCompany) {
+              Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": \"" + existingCompany.name +
+                "\"" + `${text[currentLanguage].alreadyAdded}`);
+              // The API search
             } else {
-              Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].error}` + ".");
-            }
-            // If the JSON features a "results" property, then the company is added
-            if (jsonData.results) {
-              const results = jsonData.results;
-              let companyName = jsonData.results.name;
-              if (companyName.split(' ').length > 3) {
-                companyName = companyName.split(' ').slice(0, 3).join(' ') + '...';
+              let url = 'https://api.polygon.io/v3/reference/tickers/' + input + '?apiKey=' + apiKey;
+              const response = await fetch(url);
+              const jsonData = await response.json();
+              console.log("API response: " + jsonData.status); //OK / NOT_FOUND / ERROR
+              // How the search response is handled
+              if (jsonData.status == "OK") {
+              } if (jsonData.status == "NOT_FOUND") {
+                Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + `${text[currentLanguage].alertTicker}` +
+                  ": \"" + input + "\"" + `${text[currentLanguage].notFound}` + ".");
+              } else {
+                Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].error}` + ".");
               }
-              let companyTicker = jsonData.results.ticker || "Null";
-              let companyIcon = jsonData.results.branding.icon_url || "Null";
-              let companyLocale = jsonData.results.locale || "Null";
-              let companySicDescription = results.sic_description || "Null";
-              let companyWebsite = jsonData.results.homepage_url || "Null";
-              let companyEmployees = jsonData.results.total_employees;
-              companyEmployees = companyEmployees.toLocaleString();
-              companyEmployees = companyEmployees.split(',')[0];
-              companyEmployees = companyEmployees.replace(/\s/g, ',');
-              let companyMarketCap = jsonData.results.market_cap;
-              companyMarketCap = companyMarketCap.toLocaleString();
-              companyMarketCap = companyMarketCap.split(',')[0];
-              companyMarketCap = companyMarketCap.replace(/\s/g, ',');
-              const companyNote = "Null";
-              // Update the company list
-              setCompanies([...companies, {
-                name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
-                sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
-                marketCap: companyMarketCap, note: companyNote
-              }]);
-              // Add company to table
-              insertCompany(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
-                companyEmployees, companyMarketCap, companyNote)
-                .then(() => {
-                  console.log("Company added to DB.");
-                  Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": " + companyName +
-                    `${text[currentLanguage].added}`);
-                })
-                .catch(error => {
-                  console.log(error + "Company not saved to DB.");
-                });
+              // If the JSON features a "results" property, then the company is added
+              if (jsonData.results) {
+                const results = jsonData.results;
+                let companyName = jsonData.results.name;
+                if (companyName.split(' ').length > 3) {
+                  companyName = companyName.split(' ').slice(0, 3).join(' ') + '...';
+                }
+                let companyTicker = jsonData.results.ticker || "Null";
+                let companyIcon = jsonData.results.branding?.icon_url || "Null";
+                let companyLocale = jsonData.results.locale || "Null";
+                let companySicDescription = results.sic_description || "Null";
+                let companyWebsite = jsonData.results.homepage_url || "Null";
+                let companyEmployees = jsonData.results.total_employees;
+                companyEmployees = companyEmployees ? companyEmployees.toLocaleString() : "Null"; // If total_employees does or doesnt exist
+                companyEmployees = companyEmployees.split(',')[0];
+                companyEmployees = companyEmployees.replace(/\s/g, ',');
+                let companyMarketCap = jsonData.results.market_cap;
+                companyMarketCap = companyMarketCap ? companyMarketCap.toLocaleString() : "Null"; // If total_employees does or doesnt exist
+                companyMarketCap = companyMarketCap.split(',')[0];
+                companyMarketCap = companyMarketCap.replace(/\s/g, ',');
+                const companyNote = "Null";
+                // Update the company list
+                setCompanies([...companies, {
+                  name: companyName, ticker: companyTicker, icon: companyIcon, locale: companyLocale,
+                  sicDescription: companySicDescription, website: companyWebsite, employees: companyEmployees,
+                  marketCap: companyMarketCap, note: companyNote
+                }]);
+                // Add company to table
+                insertCompany(companyName, companyTicker, companyIcon, companyLocale, companySicDescription, companyWebsite,
+                  companyEmployees, companyMarketCap, companyNote)
+                  .then(() => {
+                    console.log("Company added to DB.");
+                    Alert.alert(`${text[currentLanguage].info}`, `${text[currentLanguage].company}` + ": " + companyName +
+                      `${text[currentLanguage].added}`);
+                  })
+                  .catch(error => {
+                    console.log(error + "Company not saved to DB.");
+                  });
+              }
             }
           }
         }
