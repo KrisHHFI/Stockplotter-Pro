@@ -6,7 +6,7 @@
 
 ## About
 - This mobile application was a university project, created in the autumn of 2023.
-- The user can search for US stocks via Polygon.io. Stocks can be saved and examined. The user can also use a cork board to visualise their thoughts.
+- Using this program, the user can search for US stocks via Polygon.io, which can then be saved and examined. The user can also use a cork board to visualise their thoughts.
 - A light/dark theme and English/Finnish language settings can be toggled.
 - The project was not continued after the course. However, the idea may be developed in a future project.
 - Check out the [demo video](https://www.google.com/).
