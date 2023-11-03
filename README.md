@@ -1,6 +1,14 @@
 #  Stockplotter Pro
 <br>
 
+## About
+- This mobile application was a university project, created in the autumn of 2023.
+- The user can search for US stocks via Polygon.io. Stocks can be saved and examined. The user can also use a cork board to visualise their thoughts.
+- A light/dark theme and English/Finnish language settings can be toggled.
+- The project was not continued after the course. However, the idea may be developed in a future project.
+- Check out the [demo video](https://www.google.com/).
+<br>
+
 ## Features
 
 ### Find and Save US Companies
@@ -19,14 +27,6 @@
 
 <img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/b03a23b5-b0e8-47e8-b74e-02763bee6e90/Sequence+%231%2818%29.gif" width="250" />
 
-<br>
-
-## About
-- This mobile application was a university project, created in the autumn of 2023.
-- The user can search for stocks via Polygon.io. Stocks can be saved and examined. The user can also use a simple cork board, to plan their next market moves.
-- A light/dark theme and English/Finnish language settings can be toggled.
-- The project was not continued after the course. However, the idea may be developed in a future project.
-- Check out the [demo video](https://www.google.com/).
 <br>
 
 ## Get started
