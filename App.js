@@ -1,14 +1,17 @@
+// React functions and page objects
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { StatusBar } from 'react-native';
+import { useState } from 'react';
+// App pages
 import HomePage from './Pages/HomePage'
 import AddPage from './Pages/AddPage'
 import BoardPage from './Pages/BoardPage'
 import SettingsPage from './Pages/SettingsPage'
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StatusBar } from 'react-native';
+// Table functions
 import { getLanguage } from './Databases/SettingsDatabase.js';
-import { useState } from 'react';
 
 const Tab = createBottomTabNavigator();
 
@@ -88,39 +91,39 @@ export default function App() {
             }, headerTintColor: 'gold',
           }} />
         <Tab.Screen name={text[currentLanguage].add}
-        component={AddPage}
+          component={AddPage}
           options={{
             headerStyle: {
               backgroundColor: 'black',
             }, headerTintColor: 'gold',
           }} />
         <Tab.Screen name={text[currentLanguage].corkBoard}
-        component={BoardPage}
-        listeners={{
-          tabPress: () => {
-            getLanguage((rows) => {
-              if (rows.length > 0) {
-                setCurrentLanguage(rows[0].language);
-              }
-            });
-          },
-        }}
+          component={BoardPage}
+          listeners={{
+            tabPress: () => {
+              getLanguage((rows) => {
+                if (rows.length > 0) {
+                  setCurrentLanguage(rows[0].language);
+                }
+              });
+            },
+          }}
           options={{
             headerStyle: {
               backgroundColor: 'black',
             }, headerTintColor: 'gold',
           }} />
         <Tab.Screen name={text[currentLanguage].settings}
-        component={SettingsPage}
-        listeners={{
-          tabPress: () => {
-            getLanguage((rows) => {
-              if (rows.length > 0) {
-                setCurrentLanguage(rows[0].language);
-              }
-            });
-          },
-        }}
+          component={SettingsPage}
+          listeners={{
+            tabPress: () => {
+              getLanguage((rows) => {
+                if (rows.length > 0) {
+                  setCurrentLanguage(rows[0].language);
+                }
+              });
+            },
+          }}
           options={{
             headerStyle: {
               backgroundColor: 'black',
