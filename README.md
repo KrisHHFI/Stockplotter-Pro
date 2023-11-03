@@ -1,6 +1,8 @@
 #  Stockplotter Pro
 <br>
 
+## Features
+
 ### Light / Dark Theme
 
 <img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/987e5554-956a-4ed9-8b5f-0f832a0e979c/Sequence+%231%2815%29.gif" width="250"/>
@@ -8,6 +10,8 @@
 ### English / Finnish
 
 <img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/b03a23b5-b0e8-47e8-b74e-02763bee6e90/Sequence+%231%2818%29.gif" width="250" />
+
+<br>
 
 ## About
 - This mobile application was a university project, created in the autumn of 2023.
