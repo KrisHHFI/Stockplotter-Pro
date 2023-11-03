@@ -1,5 +1,9 @@
 #  Stockplotter Pro
 
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/813e0220-6335-43b1-b833-a0c26b405a7c/Stock-Plotter+Promo+Image.png?" />
+
+<br>
+
 ## About
 - This mobile application was a university project, created in the autumn of 2023.
 - The user can search for US stocks via Polygon.io. Stocks can be saved and examined. The user can also use a cork board to visualise their thoughts.
