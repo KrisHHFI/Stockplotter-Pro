@@ -1,11 +1,47 @@
 #  Stockplotter Pro
+
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/813e0220-6335-43b1-b833-a0c26b405a7c/Stock-Plotter+Promo+Image.png?" />
+
 <br>
 
 ## About
-- This program was a university project, created in the autumn of 2023.
-- The user can search for stocks via Polygon.io. Stocks can be saved and examined. The user can also use a simple cork board, to plan their next market moves.
+- This mobile application was a university project, created in the autumn of 2023.
+- Using this program, the user can search for US stocks via Polygon.io, which can then be saved and examined. The user can also use a cork board to visualise their thoughts.
+- A light/dark theme and English/Finnish language settings can be toggled.
 - The project was not continued after the course. However, the idea may be developed in a future project.
-- Check out the [demo video](https://www.google.com/).
+- Check out the [demo video](https://www.youtube.com/watch?v=bKQu5dr6vQ4).
+<br>
+
+## Features
+
+### Find and Save US Companies
+
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/4c45d882-9dff-430a-a4e9-6024837a978d/Sequence+%231%2820%29.gif" width="250"/>
+
+### Cork Board
+
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/f3a48cdb-a8c2-4503-b80f-f2003d7b8e83/Sequence+%231%2819%29.gif" width="250"/>
+
+### Light / Dark Theme
+
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/987e5554-956a-4ed9-8b5f-0f832a0e979c/Sequence+%231%2815%29.gif" width="250"/>
+
+### English / Finnish
+
+<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/b03a23b5-b0e8-47e8-b74e-02763bee6e90/Sequence+%231%2818%29.gif" width="250" />
+
+<br>
+
+## Get started
+1. Install: Git, Node.js, Expo CLI, Expo Go (if you want to run it on your Android Device).
+2.  Download/clone the project to your system.
+3. Navigate to the project via command line.
+4. Then execute the command: npx expo start
+5. Then press "a" if you have a configured emulator running. Or, use mobile hotspot and run the Expo Go app.
+### Note
+- Ensure that your wifi is set to private to avoid errors. 
+- The app is smoother and more enjoyable to use on an Android device.
+
 <br>
 
 ## Installed Packages
