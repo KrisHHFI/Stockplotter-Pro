@@ -116,7 +116,7 @@ export default function SettingsPage() {
     <View style={themeStyles.container}>
       <View style={themeStyles.segment}>
         <Text style={themeStyles.segmentText}>{text[currentLanguage].tutorial}</Text>
-        <Ionicons.Button name="link" style={themeStyles.segmentButton} onPress={() => Linking.openURL('https://www.google.com/')} />
+        <Ionicons.Button name="link" style={themeStyles.segmentButton} onPress={() => Linking.openURL('https://www.youtube.com/watch?v=bKQu5dr6vQ4&t=14s')} />
       </View>
       <View style={themeStyles.segment}>
         <Text style={themeStyles.segmentText}>{text[currentLanguage].theme}</Text>
