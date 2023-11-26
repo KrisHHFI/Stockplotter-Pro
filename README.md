@@ -35,10 +35,11 @@
 
 ## Get started
 1. Install: Git, Node.js, Expo CLI, Expo Go (if you want to run it on your Android Device).
-2.  Download/clone the project to your system.
-3. Navigate to the project via command line.
-4. Then execute the command: npx expo start
-5. Then press "a" if you have a configured emulator running. Or, use mobile hotspot and run the Expo Go app.
+2. Create a free Polygon.io account and replace the "apiKey" variable value with your key (HomePage L20 & AddPage L27).
+3. Download/clone the project to your system.
+4. Navigate to the project via command line.
+5. Then execute the command: npx expo start
+6. Then press "a" if you have a configured emulator running. Or, use mobile hotspot and run the Expo Go app.
 ### Note
 - Ensure that your wifi is set to private to avoid errors. 
 - The app is smoother and more enjoyable to use on an Android device.
