@@ -1,6 +1,6 @@
 #  Stockplotter Pro
 
-<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/813e0220-6335-43b1-b833-a0c26b405a7c/Stock-Plotter+Promo+Image.png?" />
+<img src="Stock-Plotter Promo Image.png" />
 
 <br>
 
@@ -17,19 +17,19 @@
 
 ### Find and Save US Companies
 
-<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/4c45d882-9dff-430a-a4e9-6024837a978d/Sequence+%231%2820%29.gif" width="250"/>
+<img src="Stock-Plotter 1.gif" width="250"/>
 
 ### Cork Board
 
-<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/f3a48cdb-a8c2-4503-b80f-f2003d7b8e83/Sequence+%231%2819%29.gif" width="250"/>
+<img src="Stock-Plotter 2.gif" width="250"/>
 
 ### Light / Dark Theme
 
-<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/987e5554-956a-4ed9-8b5f-0f832a0e979c/Sequence+%231%2815%29.gif" width="250"/>
+<img src="Stock-Plotter 3.gif" width="250"/>
 
 ### English / Finnish
 
-<img src="https://images.squarespace-cdn.com/content/v1/587b630aebbd1ab22efeeb6b/b03a23b5-b0e8-47e8-b74e-02763bee6e90/Sequence+%231%2818%29.gif" width="250" />
+<img src="Stock-Plotter 4.gif" width="250" />
 
 <br>
 
